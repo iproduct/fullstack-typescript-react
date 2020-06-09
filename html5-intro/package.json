@@ -1,0 +1,17 @@
+{
+  "name": "html5-intro",
+  "version": "1.0.0",
+  "description": "HTML 5 API demos",
+  "main": "index.js",
+  "repository": "https://github.com/iproduct/fullstack-typescript-react",
+  "author": "Trayan Iliev",
+  "license": "Apache-2.0",
+  "private": false,
+  "scripts": {
+    "start": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
