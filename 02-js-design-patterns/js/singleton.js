@@ -32,4 +32,4 @@ console.log(singletonInstance2.toString());
 
 singletonInstance2.maxFetchItems = 300;
 console.log(singletonInstance2.toString());
-console.log(singletonInstance2.toString()); 
+console.log(singletonInstance1.toString()); 

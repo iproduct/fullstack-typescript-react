@@ -1,5 +1,19 @@
+body {
+    --container-width: 100%;
+    --map-width: calc(var(--container-width) / 3);
+    --lightness: 80%;
+    --saturation: 100%;
+    --hue: 0;
+    background-color: hsl(var(--hue), var(--saturation), var(--lightness));
+}
+
+#coords {
+    --new-lightness: calc(var(--lightness) * 0.7);
+    background-color: hsl(var(--hue), var(--saturation), var(--new-lightness));
+}
 .map {
     height: 400px;
-    width: 100%;
+    width: var(--map-width, 80%);
     border: 1px solid blue;
 }
+

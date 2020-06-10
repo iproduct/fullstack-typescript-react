@@ -1,0 +1,82 @@
+@use 'colors';
+
+$map_height: 300px;
+$map_width: 800px;
+$font-stack: Helvetica, sans-serif;
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  transform: $property;
+}
+
+@mixin important-text {
+    color: red;
+    font-size: 25px;
+    font-weight: bold;
+    border: 1px solid blue;
+}
+
+@mixin with-border($color) {
+    border: 1px solid $color;
+}
+
+
+.container {
+  width: 100%;
+}
+
+article[role=main] {
+    @include with-border(blue);
+    float: left;
+    width: 600px / 960px * 100%;
+}
+
+aside {
+    @include with-border(green);
+    float: right;
+    width: 300px / 960px * 100%;
+}
+
+%message-shared {
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+}
+
+.message {
+    @extend %message-shared;
+}
+
+.success {
+    @extend %message-shared;
+    border-color: green;
+}
+
+.warning {
+    @extend %message-shared;
+    border-color: yellow;
+}
+
+.error {
+    @extend %message-shared;
+    border-color: red;
+}
+
+/* use the variables */
+body {
+  font: 100% $font-stack;
+  background-color: colors.$primary_1; // here you can put an inline comment
+
+  #coords {
+    // @include transform(rotate(30deg));
+    @include important-text();
+    background-color: colors.$primary_2;
+    width: 300px;
+  }
+
+  #map {
+    height: $map_height;
+    width: $map_width;
+  }
+}

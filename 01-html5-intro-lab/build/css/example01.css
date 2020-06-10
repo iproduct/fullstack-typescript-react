@@ -1,0 +1,54 @@
+/* define primary colors */
+.container {
+  width: 100%;
+}
+
+article[role=main] {
+  border: 1px solid blue;
+  float: left;
+  width: 62.5%;
+}
+
+aside {
+  border: 1px solid green;
+  float: right;
+  width: 31.25%;
+}
+
+.error, .warning, .success, .message {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
+.success {
+  border-color: green;
+}
+
+.warning {
+  border-color: yellow;
+}
+
+.error {
+  border-color: red;
+}
+
+/* use the variables */
+body {
+  font: 100% Helvetica, sans-serif;
+  background-color: #a2b9bc;
+}
+body #coords {
+  color: red;
+  font-size: 25px;
+  font-weight: bold;
+  border: 1px solid blue;
+  background-color: #ecbe5b;
+  width: 300px;
+}
+body #map {
+  height: 300px;
+  width: 100%;
+}
+
+/*# sourceMappingURL=example01.css.map */
