@@ -18,9 +18,23 @@ class UserRepository {
     create(user) {
         user.id = ++nextId;
         this.users.set(user.id, user);
+        return user;
     }
     findAll() {
         return this.users.values();
+    }
+    findById(id) {
+        return this.users.get(id);
+    }
+    update(user) {
+        this.users.set(user.id, user);
+        return user;
+    }
+    deleteById(id){
+        return this.users.delete(id);
+    }
+    getCount() {
+        return this.users.size;
     }
 }
 
@@ -28,4 +42,11 @@ const userRepo = new UserRepository();
 // for(const user of userRepo.findAll()) {
 //     console.log(user);
 // }
+const firstUser = userRepo.findById(1);
+firstUser.password = 'mynewpass';
+userRepo.update(firstUser);
 console.log(Array.from(userRepo.findAll()));
+
+userRepo.deleteById(2);
+console.log(Array.from(userRepo.findAll()));
+console.log(userRepo.getCount());
