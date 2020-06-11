@@ -1,4 +1,5 @@
-const User = require('./users').User;
+// const User = require('./users');
+import Entyty from './users.js';
 
 const MOCK_USERS = [
     new User('Default', 'Admin', 'admin', 'admin', 'admin', 'NON_BINARY',
@@ -50,3 +51,5 @@ console.log(Array.from(userRepo.findAll()));
 userRepo.deleteById(2);
 console.log(Array.from(userRepo.findAll()));
 console.log(userRepo.getCount());
+
+export default UserRepository;

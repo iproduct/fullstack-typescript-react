@@ -1,19 +1,5 @@
-let nextId = 0;
-class Entity {
-    static getNextId() {
-        return ++nextId;
-    }
-    constructor({ id, created, modified }) {
-        this.id = id;
-        this.created = created || new Date();
-        this.modified = modified || new Date();
-    }
-    toString() {
-        return `        id: ${this.id}, 
-        created: ${this.created}, 
-        modified: ${this.modified}`;
-    }
-}
+// const Entity = require('../common/entity');
+import Entyty from '../common/entity.js';
 
 class User extends Entity {
     status = 'active';
@@ -41,10 +27,5 @@ class User extends Entity {
     }
 }
 
-// const admin = new User('Default', 'Admin', 'admin', 'admin', 'admin', 'NON_BINARY',
-//     'https://freesvg.org/img/user2.png', 'Default administrator created by the system.');
-
-// console.log(admin.toString());
-
-module.exports.Entity = Entity;
-module.exports.User = User;
+export default User;
+// module.exports = User;
