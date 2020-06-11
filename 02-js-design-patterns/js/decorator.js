@@ -6,8 +6,7 @@ function ClassToBeDecorated(){
 }
 
 function AbstractDecorator(decorated){
-    this.doSomething = function()
-    {
+    this.doSomething = function() {
         this.preExtension(); //abstract method to be defined by successors
         decorated.doSomething();
         this.postExtension(); //abstract method to be defined by successors
