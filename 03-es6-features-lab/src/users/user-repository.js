@@ -1,5 +1,5 @@
 // const User = require('./users');
-import Entyty from './users.js';
+import User from './users.js';
 
 const MOCK_USERS = [
     new User('Default', 'Admin', 'admin', 'admin', 'admin', 'NON_BINARY',

@@ -1,5 +1,5 @@
 // const Post = require('./posts');
-import Entyty from './post.js';
+import Post from './posts.js';
 
 const MOCK_USERS = [
     new Post('New in JavaScript', 'Trayan Iliev', 'New ES6 Features are here ...', ['es6', 'promises'],'https://freesvg.org/img/post2.png'),

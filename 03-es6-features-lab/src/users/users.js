@@ -1,5 +1,5 @@
 // const Entity = require('../common/entity');
-import Entyty from '../common/entity.js';
+import Entity from '../common/entity.js';
 
 class User extends Entity {
     status = 'active';
