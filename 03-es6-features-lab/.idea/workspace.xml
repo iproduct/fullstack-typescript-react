@@ -1,52 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3b2fd95e-f9e8-4f74-8717-2450f46672fc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
-  <component name="GradleLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="C:/CourseIoT/git/kafka-connect-mqtt" value="PREVIEW" />
-        <entry key="C:/CourseSpring/Materials/spring4-mvc-gradle-annotation-hello-world" value="PREVIEW" />
-        <entry key="C:/CourseSpring/Workspace/webflux-demo" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/10-webmvc-serice-jpa" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/11-webflux-users-lab" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/12-reactive-streaming-demos" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/reactive-streaming-demos" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/webflux-demo" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/webflux-users" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/webflux-users-stopper" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/course-spring5/webmvc-demo" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/pro-spring-5" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/spring-security" value="PREVIEW" />
-        <entry key="C:/CourseSpring/git/spring4-mvc-gradle-xml-hello-world" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseMSSR/git/course-social-robotics/esp32-demo" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/IntelliJWorkspace/demo" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/Learning-Spring-5.0/bean-lifecycle" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/01-webflux-demo-lab5" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/01-webflux-demo-lab6" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/01-webflux-intro-lab3" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/01-webflux-intro-lab4" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/04-webservice-lab5" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/04-webservice-lab6" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/05-rest-mvc" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/05-rest-mvc-boot-hateoas" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/05-rest-mvc-boot-lab2" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/05-webmvc-demo" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/05-webmvc-thymeleaf-lab5" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/06-restmvc-jdbc-boot-lab2" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/08-restmvc-boot-jpa-lab2" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/09-webflux-demo-lab2" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/09-webflux-streaming-demo-lab1" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/12-bookstore-jpa" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/12-streaming-demos-lab4" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/12-webflux-boot-rabbitmq" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/course-spring5/webservice" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../../../CourseSpring/git/gs-uploading-files/complete" value="PREVIEW" />
-      </map>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1dAswgFuaovJwtKmSitlNiBWEWP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -78,5 +58,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3b2fd95e-f9e8-4f74-8717-2450f46672fc" name="Default Changelist" comment="" />
+      <created>1591879471909</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591879471909</updated>
+      <workItem from="1591879473551" duration="1069000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
 </project>
