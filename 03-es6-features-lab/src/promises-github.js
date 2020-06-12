@@ -21,4 +21,5 @@ function init(){
         })).then(gitUser => {
             console.log(`Git user: ${gitUser.name} [${gitUser.login}] - demo finished`);
         });
+        //https://iproduct:<your-pass>@api.github.com/users/${users[0].username}`
 }
