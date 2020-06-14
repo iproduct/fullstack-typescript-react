@@ -1,7 +1,8 @@
-console.log(Symbol("foo") !== Symbol("foo"))
+console.log(Symbol("foo") === Symbol("foo"))
+console.log("foo" === "foo")
 const foo = Symbol('foo')
 const bar = Symbol('bar')
-typeof foo === "symbol"
+console.log(typeof foo)
 typeof bar === "symbol"
 let obj = {}
 obj[foo] = "foo"

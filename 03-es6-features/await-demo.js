@@ -3,9 +3,16 @@ async function f() {
     setTimeout(() => resolve("Task completed."), 2000);
   });
 
-  let result = await promise; // wait untill promise resolve
-
+  let result = await promise; // <=> promise.then(result => console.log(result); )
   console.log(result); // "done!"
 }
 
-f();
+(async () => {
+  try{
+    await f();
+    console.log('Demo finished.');
+  }catch(err){
+    console.log(err);
+  }
+})() //IIFE
+
