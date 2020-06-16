@@ -54,6 +54,9 @@ export class MockUserRepository implements UserRepository {
 
     // Implementation details
     private getNextId(): IdType {
+        if(!MockUserRepository.nextId) {
+            MockUserRepository.nextId = 0;
+        }
         return ++MockUserRepository.nextId;
     }
     
