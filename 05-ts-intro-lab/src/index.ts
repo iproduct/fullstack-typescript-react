@@ -1,6 +1,8 @@
 import { Person } from './person.js';
 import { User, UserBase, Role, Author, Reader, Admin } from './user.js';
 import { UserRepository, MockUserRepository } from './user-repository.js';
+import { LoginController, LoginControllerImpl } from './login-controller.js';
+import { LoginComponent } from './login-component.js';
 
 /**
  * @description greets the the user by name
@@ -26,5 +28,7 @@ if(found) {
     userRepo.edit(found);
 }
 
+const loginController: LoginController = new LoginControllerImpl(userRepo);
+const loginComponent = new LoginComponent('#login', loginController);
 
-document.getElementById('greeting')!.innerHTML = userRepo.findAll().map(user => greeter(user)).join('<br>');
+// document.getElementById('greeting')!.innerHTML = userRepo.findAll().map(user => greeter(user)).join('<br>');
