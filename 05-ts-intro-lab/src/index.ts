@@ -8,7 +8,7 @@ import { UserRepository, MockUserRepository } from './user-repository.js';
  * @returns string
  */
 function greeter(user: User): string {
-    return `Hi ${user.getSalutation()}!`;
+    return `Hi ${user.getSalutation()}, password: ${user.password}.`;
 }
 
 const users: User[] = [
@@ -20,5 +20,11 @@ const users: User[] = [
 
 const userRepo : UserRepository = new MockUserRepository();
 users.forEach(u => userRepo.add(u));
+const found = userRepo.findByEmail('mary@abv.bg'); 
+if(found) {
+    found.password = 'new_pass';
+    userRepo.edit(found);
+}
+
 
 document.getElementById('greeting')!.innerHTML = userRepo.findAll().map(user => greeter(user)).join('<br>');
