@@ -22,3 +22,6 @@ const fibonacci100 = {
 for(const n of fibonacci100){
     console.log(n)
 }
+
+function f({a, b = 0} = {a: "!"}) { return [a, b] } 
+console.log([f({a: "ok"}),f(),f({})])
