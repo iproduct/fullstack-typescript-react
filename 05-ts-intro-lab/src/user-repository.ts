@@ -11,6 +11,9 @@ export interface UserRepository {
     getCount(): number;
 }
 
+// interface UserDict{
+//     [key: number]: User;
+// }
 export class MockUserRepository implements UserRepository {
     static nextId : IdType;
     private entities = new Map<IdType, User>();
