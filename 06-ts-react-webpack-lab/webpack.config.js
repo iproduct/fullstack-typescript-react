@@ -2,6 +2,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
@@ -20,7 +21,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'index.html'),
             title: 'Hello React Webpack'
-        })
+        }),
+        new MiniCssExtractPlugin(),
     ],
     resolve: {
         extensions: ['.ts', '.tsx', '.mjs', '.js', '.json']
@@ -41,6 +43,10 @@ module.exports = {
                 enforce: "pre",
                 test: /\.js$/,
                 loader: "source-map-loader"
+            },
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
             },
         ]
     },
