@@ -4,6 +4,9 @@
   "description": "Typescript React intro with Webpack",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --inline --hot --color --open",
+    "watch": "webpack --watch",
+    "build": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
