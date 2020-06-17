@@ -5,6 +5,8 @@
 }
 
 .TodoList-item {
+    display: flex;
+    justify-content: space-between;
     width: 800px;
     padding: 10px 30px;
     margin: 5px;

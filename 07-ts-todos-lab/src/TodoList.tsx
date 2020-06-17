@@ -25,8 +25,10 @@ export default class TodoList extends Component<Props, State> {
       <div className="TodoList">
         {this.props.todos.map((todo) => (
           <div className="TodoList-item" key={todo.id}>
-            <span className="TodoList-item-id">{todo.id}.</span>
-            <span className="TodoList-item-text">{todo.text}</span>
+            <span className="TodoList-item-text">
+              <span className="TodoList-item-id">{todo.id}.</span>
+              {todo.text}
+            </span>
             <span className="TodoList-item-status">{TodoStatus[todo.status]}</span>
           </div>
         ))}
