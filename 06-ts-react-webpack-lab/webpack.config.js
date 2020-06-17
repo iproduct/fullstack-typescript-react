@@ -49,9 +49,12 @@ module.exports = {
             cacheGroups: {
                 default: false,
                 vendors: false,
+                // vendor chunk
                 vendor: {
+                    // sync + async chunks
                     chunks: 'all',
-                    test: /node-modules/
+                    // import file path containing node_modules
+                    test: /node_modules/
                 }
             }
         }

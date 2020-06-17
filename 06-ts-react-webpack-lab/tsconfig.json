@@ -5,6 +5,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "module": "ESNext",
+    "moduleResolution": "node",
     "target": "ES6",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
