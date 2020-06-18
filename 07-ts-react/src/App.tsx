@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Hello } from './Hello';
+import Color from './Color';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           Learn React
         </a>
         <Hello compiler="TypeScript" framework="10" />
+        <Color />
       </header>
     </div>
   );
