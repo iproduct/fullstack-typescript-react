@@ -1,7 +1,7 @@
 .TodoItem {
     display: flex;
     justify-content: space-between;
-    width: 800px;
+    width: 960px;
     padding: 10px;
     margin: 5px;
     background-image: linear-gradient(to bottom right, rgba(120, 120, 120, 0.301), rgba(60, 60, 60, 0.801));
