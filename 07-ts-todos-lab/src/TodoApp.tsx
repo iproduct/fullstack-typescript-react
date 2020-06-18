@@ -23,7 +23,7 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
     super(props);
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleCreateTodo = this.handleCreateTodo.bind(this);
-    this.handleRemoveTodo = this.handleRemoveTodo.bind(this);
+    this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
   }
 
   render() {
@@ -34,10 +34,10 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
           <TodoInput onCreateTodo={this.handleCreateTodo} />
           <TodoList
             todos={this.state.todos}
-            filter={undefined}
+            filter={this.state.filter}
             onChangeStatus={this.handleStatusChange}
             onUpdate={this.noOpTodoListener}
-            onDelete={this.noOpTodoListener}
+            onDelete={this.handleDeleteTodo}
           />
         </header>
       </div>
@@ -58,7 +58,7 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
     }));
   }
 
-  handleRemoveTodo(todo: Todo) {
+  handleDeleteTodo(todo: Todo) {
     this.setState(({todos}) => ({
       todos: this.state.todos.filter(td => td.id !== todo.id)
     }));

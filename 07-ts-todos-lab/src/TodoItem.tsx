@@ -16,7 +16,6 @@ export const TodoItem: React.FC<IAppProps> = (props) => {
     props.onChangeStatus({ ...props.todo, status: TodoStatus.COMPLETED});
   }
   function handleDelete(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-    // props.onChangeStatus(Object.assign({}, props.todo, {status: TodoStatus.COMPLETED}));
     props.onDelete(props.todo);
   }
   return (
