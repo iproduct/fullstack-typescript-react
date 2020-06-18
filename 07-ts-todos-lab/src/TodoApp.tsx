@@ -2,16 +2,26 @@ import React from 'react';
 import './TodoApp.css';
 import TodoList from './TodoList';
 import MOCK_TODOS from './mock-todos';
-import { Todo } from './todo.model';
+import { Todo, TodoStatus } from './todo.model';
+
+export interface TodoListener {
+  (todo: Todo): void;
+}
 
 export interface TodoAppState {
-  items: Todo[];
+  todos: Todo[];
+  filter: TodoStatus | undefined;
 }
 
 export class TodoApp extends React.Component<{}, TodoAppState> {
   state = {
-    items: MOCK_TODOS,
+    todos: MOCK_TODOS,
+    filter: undefined
   };
+  constructor(props: {}) {
+    super(props);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+  }
 
   render() {
     return (
@@ -19,9 +29,9 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
         <header className="App-header">
           <h2>TODO Demo</h2>
           <TodoList
-            todos={this.state.items}
+            todos={this.state.todos}
             filter={undefined}
-            onChangeStatus={this.noOpTodoListener}
+            onChangeStatus={this.handleStatusChange}
             onUpdate={this.noOpTodoListener}
             onDelete={this.noOpTodoListener}
           />
@@ -31,6 +41,12 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
   }
 
   noOpTodoListener(todo: Todo) {}
+
+  handleStatusChange(todo: Todo) {
+    this.setState(({todos}) => ({
+      todos: this.state.todos.map(td => td.id === todo.id? todo: td)
+    }));
+  }
 }
 
 export default TodoApp;

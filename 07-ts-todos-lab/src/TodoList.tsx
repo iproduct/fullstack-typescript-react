@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Todo, TodoStatus } from './todo.model';
 import './TodoList.css';
+import { TodoItem } from './TodoItem';
+import { TodoListener } from './TodoApp';
 
 // export type TodoListener =  (todo: Todo) => void;
-
-export interface TodoListener {
-  (todo: Todo): void;
-}
 
 interface Props {
   todos: Todo[];
@@ -21,16 +19,11 @@ export default class TodoList extends Component<Props, State> {
   state = {};
 
   render() {
+    const {todos, filter, ...rest} = this.props;
     return (
       <div className="TodoList">
-        {this.props.todos.map((todo) => (
-          <div className="TodoList-item" key={todo.id}>
-            <span className="TodoList-item-text">
-              <span className="TodoList-item-id">{todo.id}.</span>
-              {todo.text}
-            </span>
-            <span className="TodoList-item-status">{TodoStatus[todo.status]}</span>
-          </div>
+        {todos.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} {...rest} />
         ))}
       </div>
     );
