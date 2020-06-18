@@ -3,6 +3,7 @@ import './TodoApp.css';
 import TodoList from './TodoList';
 import MOCK_TODOS from './mock-todos';
 import { Todo, TodoStatus } from './todo.model';
+import TodoInput from './TodoInput';
 
 export interface TodoListener {
   (todo: Todo): void;
@@ -21,6 +22,7 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
   constructor(props: {}) {
     super(props);
     this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleCreateTodo = this.handleCreateTodo.bind(this);
   }
 
   render() {
@@ -28,6 +30,7 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
       <div className="App">
         <header className="App-header">
           <h2>TODO Demo</h2>
+          <TodoInput onCreateTodo={this.handleCreateTodo} />
           <TodoList
             todos={this.state.todos}
             filter={undefined}
@@ -45,6 +48,12 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
   handleStatusChange(todo: Todo) {
     this.setState(({todos}) => ({
       todos: this.state.todos.map(td => td.id === todo.id? todo: td)
+    }));
+  }
+
+  handleCreateTodo(todo: Todo) {
+    this.setState(({todos}) => ({
+      todos: this.state.todos.concat(todo)
     }));
   }
 }
