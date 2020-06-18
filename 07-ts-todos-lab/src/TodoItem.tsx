@@ -15,6 +15,10 @@ export const TodoItem: React.FC<IAppProps> = (props) => {
     // props.onChangeStatus(Object.assign({}, props.todo, {status: TodoStatus.COMPLETED}));
     props.onChangeStatus({ ...props.todo, status: TodoStatus.COMPLETED});
   }
+  function handleDelete(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+    // props.onChangeStatus(Object.assign({}, props.todo, {status: TodoStatus.COMPLETED}));
+    props.onDelete(props.todo);
+  }
   return (
     <div className="TodoItem" key={props.todo.id}>
       <span className="TodoItem-text">
@@ -25,7 +29,10 @@ export const TodoItem: React.FC<IAppProps> = (props) => {
         <span className="TodoItem-status">
           {TodoStatus[props.todo.status]}
         </span>
-        <span className="TodoItem-button fas fa-check-circle" onClick={handleCompletion}></span>
+        {props.todo.status === TodoStatus.ACTIVE ? 
+            <span className="TodoItem-button fas fa-check-circle" onClick={handleCompletion}></span>
+          : <span className="TodoItem-button danger fas fa-times-circle" onClick={handleDelete}></span>
+        }
       </span>
     </div>
   );

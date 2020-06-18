@@ -23,6 +23,7 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
     super(props);
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleCreateTodo = this.handleCreateTodo.bind(this);
+    this.handleRemoveTodo = this.handleRemoveTodo.bind(this);
   }
 
   render() {
@@ -54,6 +55,12 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
   handleCreateTodo(todo: Todo) {
     this.setState(({todos}) => ({
       todos: this.state.todos.concat(todo)
+    }));
+  }
+
+  handleRemoveTodo(todo: Todo) {
+    this.setState(({todos}) => ({
+      todos: this.state.todos.filter(td => td.id !== todo.id)
     }));
   }
 }

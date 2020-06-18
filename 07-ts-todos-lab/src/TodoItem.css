@@ -29,3 +29,13 @@
     color: rgb(1, 224, 1);
 }
 
+.danger {
+    color: rgb(255, 80, 80);
+}
+
+.danger:hover {
+    color: rgb(224, 35, 21);
+}
+
+
+
