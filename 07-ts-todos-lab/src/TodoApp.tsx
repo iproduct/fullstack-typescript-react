@@ -4,14 +4,21 @@ import TodoList from './TodoList';
 import MOCK_TODOS from './mock-todos';
 import { Todo, TodoStatus } from './todo.model';
 import TodoInput from './TodoInput';
+import ChooseFilter from './ChooseFilter';
 
 export interface TodoListener {
   (todo: Todo): void;
 }
 
+export type FilterType = TodoStatus | undefined;
+
+export interface FilterChangeListener {
+  (filter: FilterType): void;
+}
+
 export interface TodoAppState {
   todos: Todo[];
-  filter: TodoStatus | undefined;
+  filter: FilterType;
 }
 
 export class TodoApp extends React.Component<{}, TodoAppState> {
@@ -32,6 +39,7 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
         <header className="App-header">
           <h2>TODO Demo</h2>
           <TodoInput onCreateTodo={this.handleCreateTodo} />
+          <ChooseFilter filter={this.state.filter} onFilterChange={this.handleFilterChange} />
           <TodoList
             todos={this.state.todos}
             filter={this.state.filter}
@@ -62,6 +70,10 @@ export class TodoApp extends React.Component<{}, TodoAppState> {
     this.setState(({todos}) => ({
       todos: this.state.todos.filter(td => td.id !== todo.id)
     }));
+  }
+
+  handleFilterChange = (filter: FilterType) => {
+    this.setState({filter});
   }
 }
 

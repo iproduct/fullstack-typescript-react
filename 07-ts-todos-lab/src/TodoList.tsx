@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Todo, TodoStatus } from './todo.model';
+import { Todo } from './todo.model';
 import './TodoList.css';
 import { TodoItem } from './TodoItem';
-import { TodoListener } from './TodoApp';
+import { TodoListener, FilterType } from './TodoApp';
 
 // export type TodoListener =  (todo: Todo) => void;
 
 interface Props {
   todos: Todo[];
-  filter: TodoStatus | undefined;
+  filter: FilterType;
   onChangeStatus: TodoListener;
   onUpdate: TodoListener;
   onDelete: TodoListener;
@@ -22,7 +22,7 @@ export default class TodoList extends Component<Props, State> {
     const {todos, filter, ...rest} = this.props;
     return (
       <div className="TodoList">
-        {todos.map((todo) => (
+        {todos.filter(todo => !filter ? true: todo.status === filter).map((todo) => (
           <TodoItem key={todo.id} todo={todo} {...rest} />
         ))}
       </div>
