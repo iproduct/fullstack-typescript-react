@@ -14,7 +14,16 @@
     background-image: linear-gradient(to bottom right, rgba(185, 185, 185, 0.335), rgba(112, 111, 111, 0.801));
 }
 
-.CommentItem-id{
+.CommentItem-left {
+    align-items: center;
+    display: flex;
+}
+
+.CommentItem-text p{
+    margin: 0;
+}
+
+.CommentItem-id{ 
     padding-right: 10px;
 }
 

@@ -2,12 +2,18 @@ import * as React from 'react';
 import { Comment } from '../../model/comments.model';
 import './CommentItem.css';
 import { CommentListener } from '../../shared/shared-types';
+import { Marked } from '@ts-stack/markdown';
 
 interface IAppProps {
   comment: Comment;
   onUpdate:  CommentListener;
   onDelete:  CommentListener;
 }
+
+const rawMarkup = (markdownText: string) => (
+  {__html :Marked.parse(markdownText)}
+);
+
 
 export const CommentItem: React.FC<IAppProps> = ({comment, onUpdate, onDelete}) => {
   function handleUpdate(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
@@ -19,10 +25,10 @@ export const CommentItem: React.FC<IAppProps> = ({comment, onUpdate, onDelete}) 
   }
   return (
     <div className="CommentItem" key={comment.id}>
-      <span className="CommentItem-text">
+      <div className="CommentItem-left">
         <span className="CommentItem-id">{comment.id}.</span>
-        {comment.text}
-      </span>
+        <span className="CommentItem-text" dangerouslySetInnerHTML={rawMarkup(comment.text)} />
+      </div>
       <div className="CommentItem-right">
         <span className="CommentItem-status">[{comment.author}]</span>
         <span className="CommentItem-controls">
