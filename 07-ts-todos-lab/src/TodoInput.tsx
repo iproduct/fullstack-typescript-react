@@ -35,7 +35,7 @@ export default class TodoInput extends Component<Props, State> {
 
     handleTodoReset = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
-        this.setState({text: ""})
+        this.setState({text: ""});
     }
 
     handleTextChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
