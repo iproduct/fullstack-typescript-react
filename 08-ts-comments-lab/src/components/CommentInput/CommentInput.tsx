@@ -3,7 +3,7 @@ import { CommentListener } from '../../shared/shared-types';
 import { Comment } from '../../model/comments.model';
 
 interface Props {
-  comment: Comment;
+  comment: Comment | undefined;
   onCreate: CommentListener;
 }
 
@@ -43,7 +43,7 @@ export default class CommentInput extends Component<Props, State> {
   handleTextChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
     this.setState(({ fields }) => ({
-        fields: { ...fields, [event.target.name]: event.target.value },
+        fields: { ...fields, [{...event}.target.name]: event.target.value },
     }));
   };
 

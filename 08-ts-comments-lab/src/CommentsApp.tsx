@@ -9,17 +9,19 @@ interface CommentsAppProps {
 }
 interface CommentsAppState {
   comments: Comment[];
+  editedComment: Comment | undefined;
 }
 
 class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
   state = {
     comments: MOCK_COMMENTS,
+    editedComment: undefined,
   }
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <CommentInput comment={new Comment('','')} onCreate={this.handleCommentCreate} />
+          <CommentInput comment={this.state.editedComment} onCreate={this.handleCommentCreate} />
           <CommentsList comments={this.state.comments} 
             onUpdate={this.handleUpdate} 
             onDelete={this.handleDelete} />
@@ -29,7 +31,7 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
   }
 
   handleUpdate = (comment: Comment) => {
-    // this.setState(({comments}) => ({}))
+    this.setState({editedComment: comment});
   }
 
   handleDelete = (comment: Comment) => {
