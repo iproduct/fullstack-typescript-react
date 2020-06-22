@@ -21,7 +21,8 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
     return (
       <div className="App">
         <header className="App-header">
-          <CommentInput comment={this.state.editedComment} onCreate={this.handleCommentCreate} />
+          <CommentInput comment={this.state.editedComment} onSubmit={this.handleCommentSubmit} 
+            onCancel={this.handleCommentCancel} />
           <CommentsList comments={this.state.comments} 
             onUpdate={this.handleUpdate} 
             onDelete={this.handleDelete} />
@@ -32,15 +33,22 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
 
   handleUpdate = (comment: Comment) => {
     this.setState({editedComment: comment});
-  }
+  };
 
   handleDelete = (comment: Comment) => {
     this.setState(({comments}) => ({comments: comments.filter(c => c.id !== comment.id)}))
-  }
+  };
 
-  handleCommentCreate = ((comment: Comment) => {
-    this.setState(({comments}) => ({comments: comments.concat(comment)}))
-  })
+  handleCommentSubmit = ((comment: Comment) => {
+    if(this.state.editedComment){ //Edit
+      this.setState(({comments}) => ({comments: comments.map(c => c.id !== comment.id ? c : comment)}))
+      this.handleCommentCancel();
+    } else { // Create
+      this.setState(({comments}) => ({comments: comments.concat(comment)}))
+    }  
+  });
+
+  handleCommentCancel = () => this.setState({editedComment: undefined});
 }
 
 export default CommentsApp;

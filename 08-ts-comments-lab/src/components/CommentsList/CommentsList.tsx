@@ -13,6 +13,6 @@ interface Props {
 export default function CommentsList({comments, ...rest}: Props): ReactElement {
     return (
         <div className="CommentsList">
-         {comments.map(comm => (<CommentItem comment={comm} {...rest}/>)) }
+         {comments.map(comm => (<CommentItem key={comm.id} comment={comm} {...rest}/>)) }
         </div>);
 }

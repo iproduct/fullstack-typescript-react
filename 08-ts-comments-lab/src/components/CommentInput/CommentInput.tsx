@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { CommentListener } from '../../shared/shared-types';
+import React, { Component, Fragment } from 'react';
+import { CommentListener, NoArgListener } from '../../shared/shared-types';
 import { Comment, IdType } from '../../model/comments.model';
 
 interface Props {
   comment: Comment | undefined;
-  onCreate: CommentListener;
+  onSubmit: CommentListener;
+  onCancel: NoArgListener;
 }
 
 interface StringMap {
@@ -26,22 +27,25 @@ export default class CommentInput extends Component<Props, State> {
     prevCommentId: undefined,
   };
   
-  static getDerivedStateFromProps(props: Props, state: State) {
-    if(props.comment && props.comment.id !== state.prevCommentId) {
+  static getDerivedStateFromProps({comment = ({id:'', text:'', author:''} as unknown as Comment)}: Props,
+                                  state: State) {
+    if((comment && comment.id) !== state.prevCommentId) {
       return {
         fields: {
-          id: props.comment.id,
-          text: props.comment.text,
-          author: props.comment.author,
+          id: comment.id,
+          text: comment.text,
+          author: comment.author,
         },
-        prevCommentId: props.comment.id,
+        prevCommentId: comment.id,
       }
-    } 
+    }
     return null;
   }
 
   render() {
     return (
+      <Fragment>
+      <h2>{this.props.comment? 'Edit Comment': 'Add New Comment' }</h2>
       <form className="container" onSubmit={this.handleCommentSubmit}>
         <input type="text" id="id" name="id"  value={this.state.fields.id}
           placeholder="Comment ID" readOnly disabled
@@ -52,11 +56,17 @@ export default class CommentInput extends Component<Props, State> {
         <input type="text" id="author" name="author" value={this.state.fields.author}
           onChange={this.handleTextChanged} placeholder="Comment text here ..."
         />
-        <button className="button button5" type="submit">Add Comment</button>
+        <button className="button button5" type="submit">{this.props.comment? 'Edit Comment': 'Add Comment' }</button>
         <button className="button button3" type="reset" onClick={this.handleCommentReset}>
           Reset
         </button>
+        { this.props.comment &&
+          <button className="button button2" type="button" onClick={this.handleCommentCancel}>
+            Cancel
+          </button>
+        }
       </form>
+      </Fragment>
     );
   }
 
@@ -69,14 +79,19 @@ export default class CommentInput extends Component<Props, State> {
 
   handleCommentSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newComment = {...this.state.fields, id: Comment.getNextId()} as Comment;
-    this.props.onCreate(newComment);
+    const newComment = {...this.state.fields, id: this.state.fields.id || Comment.getNextId()} as Comment;
+    this.props.onSubmit(newComment);
     this.reset();
   };
 
   handleCommentReset = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     this.reset();
+  };
+
+  handleCommentCancel= (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    this.props.onCancel();
   };
 
   private reset() {

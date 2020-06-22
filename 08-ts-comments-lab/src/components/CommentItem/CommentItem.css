@@ -28,9 +28,15 @@
 }
 
 .CommentItem-right {
-    width: 30%;
+    width: 35%;
     display: flex;
     justify-content: space-between;
+}
+
+.CommentItem-author {
+    width: 65%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .CommentItem-button {

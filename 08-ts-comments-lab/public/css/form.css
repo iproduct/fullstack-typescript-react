@@ -1,3 +1,7 @@
+input:disabled {
+  background-color: #ccc;
+}
+
 input[type='text'],
 select {
   font-size: 16pt;

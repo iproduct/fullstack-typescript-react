@@ -29,8 +29,8 @@ export const CommentItem: React.FC<IAppProps> = ({comment, onUpdate, onDelete}) 
         <span className="CommentItem-id">{comment.id}.</span>
         <span className="CommentItem-text" dangerouslySetInnerHTML={rawMarkup(comment.text)} />
       </div>
-      <div className="CommentItem-right">
-        <span className="CommentItem-status">[{comment.author}]</span>
+      <div className="CommentItem-right">[
+        <span className="CommentItem-author">{comment.author}</span>]
         <span className="CommentItem-controls">
           <span
             className="CommentItem-button fas fa-edit"
