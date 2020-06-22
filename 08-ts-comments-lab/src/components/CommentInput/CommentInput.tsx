@@ -19,28 +19,33 @@ interface State {
 
 export default class CommentInput extends Component<Props, State> {
   state = {
-    fields: {
-      id: '',
-      text: '',
-      author: '',
-    },
+    fields: ((this.props.comment || {id:'', text:'', author:''}) as StringMap),
     prevCommentId: undefined,
   };
+
+  // state = {
+  //   fields: {
+  //     id: '',
+  //     text: '',
+  //     author: '',
+  //   },
+  //   prevCommentId: undefined,
+  // };
   
-  static getDerivedStateFromProps({comment = ({id:'', text:'', author:''} as unknown as Comment)}: Props,
-                                  state: State) {
-    if((comment && comment.id) !== state.prevCommentId) {
-      return {
-        fields: {
-          id: comment.id,
-          text: comment.text,
-          author: comment.author,
-        },
-        prevCommentId: comment.id,
-      }
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps({comment = ({id:'', text:'', author:''} as unknown as Comment)}: Props,
+  //                                 state: State) {
+  //   if((comment && comment.id) !== state.prevCommentId) {
+  //     return {
+  //       fields: {
+  //         id: comment.id,
+  //         text: comment.text,
+  //         author: comment.author,
+  //       },
+  //       prevCommentId: comment.id,
+  //     }
+  //   }
+  //   return null;
+  // }
 
   render() {
     return (

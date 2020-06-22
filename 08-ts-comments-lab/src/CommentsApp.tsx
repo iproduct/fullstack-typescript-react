@@ -13,15 +13,17 @@ interface CommentsAppState {
 }
 
 class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
-  state = {
+  state: CommentsAppState = {
     comments: MOCK_COMMENTS,
     editedComment: undefined,
   }
   render() {
+    const editedCommentId = this.state.editedComment ? this.state.editedComment.id : undefined;
     return (
       <div className="App">
         <header className="App-header">
-          <CommentInput comment={this.state.editedComment} onSubmit={this.handleCommentSubmit} 
+          <CommentInput key={editedCommentId} comment={this.state.editedComment} 
+            onSubmit={this.handleCommentSubmit} 
             onCancel={this.handleCommentCancel} />
           <CommentsList comments={this.state.comments} selected={this.state.editedComment}
             onUpdate={this.handleUpdate} 
@@ -29,6 +31,12 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
         </header>
       </div>
     );
+  }
+
+  async componentDidMount() {
+    const resp = await fetch('http://localhost:9000/api/comments');
+    const comments = await resp.json();
+    this.setState({comments});
   }
 
   handleUpdate = (comment: Comment) => {
