@@ -6,6 +6,7 @@ import { Marked } from '@ts-stack/markdown';
 
 interface IAppProps {
   comment: Comment;
+  isActive: boolean;
   onUpdate:  CommentListener;
   onDelete:  CommentListener;
 }
@@ -15,7 +16,7 @@ const rawMarkup = (markdownText: string) => (
 );
 
 
-export const CommentItem: React.FC<IAppProps> = ({comment, onUpdate, onDelete}) => {
+export const CommentItem: React.FC<IAppProps> = ({comment, isActive, onUpdate, onDelete}) => {
   function handleUpdate(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
     onUpdate(comment);
   }
@@ -24,7 +25,7 @@ export const CommentItem: React.FC<IAppProps> = ({comment, onUpdate, onDelete}) 
     onDelete(comment);
   }
   return (
-    <div className="CommentItem" key={comment.id}>
+    <div className={isActive? 'CommentItem active': 'CommentItem'}>
       <div className="CommentItem-left">
         <span className="CommentItem-id">{comment.id}.</span>
         <span className="CommentItem-text" dangerouslySetInnerHTML={rawMarkup(comment.text)} />

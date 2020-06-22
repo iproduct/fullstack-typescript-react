@@ -23,7 +23,7 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
         <header className="App-header">
           <CommentInput comment={this.state.editedComment} onSubmit={this.handleCommentSubmit} 
             onCancel={this.handleCommentCancel} />
-          <CommentsList comments={this.state.comments} 
+          <CommentsList comments={this.state.comments} selected={this.state.editedComment}
             onUpdate={this.handleUpdate} 
             onDelete={this.handleDelete} />
         </header>

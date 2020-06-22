@@ -82,3 +82,8 @@ select {
   background-color: #555555;
   color: white;
 }
+
+.active {
+  background-color: #b3aeae;
+  box-shadow: 5px 5px 40px rgba(247, 241, 223, 0.7);
+}

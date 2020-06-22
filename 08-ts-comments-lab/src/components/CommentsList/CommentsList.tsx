@@ -1,18 +1,20 @@
 import React, { ReactElement } from 'react';
-import { Comment } from '../../model/comments.model';
+import { Comment, IdType } from '../../model/comments.model';
 import './CommentsList.css';
 import { CommentItem } from '../CommentItem/CommentItem';
 import { CommentListener } from '../../shared/shared-types';
 
 interface Props {
     comments: Comment[];
+    selected: Comment | undefined;
     onUpdate:  CommentListener;
     onDelete:  CommentListener;
 }
 
-export default function CommentsList({comments, ...rest}: Props): ReactElement {
+export default function CommentsList({comments, selected, ...rest}: Props): ReactElement {
     return (
         <div className="CommentsList">
-         {comments.map(comm => (<CommentItem key={comm.id} comment={comm} {...rest}/>)) }
+         {comments.map(comm => (<CommentItem key={comm.id} comment={comm} 
+            isActive={(selected && selected.id) === comm.id} {...rest}/>)) }
         </div>);
 }
