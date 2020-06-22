@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { CommentListener } from '../../shared/shared-types';
-import { Comment } from '../../model/comments.model';
+import { Comment, IdType } from '../../model/comments.model';
 
 interface Props {
   comment: Comment | undefined;
@@ -13,19 +13,39 @@ interface StringMap {
 
 interface State {
   fields: StringMap;
+  prevCommentId: IdType | undefined;
 }
 
 export default class CommentInput extends Component<Props, State> {
   state = {
     fields: {
+      id: '',
       text: '',
       author: '',
     },
+    prevCommentId: undefined,
   };
+  
+  static getDerivedStateFromProps(props: Props, state: State) {
+    if(props.comment && props.comment.id !== state.prevCommentId) {
+      return {
+        fields: {
+          id: props.comment.id,
+          text: props.comment.text,
+          author: props.comment.author,
+        },
+        prevCommentId: props.comment.id,
+      }
+    } 
+    return null;
+  }
 
   render() {
     return (
       <form className="container" onSubmit={this.handleCommentSubmit}>
+        <input type="text" id="id" name="id"  value={this.state.fields.id}
+          placeholder="Comment ID" readOnly disabled
+        />
         <input type="text" id="text" name="text"  value={this.state.fields.text}
           onChange={this.handleTextChanged} placeholder="Comment text here ..."
         />
@@ -49,7 +69,8 @@ export default class CommentInput extends Component<Props, State> {
 
   handleCommentSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.props.onCreate({...this.state.fields} as Comment);
+    const newComment = {...this.state.fields, id: Comment.getNextId()} as Comment;
+    this.props.onCreate(newComment);
     this.reset();
   };
 
@@ -59,11 +80,20 @@ export default class CommentInput extends Component<Props, State> {
   };
 
   private reset() {
-    this.setState({
-      fields: {
-        text: '',
-        author: '',
-      },
-    });
+    if(this.props.comment) {
+      this.setState({
+        fields: {
+          text: this.props.comment.text,
+          author: this.props.comment.author,
+        },
+      });
+    } else {
+      this.setState({
+        fields: {
+          text: '',
+          author: '',
+        },
+      });
+    }
   }
 }
