@@ -25,29 +25,8 @@
         "text": "<a href=\"javascript:alert(1)\">alert(1)</a>"
     },
     {
-        "id": 1592832591330,
-        "author": "Ivan Petrov",
-        "text": "Welcome to Advanced React Blog!"
-    },
-    {
         "id": 1592893979949,
         "author": "Maria Stoyanova",
-        "text": "Welcome to Formik Lib!"
-    },
-    {
-        "id": 1592895347752,
-        "author": "Траян Илиев",
-        "text": "Hey there!"
-    },
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
+        "text": "Welcome to Formik Libaaaa!"
+    }
 ]
