@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useState, ReactElement } from 'react';
 import './Nav.css';
+import { SearchCallback } from '../../shared/shared-types';
 
-export default function Nav({searchBooks, ...rest}) {
+interface Props {
+  onSearchBooks: SearchCallback;
+}
+
+export default function Nav({onSearchBooks, ...rest}: Props) : ReactElement<Props> {
   const [searchText, setSearchText] = useState('');
   return (
     <React.Fragment>
@@ -64,13 +70,13 @@ export default function Nav({searchBooks, ...rest}) {
     </React.Fragment>
   );
 
-  function handleTextChanged(event) {
+  function handleTextChanged(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchText(event.target.value);
   }
   
 
-  function submitSearch(event) {
-    searchBooks(searchText);
+  function submitSearch(event: React.MouseEvent<HTMLElement, MouseEvent>) {
+    onSearchBooks(searchText);
     setSearchText('');
   }
 }
