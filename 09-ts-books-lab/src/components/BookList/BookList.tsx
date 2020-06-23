@@ -9,7 +9,7 @@ interface Props {
 
 export function BookList({books, ...rest}: Props): ReactElement<Props> {
     return (
-      <div className="section">
+      <div className="section row">
       { books.map(book => (<BookItem book={book} key={book.id} {...rest} />)) }
       </div>
     );

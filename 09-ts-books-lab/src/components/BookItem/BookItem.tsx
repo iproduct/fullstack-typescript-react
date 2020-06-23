@@ -8,7 +8,7 @@ interface Props {
 
 export const BookItem: React.FC<Props> = ({book}) => {
   return (
-    <div className="card-wrapper col s12 l6 Book-card">
+    <div className="card-wrapper col l6 Book-card">
       <div className="card horizontal">
         <div className="card-image waves-effect waves-block waves-light">
           <img
