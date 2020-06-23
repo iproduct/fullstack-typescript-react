@@ -4,6 +4,7 @@ export interface IBook extends Indentifiable {
     subtitle?: string;
     authors: string;
     frontPage: string;
+    keywords?: string[];
 }
 
 export class Book implements IBook {
@@ -13,5 +14,6 @@ export class Book implements IBook {
         public authors: string,
         public frontPage: string,
         public subtitle?: string,
+        public keywords: string[] = []
         ) {}
 }
