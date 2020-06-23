@@ -25,8 +25,7 @@ export const CommentItem: React.FC<IAppProps> = ({comment, isActive, onUpdate, o
     onDelete(comment);
   }
 
-  const date  = new Date();
-  date.setTime(comment.id);
+  const date  = new Date(comment.id);
   const dateStr =
   ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
   ("00" + date.getDate()).slice(-2) + "/" +
