@@ -4,6 +4,7 @@ import MOCK_COMMENTS from './model/mock-comments';
 import './CommentsApp.css';
 import CommentsList from './components/CommentsList/CommentsList';
 import CommentInput from './components/CommentInput/CommentInput';
+import CommentsAPI from './service/comments-api-client';
 
 interface CommentsAppProps {
 }
@@ -34,8 +35,7 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
   }
 
   async componentDidMount() {
-    const resp = await fetch('http://localhost:9000/api/comments');
-    const comments = await resp.json();
+    const comments = await CommentsAPI.getAllComments();
     this.setState({comments});
   }
 
@@ -47,14 +47,15 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
     this.setState(({comments}) => ({comments: comments.filter(c => c.id !== comment.id)}))
   };
 
-  handleCommentSubmit = ((comment: Comment) => {
+ handleCommentSubmit = async (comment: Comment) => {
     if(this.state.editedComment){ //Edit
       this.setState(({comments}) => ({comments: comments.map(c => c.id !== comment.id ? c : comment)}))
       this.handleCommentCancel();
     } else { // Create
-      this.setState(({comments}) => ({comments: comments.concat(comment)}))
+      const created = await CommentsAPI.createNewComment(comment); 
+      this.setState(({comments}) => ({comments: comments.concat(created)}))
     }  
-  });
+  };
 
   handleCommentCancel = () => this.setState({editedComment: undefined});
 }
