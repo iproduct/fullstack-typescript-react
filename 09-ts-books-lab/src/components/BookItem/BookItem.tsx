@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Book } from '../../model/book.model';
+import './BookItem.css';
 
 interface Props {
   book: Book;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Nav from './components/Nav/Nav';
 import { SearchCallback } from './shared/shared-types';
@@ -9,6 +9,9 @@ import BookService from './service/book-service';
 
 function App() {
   const [books, setBooks] = useState<Book[]>([]);
+  useEffect(() => {
+    setBooks(BookService.getAllBooks());
+  }, []);
 
   const handleSearch: SearchCallback =  (searchText) => {
 

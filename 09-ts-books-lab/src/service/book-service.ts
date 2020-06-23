@@ -11,7 +11,7 @@ class BookService {
     }
 
     getAllBooks() {
-        this.repo.findAll();
+        return this.repo.findAll();
     }
 }
 
