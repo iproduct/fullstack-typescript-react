@@ -71,6 +71,66 @@ app.post('/api/comments', function(req, res) {
   });
 });
 
+app.put('/api/comments/:id', function(req, res) {
+  fs.readFile(COMMENTS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    var comments = JSON.parse(data);
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    const commentId = req.params.id;
+    const comment = req.body;
+    if(commentId !== comment.id) {
+      res.status(400).json({code: 400, message: `IDs in the URL and message body are different.`});
+      return;
+    }
+    const index = comments.findIndex(c => c.id === commentId);
+    if(index < 0) {
+      res.status(404).json({code: 404, message: `Comment with ID=${commentId} not found.`});
+      return;
+    }
+    comments[index] = comment;
+    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(comment); //200 OK with comment in the body
+    });
+  });
+});
+
+app.delete('/api/comments/:id', function(req, res) {
+  fs.readFile(COMMENTS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    var comments = JSON.parse(data);
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    const commentId = req.params.id;
+    const index = comments.findIndex(c => c.id === commentId);
+    if(index < 0) {
+      res.status(404).json({code: 404, message: `Comment with ID=${commentId} not found.`});
+      return;
+    }
+    const deleted = comments[index]
+    delete comments[index];
+    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(deleted); //200 OK with deleted comment in the body
+    });
+  });
+});
+
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');

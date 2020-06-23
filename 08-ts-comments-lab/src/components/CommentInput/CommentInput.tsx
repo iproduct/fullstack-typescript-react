@@ -103,6 +103,7 @@ export default class CommentInput extends Component<Props, State> {
     if(this.props.comment) {
       this.setState({
         fields: {
+          id: this.props.comment.id + '',
           text: this.props.comment.text,
           author: this.props.comment.author,
         },
@@ -110,6 +111,7 @@ export default class CommentInput extends Component<Props, State> {
     } else {
       this.setState({
         fields: {
+          id: '',
           text: '',
           author: '',
         },

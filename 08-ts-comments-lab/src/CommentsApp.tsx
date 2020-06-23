@@ -55,6 +55,7 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
       const created = await CommentsAPI.createNewComment(comment); 
       this.setState(({comments}) => ({comments: comments.concat(created)}))
     }  
+    this.setState({editedComment: undefined});
   };
 
   handleCommentCancel = () => this.setState({editedComment: undefined});
