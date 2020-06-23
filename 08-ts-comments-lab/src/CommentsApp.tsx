@@ -43,13 +43,15 @@ class CommentsApp extends React.Component<CommentsAppProps, CommentsAppState> {
     this.setState({editedComment: comment});
   };
 
-  handleDelete = (comment: Comment) => {
-    this.setState(({comments}) => ({comments: comments.filter(c => c.id !== comment.id)}))
+  handleDelete = async (comment: Comment) => {
+    const deleted = await CommentsAPI.deleteComment(comment.id); 
+    this.setState(({comments}) => ({comments: comments.filter(c => c.id !== deleted.id)}))
   };
 
  handleCommentSubmit = async (comment: Comment) => {
     if(this.state.editedComment){ //Edit
-      this.setState(({comments}) => ({comments: comments.map(c => c.id !== comment.id ? c : comment)}))
+      const updated = await CommentsAPI.updateComment(comment); 
+      this.setState(({comments}) => ({comments: comments.map(c => c.id !== updated.id ? c : updated)}))
       this.handleCommentCancel();
     } else { // Create
       const created = await CommentsAPI.createNewComment(comment); 

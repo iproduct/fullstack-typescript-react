@@ -1,5 +1,5 @@
 
-import { Comment } from '../model/comments.model';
+import { Comment, IdType } from '../model/comments.model';
 
 export const BASE_URL = 'http://localhost:9000/api/comments';
 
@@ -22,6 +22,26 @@ class CommentsApiClient {
         });
         const created = await resp.json();
         return created;
+    }
+
+    async updateComment(comment: Comment) {
+        const resp = await fetch(`http://localhost:9000/api/comments/${comment.id}`, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(comment),
+        });
+        const updated = await resp.json();
+        return updated;
+    }
+
+    async deleteComment(commentId: IdType) {
+        const resp = await fetch(`http://localhost:9000/api/comments/${commentId}`, {
+            method: 'DELETE',
+            mode: 'cors'
+        });
+        const deleted = await resp.json();
+        return deleted;
     }
 
 }

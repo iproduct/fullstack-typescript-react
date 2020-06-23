@@ -30,6 +30,8 @@ app.use(function(req, res, next) {
     // an API server in conjunction with something like webpack-dev-server.
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`);
+    res.setHeader('Access-Control-Max-Age', 3600 ); // 1 hour
     // Disable caching so we'll always get the latest comments.
     res.setHeader('Cache-Control', 'no-cache');
     next();
@@ -81,7 +83,7 @@ app.put('/api/comments/:id', function(req, res) {
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    const commentId = req.params.id;
+    const commentId = +req.params.id;
     const comment = req.body;
     if(commentId !== comment.id) {
       res.status(400).json({code: 400, message: `IDs in the URL and message body are different.`});
@@ -113,7 +115,7 @@ app.delete('/api/comments/:id', function(req, res) {
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    const commentId = req.params.id;
+    const commentId = +req.params.id;
     const index = comments.findIndex(c => c.id === commentId);
     if(index < 0) {
       res.status(404).json({code: 404, message: `Comment with ID=${commentId} not found.`});
