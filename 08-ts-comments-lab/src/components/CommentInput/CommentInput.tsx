@@ -84,7 +84,7 @@ export default class CommentInput extends Component<Props, State> {
 
   handleCommentSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newComment = {...this.state.fields, id: this.state.fields.id || Comment.getNextId()} as Comment;
+    const newComment = {...this.state.fields, id: +this.state.fields.id || Comment.getNextId()} as Comment;
     this.props.onSubmit(newComment);
     this.reset();
   };
