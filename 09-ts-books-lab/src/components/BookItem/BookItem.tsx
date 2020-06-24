@@ -10,10 +10,10 @@ export const BookItem: React.FC<Props> = ({book}) => {
   return (
     <div className="card-wrapper col l6 Book-card">
       <div className="card horizontal">
-        <div className="card-image waves-effect waves-block waves-light">
+        <div className="BookItem-card-image waves-effect waves-block waves-light">
           <img
             className="activator Book-front-image"
-            src={book.frontPage}
+            src={book.frontPage ? book.frontPage : '/img/no-image.jpg'}
             alt="front page"
           />
         </div>

@@ -11,7 +11,7 @@ export interface Repository<T extends Indentifiable> {
 }
 
 export class MockRepository<T extends Indentifiable> implements Repository<T> {
-    static nextId : IdType;
+    static nextId : number;
     private entities = new Map<IdType, T>();
     add(entity: T): T {
         entity.id = this.getNextId();
@@ -50,7 +50,7 @@ export class MockRepository<T extends Indentifiable> implements Repository<T> {
         if(!MockRepository.nextId) {
             MockRepository.nextId = 0;
         }
-        return ++MockRepository.nextId;
+        return ++MockRepository.nextId + '';
     }
     
 }

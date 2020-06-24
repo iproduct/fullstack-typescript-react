@@ -38,8 +38,10 @@ function App() {
   //   []); //on mount only
   
 
-  const handleSearch: SearchCallback =  (searchText) => {
-    BookService.loadBooks(searchText.split(/[\s,;]+/));
+  const handleSearch: SearchCallback =  async (searchText) => {
+    const foundBooks = await BookService.loadBooks(searchText.split(/[\s,;]+/));
+    console.log(foundBooks);
+    setBooks(foundBooks);
   };
   
   return (

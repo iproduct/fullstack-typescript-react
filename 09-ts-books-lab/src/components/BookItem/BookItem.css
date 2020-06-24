@@ -2,14 +2,14 @@
     width:100%;
 }
 
-.card.horizontal .card-image {
+.card.horizontal .BookItem-card-image {
     overflow: visible;
 }
 
-.card.horizontal .card-image img.Book-front-image {
+.card.horizontal .BookItem-card-image img.Book-front-image {
     height: 250px;
+    max-width: 180px;
     width: auto;
-    max-width: none;
 }
 .card-action.Book-card-action {
     position: absolute;

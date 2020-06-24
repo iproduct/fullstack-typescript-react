@@ -1,4 +1,4 @@
-export type IdType = number;
+export type IdType = string;
 
 export interface Indentifiable {
     id: IdType
