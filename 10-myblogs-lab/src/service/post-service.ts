@@ -1,6 +1,7 @@
 import { PostRepository } from '../dao/repository';
 import MOCK_POSTS from '../model/mock-posts';
 import { Post } from '../model/post.model';
+import { IdType } from '../shared/shared-types';
 
 export const GOOGLE_BOOKS_API = 'https://www.googleapis.com/posts/v1/volumes?q=';
 
@@ -11,7 +12,40 @@ class PostService {
     }
 
     async getAllPosts() {
-        return this.repo.findAll();
+        const resp = await fetch('http://localhost:9000/api/posts');
+        const posts = await resp.json();
+        return posts;
+    }
+
+    async createNewPost(post: Post) {
+        const resp = await fetch('http://localhost:9000/api/posts', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(post),
+        });
+        const created = await resp.json();
+        return created;
+    }
+
+    async updatePost(post: Post) {
+        const resp = await fetch(`http://localhost:9000/api/posts/${post.id}`, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(post),
+        });
+        const updated = await resp.json();
+        return updated;
+    }
+
+    async deletePost(postId: IdType) {
+        const resp = await fetch(`http://localhost:9000/api/posts/${postId}`, {
+            method: 'DELETE',
+            mode: 'cors'
+        });
+        const deleted = await resp.json();
+        return deleted;
     }
 
     // async loadPosts(searchTerms: string[]): Promise<Post[]> {
