@@ -1,4 +1,4 @@
-const mockBooks = [
+const MOCK_BOOKS = [
     {
         id: 1,
         title: 'React.js Book',
@@ -29,4 +29,4 @@ const mockBooks = [
     },
 ]
 
-export default mockBooks;
+export default MOCK_BOOKS;

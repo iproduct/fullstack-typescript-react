@@ -1,20 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import './App.css';
 import Nav from './components/Nav/Nav';
 import { SearchCallback } from './shared/shared-types';
 import { BookList } from './components/BookList/BookList';
 import { Book } from './model/book.model';
 import Header from './components/Header/Header';
+import MOCK_BOOKS from './model/mock-books';
 import BookService from './service/book-service';
+
+export interface BookAction {
+  type: string;
+  book: Book; 
+}
+
+// function booksReducer(state: Book[], action: BookAction) {
+//   switch (action.type) {
+//     case 'add':
+//       return [...state, action.book];
+//     // ... other actions ...
+//     default:
+//       return state;
+//   }
+// }
+
 
 function App() {
   const [books, setBooks] = useState<Book[]>([]);
   useEffect(() => {
-    setBooks(BookService.getAllBooks());
+    BookService.getAllBooks().then(
+      books => setBooks(books)
+    );
   }, []);
 
-  const handleSearch: SearchCallback =  (searchText) => {
+  // const [books, dispatch] = useReducer(booksReducer, []);
+  // useEffect(() => MOCK_BOOKS.forEach(
+  //   (book, index) => setTimeout(dispatch, index*2000, {type: 'add', book: book as Book})),
+  //   []); //on mount only
+  
 
+  const handleSearch: SearchCallback =  (searchText) => {
+    BookService.loadBooks(searchText.split(/[\s,;]+/));
   };
   
   return (
@@ -29,5 +54,8 @@ function App() {
     </React.Fragment>
   );
 }
+
+
+
 
 export default App;
