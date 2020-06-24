@@ -16,7 +16,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
-var COMMENTS_FILE = path.join(__dirname, 'comments.json');
+var POSTS_FILE = path.join(__dirname, 'posts.json');
 
 app.set('port', (process.env.PORT || 9000));
 
@@ -32,13 +32,13 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', '*');
     res.setHeader(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`);
     res.setHeader('Access-Control-Max-Age', 3600 ); // 1 hour
-    // Disable caching so we'll always get the latest comments.
+    // Disable caching so we'll always get the latest posts.
     res.setHeader('Cache-Control', 'no-cache');
     next();
 });
 
-app.get('/api/comments', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
+app.get('/api/posts', function(req, res) {
+  fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
@@ -47,88 +47,88 @@ app.get('/api/comments', function(req, res) {
   });
 });
 
-app.post('/api/comments', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
+app.post('/api/posts', function(req, res) {
+  fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
-    var comments = JSON.parse(data);
+    var posts = JSON.parse(data);
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    var newComment = {
+    var newPost = {
       id: Date.now(),
       author: req.body.author,
       text: req.body.text,
     };
-    comments.push(newComment);
-    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+    posts.push(newPost);
+    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
       if (err) {
         console.error(err);
         process.exit(1);
       }
-      res.status(201).location(`/api/comments/${newComment.id}`).json(newComment);
+      res.status(201).location(`/api/posts/${newPost.id}`).json(newPost);
     });
   });
 });
 
-app.put('/api/comments/:id', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
+app.put('/api/posts/:id', function(req, res) {
+  fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
-    var comments = JSON.parse(data);
+    var posts = JSON.parse(data);
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    const commentId = +req.params.id;
-    const comment = req.body;
-    if(commentId !== comment.id) {
+    const postId = +req.params.id;
+    const post = req.body;
+    if(postId !== post.id) {
       res.status(400).json({code: 400, message: `IDs in the URL and message body are different.`});
       return;
     }
-    const index = comments.findIndex(c => c.id === commentId);
+    const index = posts.findIndex(c => c.id === postId);
     if(index < 0) {
-      res.status(404).json({code: 404, message: `Comment with ID=${commentId} not found.`});
+      res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
       return;
     }
-    comments[index] = comment;
-    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+    posts[index] = post;
+    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
       if (err) {
         console.error(err);
         process.exit(1);
       }
-      res.json(comment); //200 OK with comment in the body
+      res.json(post); //200 OK with post in the body
     });
   });
 });
 
-app.delete('/api/comments/:id', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
+app.delete('/api/posts/:id', function(req, res) {
+  fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
-    let comments = JSON.parse(data);
+    let posts = JSON.parse(data);
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    const commentId = +req.params.id;
-    const index = comments.findIndex(c => c.id === commentId);
+    const postId = +req.params.id;
+    const index = posts.findIndex(c => c.id === postId);
     if(index < 0) {
-      res.status(404).json({code: 404, message: `Comment with ID=${commentId} not found.`});
+      res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
       return;
     }
-    const deleted = comments[index]
-    comments.splice(index, 1);
-    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
+    const deleted = posts[index]
+    posts.splice(index, 1);
+    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
       if (err) {
         console.error(err);
         process.exit(1);
       }
-      res.json(deleted); //200 OK with deleted comment in the body
+      res.json(deleted); //200 OK with deleted post in the body
     });
   });
 });
