@@ -1,15 +1,33 @@
-.card .card-content {
-    width:100%;
+.card {
+    padding: 10px;
+    height: 350px;
 }
 
-.card.horizontal .PostItem-card-image {
-    overflow: visible;
+.card .PostItem-card-content {
+    width: 100%;
 }
 
-.card.horizontal .PostItem-card-image img.Post-front-image {
-    height: 250px;
-    max-width: 180px;
-    width: auto;
+.card .PostItem-card-content p{
+    line-height:1.5rem;
+    max-height: 4.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card .PostItem-card-image {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 80%;
+    height: 180px;
+    margin: auto;
+
+}
+
+.card .PostItem-card-image img.PostItem-image {
+    height: 180px;
+    margin: auto;
+    padding: 0;
 }
 .card-action.Post-card-action {
     position: absolute;

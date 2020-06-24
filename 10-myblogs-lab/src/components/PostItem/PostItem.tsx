@@ -8,16 +8,16 @@ interface Props {
 
 export const PostItem: React.FC<Props> = ({post}) => {
   return (
-    <div className="card-wrapper col l6 Post-card">
-      <div className="card horizontal">
+    <div className="PostItem-card-wrapper col l6 Post-card">
+      <div className="card">
         <div className="PostItem-card-image waves-effect waves-block waves-light">
           <img
-            className="activator Post-front-image"
+            className="activator PostItem-image"
             src={post.imageUrl ? post.imageUrl : '/img/no-image.jpg'}
             alt="front page"
           />
         </div>
-        <div className="card-content">
+        <div className="PostItem-card-content">
           <span className="card-title activator grey-text text-darken-4">
             {post.title}
             <i className="material-icons right">more_vert</i>
