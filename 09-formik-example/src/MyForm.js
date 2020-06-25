@@ -44,7 +44,9 @@ export const MyForm = (props) => {
         >
           Reset
         </button>
-        <button type="submit" disabled={isSubmitting}>
+        <button type="submit" disabled={isSubmitting ||  
+            Object.values(touched).every(fieldTouched => !fieldTouched) ||
+            Object.values(errors).some(err => !!err === true)}>
           Submit
         </button>
 
