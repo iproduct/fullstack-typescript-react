@@ -45,9 +45,11 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
         >
             {({ values, handleChange, dirty, touched, errors, isSubmitting, handleReset }) => {
                 return (
-                    <Form className="col s12">
+                    <Form className="col s6">
                         <div className="row">
-                            <MaterialFiled name='title' />
+                            <MaterialFiled name='title' label='Title' />
+                            <MaterialFiled name='text' label='Blog Text' />
+                            <MaterialFiled name='imageUrl' label='Blog Image URL' />
                         </div>
                         <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
                             Object.values(touched).every(fieldTouched => !fieldTouched) ||
@@ -67,19 +69,20 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
 
 interface MaterialFiledProps {
     name: string;
+    label: string
 }
 
-export function MaterialFiled({name}: MaterialFiledProps) {
+export function MaterialFiled({name, label}: MaterialFiledProps) {
     const props = useFormikContext();
     const errors = props.errors as any;
     const touched = props.touched as any;
     console.log(errors,name);
     
     return (
-        <div className="input-field col s6">
+        <div className="input-field col s12">
         <Field type="text" className={errors[name] ? 'field-error': 'valid'} name={name}/>
         <label className={errors[name] && touched[name] ? 'active field-error': 'active'} htmlFor={name}>
-            Title
+            {label}
         </label>
         <ErrorMessage className="field-error" name={name} component="div" />
     </div>
