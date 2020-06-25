@@ -29,11 +29,18 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
         keywords: post?.keywords.join(', ') || ''
     }
     return (
-        <Formik
-            initialValues={initialValues}
-            onSubmit={async values => {
-                await new Promise(resolve => setTimeout(resolve, 500));
-                alert(JSON.stringify(values, null, 2));
+        <Formik initialValues={initialValues}
+            onSubmit={values => {
+                const result = {
+                        id: '',
+                        title:values.title,
+                        text: values.text,
+                        imageUrl: values.imageUrl,
+                        authorId: '1',
+                        keywords: values.keywords?.split(/[\s,;]+/),
+                        categories: values.categories?.split(/[\s,;]+/)
+                    } as Post;
+                onSubmitPost(result);
             }}
             validationSchema={Yup.object().shape({
                 title: Yup.string().required().min(2).max(40),
@@ -55,7 +62,7 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                             Object.values(touched).every(fieldTouched => !fieldTouched) ||
                             Object.values(errors).some(err => !!err === true)}>Submit<i className="material-icons right">send</i>
                         </button>
-                        <button type="button" className="btn waves-effect waves-light"  onClick={handleReset}
+                        <button type="button" className="btn waves-effect waves-light" onClick={handleReset}
                             disabled={!dirty || isSubmitting}> Reset <i className="material-icons right">cloud</i>
                         </button>
                         <DisplayFormikState />
@@ -72,20 +79,20 @@ interface MaterialFiledProps {
     label: string
 }
 
-export function MaterialFiled({name, label}: MaterialFiledProps) {
+export function MaterialFiled({ name, label }: MaterialFiledProps) {
     const props = useFormikContext();
     const errors = props.errors as any;
     const touched = props.touched as any;
-    console.log(errors,name);
-    
+    console.log(errors, name);
+
     return (
         <div className="input-field col s12">
-        <Field type="text" className={errors[name] ? 'field-error': 'valid'} name={name}/>
-        <label className={errors[name] && touched[name] ? 'active field-error': 'active'} htmlFor={name}>
-            {label}
-        </label>
-        <ErrorMessage className="field-error" name={name} component="div" />
-    </div>
+            <Field type="text" className={errors[name] ? 'field-error' : 'valid'} name={name} />
+            <label className={errors[name] && touched[name] ? 'active field-error' : 'active'} htmlFor={name}>
+                {label}
+            </label>
+            <ErrorMessage className="field-error" name={name} component="div" />
+        </div>
     );
 };
 
