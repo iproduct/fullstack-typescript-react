@@ -53,9 +53,7 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                                 <label className={errors.title && touched.title ? 'active field-error': 'active'} htmlFor="title">
                                     Title
                                 </label>
-                                {errors.title && touched.title && (
-                                    <div className="field-error">{errors.title}</div>
-                                )}
+                                <ErrorMessage className="field-error" name="title" component="div" />
                             </div>
                         </div>
                         <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
