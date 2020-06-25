@@ -34,7 +34,6 @@ const BasicReduced: React.FC<{}> = () => {
       >
         {({ isSubmitting }) => {
           return (
-
             <Form>
               <Field type="email" name="email" />
               <ErrorMessage className="input-feedback" name="email" component="div" />

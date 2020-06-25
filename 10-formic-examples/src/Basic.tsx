@@ -68,7 +68,7 @@ const Basic: React.FC<{}> = () => {
               <button type="submit" disabled={isSubmitting}>
                 Submit
               </button>
-              <DisplayFormikState {...props} />
+              <DisplayFormikState  />
             </form>
 
           )

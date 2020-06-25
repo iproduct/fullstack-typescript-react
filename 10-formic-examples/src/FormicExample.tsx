@@ -3,9 +3,7 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 
-export const DisplayFormikState = (props: any) => {
-  // Grab values and submitForm from context
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const DisplayFormikState = () => {
   const myprops = useFormikContext();
   return (
     <div style={{ margin: '1rem 0' }}>
