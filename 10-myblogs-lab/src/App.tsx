@@ -54,7 +54,10 @@ function App() {
 
   const handleSubmitPost: PostCallback =  (post) => {
     PostService.createNewPost(post).then(
-      created => setPosts(posts.concat(created))
+      created => {
+        setPosts(posts.concat(created));
+        setActiveView('posts');
+      }
     );
   };
   

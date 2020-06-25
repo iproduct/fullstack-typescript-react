@@ -46,8 +46,8 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                 title: Yup.string().required().min(2).max(40),
                 text: Yup.string().required().min(2).max(1024),
                 imageUrl: Yup.string().url(),
-                categories: Yup.string().matches(/(([\w-_+]+)[,\s]+)+/),
-                keywords: Yup.string().matches(/(([\w-_+]+)[,\s]+)+/),
+                categories: Yup.string().matches(/(([\w-_+]+)[,\s]*)+/),
+                keywords: Yup.string().matches(/(([\w-_+]+)[,\s]*)+/),
             })}
         >
             {({ values, handleChange, dirty, touched, errors, isSubmitting, handleReset }) => {
@@ -57,6 +57,8 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                             <MaterialFiled name='title' label='Title' />
                             <MaterialFiled name='text' label='Blog Text' />
                             <MaterialFiled name='imageUrl' label='Blog Image URL' />
+                            <MaterialFiled name='keywords' label='Keywords' />
+                            <MaterialFiled name='categories' label='Categories' />
                         </div>
                         <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
                             Object.values(touched).every(fieldTouched => !fieldTouched) ||

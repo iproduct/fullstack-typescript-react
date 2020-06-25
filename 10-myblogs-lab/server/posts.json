@@ -60,5 +60,34 @@
         "categories": [
             ""
         ]
+    },
+    {
+        "id": 1593088964947,
+        "title": "New in Spring",
+        "text": "Spring is Java framework ...",
+        "imageUrl": "https://www.publicdomainpictures.net/pictures/320000/velka/blute-blumen-garten-bluhen-1577191608UTW.jpg",
+        "authorId": "1",
+        "keywords": [
+            "spring",
+            "java"
+        ],
+        "categories": [
+            "programming",
+            "computers"
+        ]
+    },
+    {
+        "id": 1593089281458,
+        "title": "New in React",
+        "text": "React hooks are recent novelty ...",
+        "imageUrl": "https://www.publicdomainpictures.net/pictures/310000/velka/blute-blume-garten-natur.jpg",
+        "authorId": "1",
+        "keywords": [
+            "react",
+            "hoks"
+        ],
+        "categories": [
+            "programming"
+        ]
     }
 ]
