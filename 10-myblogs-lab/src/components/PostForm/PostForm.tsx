@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
 import React, { FC, useEffect } from 'react';
+import './PostForm.css';
 
 interface Props {
     post: Post | undefined;
@@ -46,10 +47,15 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                 return (
                     <Form className="col s12">
                         <div className="row">
+                            {errors.title}
                             <div className="input-field col s6">
-                                <Field type="text" className="validate" name="title"/>
-                                <label className="active" htmlFor="title">Title</label>
-                                <ErrorMessage className="input-feedback" name="title" component="div" />
+                                <Field type="text" className={errors.title ? 'invalid': 'valid'} name="title"/>
+                                <label className={errors.title && touched.title ? 'active field-error': 'active'} htmlFor="title">
+                                    Title
+                                </label>
+                                {errors.title && touched.title && (
+                                    <div className="field-error">{errors.title}</div>
+                                )}
                             </div>
                         </div>
                         <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
