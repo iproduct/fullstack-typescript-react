@@ -26,15 +26,16 @@
     {
         "id": "3",
         "title": "Learning React",
-        "text": "Functional Web Development with React and Redux, 1st Edition",
-        "authorId": "1",
+        "text": "**Functional Web Development** with *React* and *Redux*, 1st Edition",
         "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/51Q43WRXJzL._SX379_BO1,204,203,200_.jpg",
+        "authorId": "1",
         "keywords": [
             "functional",
             "react",
             "redux",
             "javascript"
-        ]
+        ],
+        "categories": []
     },
     {
         "id": "4",
@@ -46,19 +47,6 @@
             "react",
             "javascript",
             "react16"
-        ]
-    },
-    {
-        "id": 1593088690917,
-        "title": "New in React",
-        "text": "Hooks are new ...",
-        "imageUrl": "https://www.publicdomainpictures.net/pictures/270000/velka/darknetdark-netdark-webip-addres.jpg",
-        "authorId": "1",
-        "keywords": [
-            ""
-        ],
-        "categories": [
-            ""
         ]
     },
     {
@@ -77,10 +65,10 @@
         ]
     },
     {
-        "id": 1593089281458,
-        "title": "New in React",
-        "text": "React hooks are recent novelty ...",
-        "imageUrl": "https://www.publicdomainpictures.net/pictures/310000/velka/blute-blume-garten-natur.jpg",
+        "id": 1593104442276,
+        "title": "New in Spring",
+        "text": "Hey there!",
+        "imageUrl": "",
         "authorId": "1",
         "keywords": [
             "react",
@@ -91,77 +79,14 @@
         ]
     },
     {
-        "id": 1593101265814,
-        "title": "New in Spring",
-        "text": "Hey there!",
-        "imageUrl": "https://assets.logitech.com/assets/64683/performance-mouse-mx.png",
+        "id": 1593112838397,
+        "title": "New in React: Whats New and Noteworthy",
+        "text": "Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.  This page describes the APIs for the built-in Hooks in React.  If you’re new to Hooks, you might want to check out the overview first. You may also find useful information in the frequently asked questions section.  Basic Hooks:  \n - useState, \n - useEffect, \n - useContext.",
+        "imageUrl": "https://www.publicdomainpictures.net/pictures/270000/velka/darknetdark-netdark-webip-addres.jpg",
         "authorId": "1",
         "keywords": [
-            "aasdaSW",
-            "sadsad"
-        ],
-        "categories": [
-            "programming",
-            "computers"
-        ]
-    },
-    {
-        "id": 1593102470632,
-        "title": "Rescue Mission To Mars",
-        "text": "wqqwqwqe",
-        "imageUrl": "https://assets.logitech.com/assets/64683/performance-mouse-mx.png",
-        "authorId": "1",
-        "keywords": [
-            "spring",
-            "platform",
-            "java"
-        ],
-        "categories": [
-            "programming",
-            "computers"
-        ]
-    },
-    {
-        "id": 1593103186979,
-        "title": "New in Spring",
-        "text": "Hey there!",
-        "imageUrl": "https://assets.logitech.com/assets/64683/performance-mouse-mx.png",
-        "authorId": "1",
-        "keywords": [
-            "spring",
-            "java"
-        ],
-        "categories": [
-            "programming",
-            "computers"
-        ]
-    },
-    {
-        "id": 1593103959145,
-        "title": "Rescue Mission To Mars",
-        "text": "Hey there!",
-        "imageUrl": "https://www.publicdomainpictures.net/pictures/250000/velka/mars-1515656849bmH.jpg",
-        "authorId": "1",
-        "keywords": [
-            "aassdssddsa",
-            "wqweqewqewqewq333ewqewqewq",
-            "qwewqewqqwe"
-        ],
-        "categories": [
-            "sadsad",
-            "edfdsfsdfdsf",
-            "dsfsdfds"
-        ]
-    },
-    {
-        "id": 1593104005653,
-        "title": "New in Spring",
-        "text": "*abcd*",
-        "imageUrl": "https://assets.logitech.com/assets/64683/performance-mouse-mx.png",
-        "authorId": "1",
-        "keywords": [
-            "spring",
-            "java"
+            "react",
+            "hooks"
         ],
         "categories": [
             "programming",

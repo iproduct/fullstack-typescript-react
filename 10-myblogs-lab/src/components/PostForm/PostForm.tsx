@@ -3,7 +3,7 @@ import { PostCallback } from '../../shared/shared-types';
 import { Post } from '../../model/post.model';
 import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import { MaterialFiled } from '../MaterialField/MaterialField';
 import './PostForm.css';
@@ -14,6 +14,7 @@ interface Props {
 }
 
 interface MyFormValues {
+    id: string;
     title: string;
     text: string;
     imageUrl?: string;
@@ -23,26 +24,32 @@ interface MyFormValues {
 
 export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
     const initialValues: MyFormValues = {
+        id: post?.id || '',
         title: post?.title || '',
         text: post?.text || '',
         imageUrl: post?.imageUrl || '',
         categories: post?.categories?.join(', ') || '',
         keywords: post?.keywords.join(', ') || ''
     }
+    
+    useEffect(() => {
+        Array.from(document.getElementsByTagName('textarea')).map(txtarea => window.M.textareaAutoResize(txtarea));
+    });
     return (
         <Formik initialValues={initialValues}
             onSubmit={values => {
                 const result = {
-                        id: '',
+                        id: values.id,
                         title:values.title,
                         text: values.text,
                         imageUrl: values.imageUrl,
                         authorId: '1',
-                        keywords: values.keywords?.trim().split(/[\s,;]+/),
-                        categories: values.categories?.trim().split(/[\s,;]+/)
+                        keywords: values.keywords?.trim().split(/[\s,;]+/).filter(kword => kword.length > 0),
+                        categories: values.categories?.trim().split(/[\s,;]+/).filter(kword => kword.length > 0)
                     } as Post;
                 onSubmitPost(result);
             }}
+            validateOnChange
             validationSchema={Yup.object().shape({
                 title: Yup.string().required().min(2).max(40),
                 text: Yup.string().required().min(2).max(1024),
@@ -56,18 +63,17 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                     <Form className="col s6">
                         <div className="row">
                             <MaterialFiled name='title' label='Title' />
-                            <MaterialFiled name='text' label='Blog Text' />
+                            <MaterialFiled name='text' displayAs='textarea' label='Blog Text' />
                             <MaterialFiled name='imageUrl' label='Blog Image URL' />
                             <MaterialFiled name='keywords' label='Keywords' />
                             <MaterialFiled name='categories' label='Categories' />
                         </div>
                         <div className="PostForm-butons row">
-                            <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
-                                Object.values(touched).every(fieldTouched => !fieldTouched) ||
-                                Object.values(errors).some(err => !!err === true)}>Submit<i className="material-icons right">send</i>
+                            <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting || 
+                                !dirty || Object.values(errors).some(err => !!err === true)}>Submit<i className="material-icons right">send</i>
                             </button>
                             <button type="button" className="btn red waves-effect waves-light" onClick={handleReset}
-                                disabled={!dirty || isSubmitting}> Reset <i className="material-icons right">cloud</i>
+                                disabled={!dirty || isSubmitting}> Reset <i className="material-icons right">settings_backup_restore</i>
                             </button>
                         </div>
                         <DisplayFormikState />

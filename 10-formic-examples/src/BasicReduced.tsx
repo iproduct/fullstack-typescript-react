@@ -41,7 +41,7 @@ const BasicReduced: React.FC<{}> = () => {
               <ErrorMessage className="input-feedback" name="password" component="div" />
               <button type="submit" disabled={isSubmitting}>
                 Submit
-          </button>
+              </button>
               <DisplayFormikState />
             </Form>
           )

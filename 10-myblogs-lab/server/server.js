@@ -80,7 +80,7 @@ app.put('/api/posts/:id', function(req, res) {
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    const postId = +req.params.id;
+    const postId = req.params.id;
     const post = req.body;
     if(postId !== post.id) {
       res.status(400).json({code: 400, message: `IDs in the URL and message body are different.`});
@@ -112,7 +112,7 @@ app.delete('/api/posts/:id', function(req, res) {
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    const postId = +req.params.id;
+    const postId = req.params.id;
     const index = posts.findIndex(c => c.id === postId);
     if(index < 0) {
       res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});

@@ -29,6 +29,7 @@ export interface PostAction {
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [editedPost, setEditedPost] = useState<Post | undefined>(undefined);
   const [activeView, setActiveView] = useState<string>('posts');
   useEffect(() => {
     PostService.getAllPosts().then(
@@ -50,16 +51,42 @@ function App() {
 
   const handleViewChange: StringCallback = (viewName) => {
     setActiveView(viewName);
+    setEditedPost(undefined);
   };
 
-  const handleSubmitPost: PostCallback =  (post) => {
-    PostService.createNewPost(post).then(
-      created => {
-        setPosts(posts.concat(created));
+  const handleEditPost: PostCallback =  (post) => {
+    setEditedPost(post);
+    setActiveView('add-post');
+  };
+
+  const handleDeletePost: PostCallback =  (post) => {
+    PostService.deletePost(post.id).then(
+      deleted => {
+        setPosts(posts.filter(p => p.id !== deleted.id));
         setActiveView('posts');
       }
     );
   };
+
+  const handleSubmitPost: PostCallback =  (post) => {
+    if(post.id) { //Edit
+      PostService.updatePost(post).then(
+        edited => {
+          setPosts(posts.map(p => p.id === edited.id ? post: p));
+          setActiveView('posts');
+        }
+      );
+    } else { //Create
+      PostService.createNewPost(post).then(
+        created => {
+          setPosts(posts.concat(created));
+          setActiveView('posts');
+        }
+      );
+    }
+  };
+
+  
   
   return (
     <React.Fragment>
@@ -67,8 +94,8 @@ function App() {
     <div className="section no-pad-bot" id="index-banner">
       <div className="container" >
         <Header />
-        {activeView === 'posts' && <PostList posts={posts} />}
-        {activeView === 'add-post' && <PostForm post={undefined} onSubmitPost={handleSubmitPost} />}
+        {activeView === 'posts' && <PostList posts={posts} onEditPost={handleEditPost} onDeletePost={handleDeletePost}/>}
+        {activeView === 'add-post' && <PostForm post={editedPost} onSubmitPost={handleSubmitPost} />}
       </div>
     </div>
     </React.Fragment>

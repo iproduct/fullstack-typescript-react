@@ -1,10 +1,13 @@
 .card {
     padding: 10px;
-    height: 350px;
+    height: 400px;
 }
 
 .card .PostItem-card-content {
+    padding-top: 10px;
     width: 100%;
+    max-height: 180px;
+    overflow: hidden;
 }
 
 .card .PostItem-card-content p{
@@ -12,6 +15,8 @@
     max-height: 4.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 0;
+    margin: 0;
 }
 
 .card .PostItem-card-image {
@@ -21,7 +26,6 @@
     width: 80%;
     height: 180px;
     margin: auto;
-
 }
 
 .card .PostItem-card-image img.PostItem-image {
@@ -29,8 +33,71 @@
     margin: auto;
     padding: 0;
 }
-.card-action.Post-card-action {
+
+.PostItem-title {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.PostItem-card-actions.card-action {
     position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 50px;
     bottom: 5px;
+}
+
+.PostItem-card-actions.card-action button.btn, 
+.PostItem-card-actions.card-action button.btn-small, 
+.PostItem-card-actions.card-action button.btn-large {
+    margin-right: 10px;
+}
+
+.PostItem-card-actions.card-action .btn.danger {
+    background-color: #e04237;
+}
+
+.PostItem-card-actions.card-action .btn.danger:hover {
+    background-color: #fc3c2e;
+}
+
+.PostItem-tags .chip {
+    position: relative;
+    top:-5px;
+    line-height: 1.6em;
+    height: 1.8em;
+}
+
+.PostItem-tags{
+    display: block;
+}
+
+.PostItem-tags .category {
+    margin-top:0;
+    background-color: #26a69a;
+    transition: background-color .3s;
+    color:white;
+}
+
+.PostItem-tags .category:hover {
+    background-color: #11ddc9;
+    transition: background-color .3s
+}
+
+.PostItem-tags .keyword {
+    background-color: #979797;
+    transition: background-color .3s;
+    color:white;
+}
+
+.PostItem-tags .keyword:hover {
+    background-color: #616161;
+    transition: background-color .3s
+}
+
+.card p ul>li {
+    list-style-type: square;
+    list-style-position: inside;
 }

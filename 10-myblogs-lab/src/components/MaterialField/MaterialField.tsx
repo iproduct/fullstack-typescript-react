@@ -5,17 +5,18 @@ import './MaterialField.css';
 interface MaterialFiledProps<Values> {
     name: keyof Values;
     label: string
+    displayAs?: string;
 }
 
-export function MaterialFiled<Values>({ name, label }: MaterialFiledProps<Values>) {
+export function MaterialFiled<Values>({ name, label, displayAs }: MaterialFiledProps<Values>) {
     const props: FormikContextType<Values> = useFormikContext<Values>();
     const errors = props.errors;
     const touched = props.touched;
-    console.log(errors, name);
-
+    let classes = displayAs === 'textarea' ? 'materialize-textarea ': '';
+    classes += errors[name] && touched[name] ? 'invalid' : 'valid';
     return (
         <div className="input-field col s12">
-            <Field type="text" className={errors[name] && touched[name] ? 'invalid' : 'valid'} name={name} />
+            <Field type="text" as={displayAs} className={classes} name={name} />
             <label className={errors[name] && touched[name] ? 'active field-error' : 'active'} htmlFor={name.toString()}>
                 {label}
             </label>
