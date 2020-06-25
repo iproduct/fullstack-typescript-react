@@ -53,15 +53,12 @@ app.post('/api/posts', function(req, res) {
       console.error(err);
       process.exit(1);
     }
-    var posts = JSON.parse(data);
+    const posts = JSON.parse(data);
+    const newPost = req.body;
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    var newPost = {
-      id: Date.now(),
-      author: req.body.author,
-      text: req.body.text,
-    };
+    newPost.id = Date.now();
     posts.push(newPost);
     fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
       if (err) {
