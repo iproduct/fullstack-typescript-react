@@ -1,10 +1,10 @@
 
 import { PostCallback } from '../../shared/shared-types';
 import { Post } from '../../model/post.model';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useFormikContext, FormikConfig, FormikState } from 'formik';
 import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import './PostForm.css';
 
 interface Props {
@@ -47,14 +47,7 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                 return (
                     <Form className="col s12">
                         <div className="row">
-                            {errors.title}
-                            <div className="input-field col s6">
-                                <Field type="text" className={errors.title ? 'field-error': 'valid'} name="title"/>
-                                <label className={errors.title && touched.title ? 'active field-error': 'active'} htmlFor="title">
-                                    Title
-                                </label>
-                                <ErrorMessage className="field-error" name="title" component="div" />
-                            </div>
+                            <MaterialFiled name='title' />
                         </div>
                         <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
                             Object.values(touched).every(fieldTouched => !fieldTouched) ||
@@ -70,3 +63,26 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
         </Formik>
     );
 };
+
+
+interface MaterialFiledProps {
+    name: string;
+}
+
+export function MaterialFiled({name}: MaterialFiledProps) {
+    const props = useFormikContext();
+    const errors = props.errors as any;
+    const touched = props.touched as any;
+    console.log(errors,name);
+    
+    return (
+        <div className="input-field col s6">
+        <Field type="text" className={errors[name] ? 'field-error': 'valid'} name={name}/>
+        <label className={errors[name] && touched[name] ? 'active field-error': 'active'} htmlFor={name}>
+            Title
+        </label>
+        <ErrorMessage className="field-error" name={name} component="div" />
+    </div>
+    );
+};
+
