@@ -1,12 +1,7 @@
-.field-error,
-.input-field > label.field-error,
-input[type='text']:not(.browser-default):focus:not([readonly])+label.field-error {
-  color: red;
-  margin-top: 0.25rem;
+.PostForm-butons {
+    padding: 10px;
 }
 
-input.field-error[type='text']:not(.browser-default),
-input.field-error[type='text']:not(.browser-default):focus {
-  border-bottom: 1px solid red;
-  outline-color: red;
+.PostForm-butons .btn {
+    margin-right: 10px;
 }

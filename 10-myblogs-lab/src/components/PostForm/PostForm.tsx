@@ -1,10 +1,11 @@
 
 import { PostCallback } from '../../shared/shared-types';
 import { Post } from '../../model/post.model';
-import { Formik, Form, Field, ErrorMessage, useFormikContext, FormikConfig, FormikState } from 'formik';
 import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
 import React, { FC } from 'react';
+import { Formik, Form } from 'formik';
+import { MaterialFiled } from '../MaterialField/MaterialField';
 import './PostForm.css';
 
 interface Props {
@@ -37,8 +38,8 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                         text: values.text,
                         imageUrl: values.imageUrl,
                         authorId: '1',
-                        keywords: values.keywords?.split(/[\s,;]+/),
-                        categories: values.categories?.split(/[\s,;]+/)
+                        keywords: values.keywords?.trim().split(/[\s,;]+/),
+                        categories: values.categories?.trim().split(/[\s,;]+/)
                     } as Post;
                 onSubmitPost(result);
             }}
@@ -46,8 +47,8 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                 title: Yup.string().required().min(2).max(40),
                 text: Yup.string().required().min(2).max(1024),
                 imageUrl: Yup.string().url(),
-                categories: Yup.string().matches(/(([\w-_+]+)[,\s]*)+/),
-                keywords: Yup.string().matches(/(([\w-_+]+)[,\s]*)+/),
+                keywords: Yup.string().trim().matches(/^([\w-_+]+)([,\s]+([\w-_+]+))*$/, 'Keywords must be a comma/space separated list of words. Words should contain only letters, digits, "_", "+" and "-" characters.'),
+                categories: Yup.string().trim().matches(/^([\w-_+]+)([,\s]+([\w-_+]+))*$/, 'Categories must be a comma/space separated list of words. Words should contain only letters, digits, "_", "+" and "-" characters.'),
             })}
         >
             {({ values, handleChange, dirty, touched, errors, isSubmitting, handleReset }) => {
@@ -60,13 +61,15 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                             <MaterialFiled name='keywords' label='Keywords' />
                             <MaterialFiled name='categories' label='Categories' />
                         </div>
-                        <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
-                            Object.values(touched).every(fieldTouched => !fieldTouched) ||
-                            Object.values(errors).some(err => !!err === true)}>Submit<i className="material-icons right">send</i>
-                        </button>
-                        <button type="button" className="btn waves-effect waves-light" onClick={handleReset}
-                            disabled={!dirty || isSubmitting}> Reset <i className="material-icons right">cloud</i>
-                        </button>
+                        <div className="PostForm-butons row">
+                            <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
+                                Object.values(touched).every(fieldTouched => !fieldTouched) ||
+                                Object.values(errors).some(err => !!err === true)}>Submit<i className="material-icons right">send</i>
+                            </button>
+                            <button type="button" className="btn red waves-effect waves-light" onClick={handleReset}
+                                disabled={!dirty || isSubmitting}> Reset <i className="material-icons right">cloud</i>
+                            </button>
+                        </div>
                         <DisplayFormikState />
                     </Form>
                 )
@@ -74,27 +77,3 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
         </Formik>
     );
 };
-
-
-interface MaterialFiledProps {
-    name: string;
-    label: string
-}
-
-export function MaterialFiled({ name, label }: MaterialFiledProps) {
-    const props = useFormikContext();
-    const errors = props.errors as any;
-    const touched = props.touched as any;
-    console.log(errors, name);
-
-    return (
-        <div className="input-field col s12">
-            <Field type="text" className={errors[name] ? 'field-error' : 'valid'} name={name} />
-            <label className={errors[name] && touched[name] ? 'active field-error' : 'active'} htmlFor={name}>
-                {label}
-            </label>
-            <ErrorMessage className="field-error" name={name} component="div" />
-        </div>
-    );
-};
-

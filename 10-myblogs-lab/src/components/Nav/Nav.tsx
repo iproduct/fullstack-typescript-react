@@ -17,18 +17,18 @@ export default function Nav({onSearchPosts, onViewChange, ...rest}: Props) : Rea
       <div className="navbar">
         <nav className="light-blue lighten-1" role="navigation">
           <div className="nav-wrapper container">
-            <a id="logo-container" href="#" className="brand-logo">
+            <a id="logo-container" className="brand-logo">
               <i className="large material-icons">menu_book</i>
             </a>
-            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+            <a data-target="mobile-demo" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
             <ul className="right hide-on-med-and-down">
               <li>
-                <span onClick={choosePosts}>Posts</span>
+                <a onClick={choosePosts}>Posts</a>
               </li>
               <li>
-                <span onClick={chooseAddPost}>Add New Post</span>
+                <a onClick={chooseAddPost}>Add Post</a>
               </li>
               <li>
                 <a href="collapsible.html">Javascript</a>
