@@ -49,9 +49,7 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                             <div className="input-field col s6">
                                 <Field type="text" className="validate" name="title"/>
                                 <label className="active" htmlFor="title">Title</label>
-                                {errors.title && touched.title && (
-                                    <span className="helper-text" data-error={errors.title} data-success=""/>
-                                )}
+                                <ErrorMessage className="input-feedback" name="title" component="div" />
                             </div>
                         </div>
                         <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
