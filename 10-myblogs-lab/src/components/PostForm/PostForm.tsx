@@ -49,7 +49,7 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
                         <div className="row">
                             {errors.title}
                             <div className="input-field col s6">
-                                <Field type="text" className={errors.title ? 'invalid': 'valid'} name="title"/>
+                                <Field type="text" className={errors.title ? 'field-error': 'valid'} name="title"/>
                                 <label className={errors.title && touched.title ? 'active field-error': 'active'} htmlFor="title">
                                     Title
                                 </label>
