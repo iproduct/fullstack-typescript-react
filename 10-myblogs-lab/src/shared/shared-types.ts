@@ -6,7 +6,7 @@ export interface Indentifiable {
     id: IdType
 }
 
-export interface SearchCallback {
+export interface StringCallback {
     (searchText: string): void;
 }
 

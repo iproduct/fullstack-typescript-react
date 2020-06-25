@@ -1,9 +1,10 @@
-import * as React from 'react';
-import { PostCallback, IdType } from '../../shared/shared-types';
+
+import { PostCallback } from '../../shared/shared-types';
 import { Post } from '../../model/post.model';
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
+import React, { FC, useEffect } from 'react';
 
 interface Props {
     post: Post | undefined;
@@ -18,8 +19,7 @@ interface MyFormValues {
     keywords?: string;
 }
 
-
-export const PostForm: React.FC<Props> = ({ post, onSubmitPost }) => {
+export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
     const initialValues: MyFormValues = {
         title: post?.title || '',
         text: post?.text || '',
@@ -42,29 +42,29 @@ export const PostForm: React.FC<Props> = ({ post, onSubmitPost }) => {
                 keywords: Yup.string().matches(/(([\w-_+]+)[,\s]+)+/),
             })}
         >
-            {({ dirty, touched, errors, isSubmitting, handleReset }) => {
+            {({ values, handleChange, dirty, touched, errors, isSubmitting, handleReset }) => {
                 return (
-                    <div className="row">
-                        <Form className="col s12">
-                            <div className="row">
-                                <div className="input-field col s6">
-                                    <Field type="title" name="title" />
-                                    <ErrorMessage className="helper-text" data-error="wrong" data-success="right" name="title" component="div" />
-                                    <label htmlFor="first_name">First Name</label>
-                                </div>
+                    <Form className="col s12">
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <Field type="text" className="validate" name="title"/>
+                                <label className="active" htmlFor="title">Title</label>
+                                {errors.title && touched.title && (
+                                    <span className="helper-text" data-error={errors.title} data-success=""/>
+                                )}
                             </div>
-
-                            <button type="submit" disabled={isSubmitting ||
-                                Object.values(touched).every(fieldTouched => !fieldTouched) ||
-                                Object.values(errors).some(err => !!err === true)}>Submit</button>
-                            <button type="button" className="outline" onClick={handleReset}
-                                disabled={!dirty || isSubmitting}> Reset </button>
-                            <DisplayFormikState />
-                        </Form>
-                    </div>
+                        </div>
+                        <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
+                            Object.values(touched).every(fieldTouched => !fieldTouched) ||
+                            Object.values(errors).some(err => !!err === true)}>Submit<i className="material-icons right">send</i>
+                        </button>
+                        <button type="button" className="btn waves-effect waves-light"  onClick={handleReset}
+                            disabled={!dirty || isSubmitting}> Reset <i className="material-icons right">cloud</i>
+                        </button>
+                        <DisplayFormikState />
+                    </Form>
                 )
-            }
-            }
+            }}
         </Formik>
     );
 };

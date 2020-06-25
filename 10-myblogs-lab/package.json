@@ -43,7 +43,9 @@
     ]
   },
   "devDependencies": {
+    "@types/materialize-css": "^1.0.8",
     "@types/yup": "^0.29.3",
+    "materialize-css": "^1.0.0",
     "nodemon": "^2.0.4"
   }
 }

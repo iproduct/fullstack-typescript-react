@@ -7,7 +7,8 @@ import Nav from './components/Nav/Nav';
 import { PostList } from './components/PostList/PostList';
 import { Post } from './model/post.model';
 import PostService from './service/post-service';
-import { SearchCallback } from './shared/shared-types';
+import { StringCallback, PostCallback } from './shared/shared-types';
+import { PostForm } from './components/PostForm/PostForm';
 
 // import MOCK_POSTS from './model/mock-posts';
 export interface PostAction {
@@ -28,6 +29,7 @@ export interface PostAction {
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [activeView, setActiveView] = useState<string>('posts');
   useEffect(() => {
     PostService.getAllPosts().then(
       posts => setPosts(posts)
@@ -40,19 +42,28 @@ function App() {
   //   []); //on mount only
   
 
-  const handleSearch: SearchCallback =  async (searchText) => {
+  const handleSearch: StringCallback =  async (searchText) => {
     // const foundPosts = await PostService.loadPosts(searchText.split(/[\s,;]+/));
     // console.log(foundPosts);
     // setPosts(foundPosts);
   };
+
+  const handleViewChange: StringCallback = (viewName) => {
+    setActiveView(viewName);
+  };
+
+  const handleSubmitPost: PostCallback =  (post) => {
+    
+  };
   
   return (
     <React.Fragment>
-    <Nav onSearchPosts={handleSearch} />
+    <Nav onSearchPosts={handleSearch} onViewChange={handleViewChange}/>
     <div className="section no-pad-bot" id="index-banner">
       <div className="container" >
         <Header />
-        <PostList posts={posts} />
+        {activeView === 'posts' && <PostList posts={posts} />}
+        {activeView === 'add-post' && <PostForm post={undefined} onSubmitPost={handleSubmitPost} />}
       </div>
     </div>
     </React.Fragment>

@@ -1,14 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, ReactElement } from 'react';
 import './Nav.css';
-import { SearchCallback } from '../../shared/shared-types';
+import { StringCallback } from '../../shared/shared-types';
 
 interface Props {
-  onSearchPosts: SearchCallback;
+  onSearchPosts: StringCallback;
+  onViewChange: StringCallback;
 }
 
-export default function Nav({onSearchPosts, ...rest}: Props) : ReactElement<Props> {
+export default function Nav({onSearchPosts, onViewChange, ...rest}: Props) : ReactElement<Props> {
   const [searchText, setSearchText] = useState('');
+  const choosePosts = () => onViewChange('posts');
+  const chooseAddPost = () => onViewChange('add-post');
   return (
     <React.Fragment>
       <div className="navbar">
@@ -22,10 +25,10 @@ export default function Nav({onSearchPosts, ...rest}: Props) : ReactElement<Prop
             </a>
             <ul className="right hide-on-med-and-down">
               <li>
-                <a href="sass.html">Sass</a>
+                <span onClick={choosePosts}>Posts</span>
               </li>
               <li>
-                <a href="badges.html">Components</a>
+                <span onClick={chooseAddPost}>Add New Post</span>
               </li>
               <li>
                 <a href="collapsible.html">Javascript</a>
