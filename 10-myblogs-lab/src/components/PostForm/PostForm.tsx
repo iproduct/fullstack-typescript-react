@@ -44,20 +44,24 @@ export const PostForm: React.FC<Props> = ({ post, onSubmitPost }) => {
         >
             {({ dirty, touched, errors, isSubmitting, handleReset }) => {
                 return (
-                    <Form>
-                        <Field type="email" name="email" />
-                        <ErrorMessage className="input-feedback" name="email" component="div" />
-                        <Field type="password" name="password" />
-                        <ErrorMessage className="input-feedback" name="password" component="div" />
-                        <button type="submit" disabled={isSubmitting ||
-                            Object.values(touched).every(fieldTouched => !fieldTouched) ||
-                            Object.values(errors).some(err => !!err === true)}>
-                            Submit
-                        </button>
-                        <button type="button" className="outline" onClick={handleReset}
-                            disabled={!dirty || isSubmitting}> Reset </button>
-                        <DisplayFormikState />
-                    </Form>
+                    <div className="row">
+                        <Form className="col s12">
+                            <div className="row">
+                                <div className="input-field col s6">
+                                    <Field type="title" name="title" />
+                                    <ErrorMessage className="helper-text" data-error="wrong" data-success="right" name="title" component="div" />
+                                    <label htmlFor="first_name">First Name</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" disabled={isSubmitting ||
+                                Object.values(touched).every(fieldTouched => !fieldTouched) ||
+                                Object.values(errors).some(err => !!err === true)}>Submit</button>
+                            <button type="button" className="outline" onClick={handleReset}
+                                disabled={!dirty || isSubmitting}> Reset </button>
+                            <DisplayFormikState />
+                        </Form>
+                    </div>
                 )
             }
             }
