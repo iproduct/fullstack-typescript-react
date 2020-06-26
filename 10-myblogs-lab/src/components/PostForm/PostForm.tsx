@@ -3,7 +3,7 @@ import { PostCallback } from '../../shared/shared-types';
 import { Post } from '../../model/post.model';
 import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import MaterialFiled from '../MaterialField/MaterialField';
 import './PostForm.css';
@@ -29,20 +29,31 @@ interface PostFormParams {
 }
 
 export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
-    const initialValues: MyFormValues = {
+    const [initialValues, setInitialValues] = useState<MyFormValues>({
         id: post?.id || '',
         title: post?.title || '',
         text: post?.text || '',
         imageUrl: post?.imageUrl || '',
         categories: post?.categories?.join(', ') || '',
         keywords: post?.keywords.join(', ') || ''
-    }
+    });
     
     const params = useParams<PostFormParams>();
 
     useEffect(() => {
-        PostService.
-    }, []);
+        if(params.postId) {
+            PostService.getPostById(params.postId).then(
+                post => setInitialValues({
+                    id: post?.id || '',
+                    title: post?.title || '',
+                    text: post?.text || '',
+                    imageUrl: post?.imageUrl || '',
+                    categories: post?.categories?.join(', ') || '',
+                    keywords: post?.keywords.join(', ') || ''
+                })
+            )
+        }
+    }, [params.postId]);
 
     useEffect(() => {
         Array.from(document.getElementsByTagName('textarea')).map(txtarea => window.M.textareaAutoResize(txtarea));
