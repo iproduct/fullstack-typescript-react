@@ -17,6 +17,7 @@
     "materialize-css": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2",
     "yup": "^0.29.1"
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@types/materialize-css": "^1.0.8",
+    "@types/react-router-dom": "^5.1.5",
     "@types/yup": "^0.29.3",
     "nodemon": "^2.0.4"
   }

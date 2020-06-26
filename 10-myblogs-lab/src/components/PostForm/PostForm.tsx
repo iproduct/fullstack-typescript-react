@@ -7,6 +7,8 @@ import React, { FC, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import MaterialFiled from '../MaterialField/MaterialField';
 import './PostForm.css';
+import { useParams } from 'react-router-dom';
+import PostService from '../../service/post-service';
 
 interface Props {
     post: Post | undefined;
@@ -22,6 +24,10 @@ export interface MyFormValues {
     keywords?: string;
 }
 
+interface PostFormParams {
+    postId: string;
+}
+
 export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
     const initialValues: MyFormValues = {
         id: post?.id || '',
@@ -32,6 +38,12 @@ export const PostForm: FC<Props> = ({ post, onSubmitPost }) => {
         keywords: post?.keywords.join(', ') || ''
     }
     
+    const params = useParams<PostFormParams>();
+
+    useEffect(() => {
+        PostService.
+    }, []);
+
     useEffect(() => {
         Array.from(document.getElementsByTagName('textarea')).map(txtarea => window.M.textareaAutoResize(txtarea));
     });

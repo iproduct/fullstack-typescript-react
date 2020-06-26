@@ -47,6 +47,28 @@ app.get('/api/posts', function(req, res) {
   });
 });
 
+app.delete('/api/posts/:id', function(req, res) {
+  fs.readFile(POSTS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    let posts = JSON.parse(data);
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    const postId = req.params.id;
+    const index = posts.findIndex(c => c.id === postId);
+    if(index < 0) {
+      res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
+      return;
+    }
+    const found = posts[index];
+    res.json(found); //200 OK with deleted post in the body
+  });
+});
+
+
 app.post('/api/posts', function(req, res) {
   fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {

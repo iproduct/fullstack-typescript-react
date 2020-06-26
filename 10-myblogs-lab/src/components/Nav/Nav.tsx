@@ -2,33 +2,31 @@
 import React, { useState, ReactElement } from 'react';
 import './Nav.css';
 import { StringCallback } from '../../shared/shared-types';
+import { NavLink } from 'react-router-dom';
 
 interface Props {
   onSearchPosts: StringCallback;
-  onViewChange: StringCallback;
 }
 
-export default function Nav({onSearchPosts, onViewChange, ...rest}: Props) : ReactElement<Props> {
+export default function Nav({onSearchPosts, ...rest}: Props) : ReactElement<Props> {
   const [searchText, setSearchText] = useState('');
-  const choosePosts = () => onViewChange('posts');
-  const chooseAddPost = () => onViewChange('add-post');
   return (
     <React.Fragment>
       <div className="navbar">
         <nav className="light-blue lighten-1" role="navigation">
           <div className="nav-wrapper container">
-            <a id="logo-container" className="brand-logo">
+            <NavLink to="/" activeClassName="active" id="logo-container" className="brand-logo">
               <i className="large material-icons">menu_book</i>
-            </a>
+            </NavLink>
             <a data-target="mobile-demo" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
             <ul className="right hide-on-med-and-down">
               <li>
-                <a onClick={choosePosts}>Posts</a>
+                <NavLink to="/posts" activeClassName="active">Posts</NavLink>
               </li>
               <li>
-                <a onClick={chooseAddPost}>Add Post</a>
+                <NavLink to="/add-post" activeClassName="active">Add Post</NavLink>
               </li>
               <li>
                 <a href="collapsible.html">Javascript</a>

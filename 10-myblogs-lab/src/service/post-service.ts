@@ -17,6 +17,12 @@ class PostService {
         return posts;
     }
 
+    async getPostById(postId: IdType) {
+        const resp = await fetch(`http://localhost:9000/api/posts/${postId}`);
+        const post = await resp.json();
+        return post;
+    }
+
     async createNewPost(post: Post) {
         const resp = await fetch('http://localhost:9000/api/posts', {
             method: 'POST',
@@ -48,6 +54,7 @@ class PostService {
         return deleted;
     }
 
+ 
     // async loadPosts(searchTerms: string[]): Promise<Post[]> {
     //     console.log(searchTerms);
     //     const searchText = searchTerms.join(' ');
