@@ -8,8 +8,6 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -22,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src", "server"
+    "src"
   ]
 }

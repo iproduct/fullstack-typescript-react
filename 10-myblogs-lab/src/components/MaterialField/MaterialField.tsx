@@ -1,4 +1,4 @@
-import { FormikContextType, useFormikContext, Field, ErrorMessage, getIn } from "formik";
+import {Field, ErrorMessage, getIn, connect, FormikContextType } from 'formik';
 import React from "react";
 import './MaterialField.css';
 
@@ -8,10 +8,11 @@ interface MaterialFiledProps {
     displayAs?: string;
 }
 
-export function MaterialFiled({ name, label, displayAs }: MaterialFiledProps) {
-    const props = useFormikContext();
-    const error = getIn(props.errors, name);
-    const touched = getIn(props.touched, name);
+function MaterialFiled(
+    { name, label, displayAs, formik }: MaterialFiledProps & {formik: FormikContextType<{}>;} ) {
+    // const props = useFormikContext();
+    const error = getIn(formik.errors, name);
+    const touched = getIn(formik.touched, name);
     let classes = displayAs === 'textarea' ? 'materialize-textarea ': '';
     classes += error && touched ? 'invalid' : 'valid';
     return (
@@ -24,3 +25,5 @@ export function MaterialFiled({ name, label, displayAs }: MaterialFiledProps) {
         </div>
     );
 };
+
+export default connect<MaterialFiledProps>(MaterialFiled);

@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
 import React, { FC, useEffect } from 'react';
 import { Formik, Form } from 'formik';
-import { MaterialFiled } from '../MaterialField/MaterialField';
+import MaterialFiled from '../MaterialField/MaterialField';
 import './PostForm.css';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
     onSubmitPost: PostCallback;
 }
 
-interface MyFormValues {
+export interface MyFormValues {
     id: string;
     title: string;
     text: string;

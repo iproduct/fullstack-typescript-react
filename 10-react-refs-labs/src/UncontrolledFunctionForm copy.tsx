@@ -17,7 +17,7 @@ export function UncontrolledFunctionForm() {
         <form onSubmit={handleSubmit}>
             <label>
                 Name:
-            <input type="text" ref={nameRef} />
+                <input type="text" ref={nameRef} />
             </label>
             <label>
                 Experience:

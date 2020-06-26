@@ -82,7 +82,7 @@
     {
         "id": "1593153087473",
         "title": "React Refs",
-        "text": "#### Forwarding refs to DOM components\n##### EConsider a *FancyButton* component that renders the native button *DOM element*:\n\n    function FancyButton(props) {\n      return (\n        <button className=\"FancyButton\">\n          {props.children}\n        </button>\n      );\n    }\n**React components hide their implementation details**, including their rendered output. Other components using FancyButton usually will not need to obtain a ref to the inner button DOM element. This is good because it prevents components from relying on each other’s DOM structure too much.",
+        "text": "Forwarding refs to DOM components\nEConsider a *FancyButton* component that renders the native button *DOM element*:\n\n    function FancyButton(props) {\n      return (\n        <button className=\"FancyButton\">\n          {props.children}\n        </button>\n      );\n    }\n**React components hide their implementation details**, including their rendered output. Other components using FancyButton usually will not need to obtain a ref to the inner button DOM element. This is good because it prevents components from relying on each other’s DOM structure too much.",
         "imageUrl": "https://www.publicdomainpictures.net/pictures/80000/velka/internet-and-multimedia-sharing.jpg",
         "authorId": "1",
         "keywords": [
@@ -92,8 +92,7 @@
             "forward-ref"
         ],
         "categories": [
-            "programming",
-            "computers"
+            "programming"
         ]
     }
 ]
