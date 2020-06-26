@@ -58,7 +58,7 @@ app.post('/api/posts', function(req, res) {
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    newPost.id = Date.now();
+    newPost.id = Date.now() + '';
     posts.push(newPost);
     fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
       if (err) {
