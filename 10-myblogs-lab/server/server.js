@@ -47,7 +47,7 @@ app.get('/api/posts', function(req, res) {
   });
 });
 
-app.delete('/api/posts/:id', function(req, res) {
+app.get('/api/posts/:id', function(req, res) {
   fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {
       console.error(err);
