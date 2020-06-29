@@ -39,7 +39,7 @@ export default repoDetails.reducer
 export const fetchIssuesCount = (
   org: string,
   repo: string
-): AppThunk => async dispatch => {
+): AppThunk => async (dispatch: (arg0: any) => void) => {
   try {
     const repoDetails = await getRepoDetails(org, repo)
     dispatch(getRepoDetailsSuccess(repoDetails))

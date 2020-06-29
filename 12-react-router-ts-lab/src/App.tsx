@@ -1,82 +1,154 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Link, Switch, Route, Redirect, useRouteMatch, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from "react-router-dom";
 
-function App() {
-  return (
-    <Router>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/topics">Topics</Link></li>
-      </ul>
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/topics">
-          <Topics />
-        </Route>
-      </Switch>
-    </Router>
-  );
+// This example has 3 pages: a public page, a protected
+// page, and a login screen. In order to see the protected
+// page, you must first login. Pretty standard stuff.
+//
+// First, visit the public page. Then, visit the protected
+// page. You're not yet logged in, so you are redirected
+// to the login page. After you login, you are redirected
+// back to the protected page.
+//
+// Notice the URL change each time. If you click the back
+// button at this point, would you expect to go back to the
+// login page? No! You're already logged in. Try it out,
+// and you'll see you go back to the page you visited
+// just *before* logging in, the public page.
+
+interface AuthCallback {
+    (): void;
 }
 
-export default App;
-
-function Home() {
-  return <h2>Home</h2>
+interface PrivateRouteProps {
+    path: string;
+    authService: AuthService;
 }
 
-function About() {
-  return <h2>About</h2>
+interface AuthService {
+    readonly isAuthenticated: boolean;
+    authenticate(cb: AuthCallback): void;
+    signout(cb: AuthCallback): void;
 }
 
-function Topics() {
-  const match = useRouteMatch();
-  return (
-    <React.Fragment>
-      <h2>Topics</h2>
-      <ul>
-        <li><Link to={`${match.url}/spa/components`}>Components</Link></li>
-        <li><Link to={`${match.url}/react/props-vs-state`}>Properties vs. State</Link></li>
-        <li><Link to={`${match.url}/react/refs`}>Refs to Components</Link></li>
-        <li><Link to={`${match.url}/state-management/controlled-or-uncontrolled`}>To Control or Not to Control?</Link></li>
-      </ul>
-        <Route path={`${match.path}/:category/:topicName`}>
-          <Topic />
-        </Route>
-        <Route path={`${match.path}/:catName`}>
-          <TopicChat />
-        </Route>
-    </React.Fragment>
-  )
+interface AuthCompProps {
+    authService: AuthService;
 }
 
-interface TopicParams {
-  category: string;
-  topicName: string;
+interface LocationState {
+   from: { 
+       pathname: "/" 
+   }
 }
 
-function Topic() {
-  const params = useParams<TopicParams>();
-  return (
-    <h3>Requested Topic Name: {params.category} / {params.topicName}</h3>
-  );
+export default function AuthExample() {
+    const [authenticated, setAuthenticated] = useState(false);
+
+    const fakeAuth = {
+        get isAuthenticated() {
+            return authenticated;
+        },
+        authenticate(cb: AuthCallback) {
+            setAuthenticated(true);
+            setTimeout(cb, 100); // fake async
+        },
+        signout(cb: AuthCallback) {
+            setAuthenticated(false);
+            setTimeout(cb, 100);
+        }
+    };
+    
+    return (
+        <Router>
+            <div>
+                <AuthButton authService={fakeAuth}/>
+
+                <ul>
+                    <li>
+                        <Link to="/public">Public Page</Link>
+                    </li>
+                    <li>
+                        <Link to="/protected">Protected Page</Link>
+                    </li>
+                </ul>
+
+                <Switch>
+                    <Route path="/public">
+                        <PublicPage />
+                    </Route>
+                    <Route path="/login">
+                        <LoginPage authService={fakeAuth}/>
+                    </Route>
+                    <PrivateRoute path="/protected" authService={fakeAuth}>
+                        <ProtectedPage />
+                    </PrivateRoute>
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
-interface TopicChatParams {
-  catName: string;
+
+
+const AuthButton: React.FC<AuthCompProps> = ({authService, ...rest}) => {
+    let history = useHistory();
+
+    return authService.isAuthenticated ? (
+        <p>
+            Welcome!{" "}
+            <button
+                onClick={() => {
+                    authService.signout(() => history.push("/"));
+                }}
+            >
+                Sign out
+            </button>
+        </p>
+    ) : (
+        <p>You are not logged in.</p>
+    );
 }
-function TopicChat() {
-  const params = useParams<TopicChatParams>();
-  return (
-    <h3>Chat for Category: {params.catName}</h3>
-  );
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ authService, children, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={({ location }) =>
+            authService.isAuthenticated ? (
+                    children
+                ) : (
+                    <Redirect to={{pathname: "/login", state: { from: location } }}/>
+                )
+            }
+        />
+    );
+}
+
+function PublicPage() {
+    return <h3>Public</h3>;
+}
+
+function ProtectedPage() {
+    return <h3>Protected</h3>;
+}
+const LoginPage: React.FC<AuthCompProps> = ({authService}) => {
+    let history = useHistory();
+    let location = useLocation();
+
+    let { from }: any = location.state || { from: { pathname: "/" } };
+    let login = () => {
+        authService.authenticate(() => {
+            history.replace(from);
+        });
+    };
+
+    return (
+        <div>
+            <p>You must log in to view the page at {from.pathname}</p>
+            <button onClick={login}>Log in</button>
+        </div>
+    );
 }
