@@ -1,6 +1,4 @@
 import React, { ReactElement, useState } from 'react'
-import { sendMessage } from '../../features/chat/actions';
-import { send } from 'q';
 import { MessageTextCallback } from '../../types';
 
 interface Props {
@@ -13,6 +11,7 @@ export default function ChatInterface({ userName, sendMessage }: Props): ReactEl
 
     function send() {
         sendMessage(message);
+        setMessage("");
     }
 
     function keyPress(ev: React.KeyboardEvent) {
