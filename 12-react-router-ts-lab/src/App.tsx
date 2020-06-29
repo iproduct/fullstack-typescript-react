@@ -138,7 +138,7 @@ const LoginPage: React.FC<AuthCompProps> = ({authService}) => {
     let history = useHistory();
     let location = useLocation();
 
-    let { from }: any = location.state || { from: { pathname: "/" } };
+    let { from }  = (location.state || { from: { pathname: "/" } }) as LocationState;
     let login = () => {
         authService.authenticate(() => {
             history.replace(from);
