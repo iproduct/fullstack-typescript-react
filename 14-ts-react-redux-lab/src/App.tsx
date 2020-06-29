@@ -1,10 +1,10 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState, ReactElement, useEffect } from 'react';
 import './App.css';
 import ChatHistory from './components/ChatHistory/ChatHistory';
 import ChatInterface from './components/ChatInterface/ChatInterface';
 import { AppState, AllActionTypes } from './features/index';
 import { Message } from './features/chat/types';
-import { MessageTextCallback, MessageCallback } from './types';
+import { MessageTextCallback, MessageCallback, SystemStateCallback } from './types';
 import { Dispatch } from 'redux';
 import { sendMessage } from './features/chat/actions';
 import { updateSession } from './features/system/actions';
@@ -15,9 +15,10 @@ interface Props {
   messages: Message[];
   userName: string;
   onSendMessage: MessageCallback;
+  onUpdateSession: SystemStateCallback;
 }
 
-function App({ messages, userName, onSendMessage }: Props): ReactElement {
+function App({ messages, userName, onSendMessage, onUpdateSession }: Props): ReactElement {
   const handleSendMessage: MessageTextCallback = (messageText) => {
     onSendMessage({
       user: userName,
@@ -25,6 +26,14 @@ function App({ messages, userName, onSendMessage }: Props): ReactElement {
       timestamp: new Date().getTime()
     });
   }
+
+  useEffect(() => {
+    onUpdateSession({
+      loggedIn: true,
+      session: "mySession01",
+      userName: "Trayan"
+    });
+  }, []);
 
   return (
     <div className="parent">
