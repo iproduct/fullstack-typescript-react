@@ -1,0 +1,31 @@
+import React, { ReactElement, useState } from 'react'
+import { sendMessage } from '../../features/chat/actions';
+import { send } from 'q';
+import { MessageTextCallback } from '../../types';
+
+interface Props {
+    userName: string,
+    sendMessage: MessageTextCallback;
+}
+
+export default function ChatInterface({ userName, sendMessage }: Props): ReactElement {
+    const [message, setMessage] = useState("");
+
+    function send() {
+        sendMessage(message);
+    }
+
+    function keyPress(ev: React.KeyboardEvent) {
+        if (ev.key === 'Enter') {
+            send()
+        }
+    }
+    return (
+        <div className="chat-interface">
+            <h3>User: {userName}</h3>
+            <input value={message} onChange={ev => setMessage(ev.target.value)} 
+                onKeyPress={keyPress}/>
+            <button onClick={send}>Send</button>
+        </div>
+    )
+}

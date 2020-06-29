@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from "react-router-dom";
 
@@ -74,9 +74,7 @@ export default function AuthExample() {
                 </ul>
 
                 <Switch>
-                    <Route path="/public">
-                        <PublicPage />
-                    </Route>
+                    <Route path="/public" children={<PublicPage />} />
                     <Route path="/login">
                         <LoginPage authService={fakeAuth}/>
                     </Route>
@@ -89,9 +87,7 @@ export default function AuthExample() {
     );
 }
 
-
-
-const AuthButton: React.FC<AuthCompProps> = ({authService, ...rest}) => {
+function AuthButton({authService, ...rest}: AuthCompProps): ReactElement {
     let history = useHistory();
 
     return authService.isAuthenticated ? (
