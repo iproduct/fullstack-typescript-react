@@ -1,0 +1,38 @@
+{
+  "name": "15-ts-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "start:watch": "nodemon",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "eslint": "^7.3.1",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  },
+  "nodemonConfig": {
+    "ignore": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    ".git",
+    "node_modules"
+    ],
+    "watch": [
+    "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
+    }
+}
