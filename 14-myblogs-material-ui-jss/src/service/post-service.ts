@@ -14,13 +14,13 @@ class PostService {
     async getAllPosts() {
         const resp = await fetch('http://localhost:9000/api/posts');
         const posts = await resp.json();
-        return posts;
+        return posts as Post[];
     }
 
     async getPostById(postId: IdType) {
         const resp = await fetch(`http://localhost:9000/api/posts/${postId}`);
         const post = await resp.json() as Post;
-        return post;
+        return post as Post;
     }
 
     async createNewPost(post: Post) {
@@ -31,7 +31,7 @@ class PostService {
             body: JSON.stringify(post),
         });
         const created = await resp.json() as Post;
-        return created;
+        return created as Post;
     }
 
     async updatePost(post: Post) {
@@ -42,7 +42,7 @@ class PostService {
             body: JSON.stringify(post),
         });
         const updated = await resp.json() as Post;
-        return updated;
+        return updated as Post;
     }
 
     async deletePost(postId: IdType) {

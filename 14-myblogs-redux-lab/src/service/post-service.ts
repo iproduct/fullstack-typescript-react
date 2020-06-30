@@ -3,7 +3,7 @@ import MOCK_POSTS from '../model/mock-posts';
 import { Post } from '../model/post.model';
 import { IdType } from '../shared/shared-types';
 
-export const GOOGLE_BOOKS_API = 'https://www.googleapis.com/posts/v1/volumes?q=';
+export const API_BASE = 'http://localhost:9000/api';
 
 class PostService {
     private repo = new PostRepository();
@@ -12,19 +12,19 @@ class PostService {
     }
 
     async getAllPosts() {
-        const resp = await fetch('http://localhost:9000/api/posts');
+        const resp = await fetch(`${API_BASE}/posts`);
         const posts = await resp.json();
         return posts;
     }
 
     async getPostById(postId: IdType) {
-        const resp = await fetch(`http://localhost:9000/api/posts/${postId}`);
+        const resp = await fetch(`${API_BASE}/posts/${postId}`);
         const post = await resp.json();
         return post;
     }
 
     async createNewPost(post: Post) {
-        const resp = await fetch('http://localhost:9000/api/posts', {
+        const resp = await fetch(`${API_BASE}/posts`, {
             method: 'POST',
             mode: 'cors',
             headers: {'Content-Type': 'application/json'},
@@ -35,7 +35,7 @@ class PostService {
     }
 
     async updatePost(post: Post) {
-        const resp = await fetch(`http://localhost:9000/api/posts/${post.id}`, {
+        const resp = await fetch(`${API_BASE}/posts/${post.id}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {'Content-Type': 'application/json'},
@@ -46,7 +46,7 @@ class PostService {
     }
 
     async deletePost(postId: IdType) {
-        const resp = await fetch(`http://localhost:9000/api/posts/${postId}`, {
+        const resp = await fetch(`${API_BASE}/posts/${postId}`, {
             method: 'DELETE',
             mode: 'cors'
         });
@@ -74,5 +74,5 @@ class PostService {
     // }
 }
 
-export default new PostService(GOOGLE_BOOKS_API);
+export default new PostService(API_BASE);
 

@@ -122,8 +122,14 @@ interface PostsState {
   export const fetchPosts = (): AppThunk => async (dispatch) => {
     try {
       dispatch(getPostsStart())
-      const posts = await PostService.getAllPosts()
+      const localPosts = localStorage.getItem('posts');
+      if(localPosts) {
+        console.log(localPosts);
+        dispatch(getPostsSuccess({ posts: JSON.parse(localPosts) }));
+      }
+      const posts = await PostService.getAllPosts() 
       dispatch(getPostsSuccess({ posts }))
+      localStorage.setItem('posts', JSON.stringify(posts));
     } catch (err) {
       dispatch(postsFailure(err))
     }

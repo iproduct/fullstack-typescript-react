@@ -56,12 +56,13 @@
     {
         "id": "1593112838397",
         "title": "New in React: Whats New and Noteworthy",
-        "text": "Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.  This page describes the APIs for the built-in Hooks in React.  If you’re new to Hooks, you might want to check out the overview first. You may also find useful information in the frequently asked questions section.  Basic Hooks:  \n - useState, \n - useEffect, \n - useContext,\n - useReducer.\n\nThings to remember:\n1. Use latest React version\n2. Know the rules of hooks\n3. Build your custom hooks",
+        "text": "Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.  This page describes the APIs for the built-in Hooks in React.  If you’re new to Hooks, you might want to check out the overview first. You may also find useful information in the frequently asked questions section.  Basic Hooks:  \n - useState, \n - useEffect, \n - useContext,\n - useReducer,\n - useDispatch.\n\nThings to remember:\n1. Use latest React version\n2. Know the rules of hooks\n3. Build your custom hooks",
         "imageUrl": "https://www.publicdomainpictures.net/pictures/270000/velka/darknetdark-netdark-webip-addres.jpg",
         "authorId": "1",
         "keywords": [
             "react",
-            "hooks"
+            "hooks",
+            "redux"
         ],
         "categories": [
             "programming",

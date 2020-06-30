@@ -2,16 +2,19 @@ import './App.css';
 
 import React, { useEffect, useState } from 'react';
 
-import Header from './components/Header/Header';
-import Nav from './components/Nav/Nav';
-import { PostList } from './components/PostList/PostList';
-import { Post } from './model/post.model';
-import PostService from './service/post-service';
-import { StringCallback, PostCallback } from './shared/shared-types';
-import { PostForm } from './components/PostForm/PostForm';
+import Header from '../components/Header/Header';
+import Nav from '../components/Nav/Nav';
+import { PostList } from '../components/PostList/PostList';
+import { Post } from '../model/post.model';
+import PostService from '../service/post-service';
+import { StringCallback, PostCallback } from '../shared/shared-types';
+import { PostForm } from '../components/PostForm/PostForm';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import MOCK_POSTS from './model/mock-posts';
+import { RootState } from './rootReducer';
+import { fetchPosts } from '../features/posts/postsSlice';
 export interface PostAction {
   type: string;
   post: Post;
@@ -29,16 +32,16 @@ export interface PostAction {
 
 
 function App() {
-  const [posts, setPosts] = useState<Post[]>([]);
   const [editedPost, setEditedPost] = useState<Post | undefined>(undefined);
 
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const posts = useSelector((state: RootState) => state.posts.posts);
 
   useEffect(() => {
-    PostService.getAllPosts().then(
-      posts => setPosts(posts)
-    );
-  }, []);
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   // const [posts, dispatch] = useReducer(postsReducer, []);
   // useEffect(() => MOCK_BOOKS.forEach(
@@ -61,7 +64,7 @@ function App() {
   const handleDeletePost: PostCallback = (post) => {
     PostService.deletePost(post.id).then(
       deleted => {
-        setPosts(posts.filter(p => p.id !== deleted.id));
+        // setPosts(posts.filter(p => p.id !== deleted.id));
         history.push('/posts');
       }
     );
@@ -71,13 +74,13 @@ function App() {
     if (post.id) { //Edit
       PostService.updatePost(post).then(
         edited => {
-          setPosts(posts.map(p => p.id === edited.id ? post : p));
+          // setPosts(posts.map(p => p.id === edited.id ? post : p));
         }
       );
     } else { //Create
       PostService.createNewPost(post).then(
         created => {
-          setPosts(posts.concat(created));
+          // setPosts(posts.concat(created));
         }
       );
     }

@@ -12,6 +12,7 @@ import { updateSession } from './features/system/actions';
 import { MessageCallback, MessageTextCallback, SystemStateCallback } from './types';
 
 interface Props {
+  myProp: string;
   messages: Message[];
   userName: string;
   sendMessage: MessageCallback;
@@ -43,7 +44,7 @@ function App({ messages, userName, sendMessage, updateSession} :Props): ReactEle
   );
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppState, ownProps: {myProp: string;}) => ({
   messages: state.chat.messages,
   userName: state.system.userName
 });

@@ -10,13 +10,6 @@ import { sendMessage } from './features/chat/actions';
 import { updateSession } from './features/system/actions';
 import { MessageTextCallback } from './types';
 
-interface Props {
-  // messages: Message[];
-  // userName: string;
-  // onSendMessage: MessageCallback;
-  // onUpdateSession: SystemStateCallback;
-}
-
 function App(): ReactElement {
 
   const messages = useSelector((state: AppState) => state.chat.messages);
@@ -56,25 +49,4 @@ function App(): ReactElement {
   );
 }
 
-// const mapStateToProps = (state: AppState) => ({
-//   messages: state.chat.messages,
-//   userName: state.system.userName
-// });
-
-
-// const mapDispatchToProps = (dispatch: Dispatch<AllActionTypes>) => {
-//   const memoizedCallback = createSelector(
-//     (newSystemState) => dispatch(updateSession(newSystemState)),
-//     []
-//   );
-//   return ({
-//     onSendMessage: (message: Message) => {
-//       dispatch(sendMessage(message));
-//     },
-//     onUpdateSession: memoizedCallback
-//   });
-// }
-
 export default App;
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
