@@ -10,11 +10,13 @@
   "scripts": {
     "server": "node --inspect=5858 -r ts-node/register ./src/server.ts",
     "tsc": "tsc -w",
-    "start": "concurrently --kill-others \"nodemon\" \"livereload ./dist -w 1000 -d\"",
+    "start": "concurrently --kill-others \"nodemon\" \"livereload ./dist -d\"",
     "build": "tsc"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "irc": "^0.5.2",
+    "rxjs": "^6.5.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
