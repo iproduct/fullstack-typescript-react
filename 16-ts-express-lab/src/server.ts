@@ -37,6 +37,16 @@ app.use(function (req, res, next) {
 
 app.use('/api/posts', postsRouter);
 
+app.use(function (err, req, res, next) {
+    console.error(err);
+    res.status = err.status || 500;
+    res.json({
+        status: err.status,
+        message: err.message,
+        error: process.env.NODE_ENV === 'production' ? '' : err
+    });
+});
+
 app.locals.postDbFile = POSTS_FILE;
 
 app.listen(app.get('port'), function () {
