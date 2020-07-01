@@ -10,59 +10,58 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 import * as express from 'express';
-import {Request, Response} from 'express';
+import * as fsPromise from 'fs/promises';
+import * as path from 'path';
 
-var fs = require('fs');
-var path = require('path');
-var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
 
-var POSTS_FILE = path.join(__dirname, 'posts.json');
+var POSTS_FILE = path.join(__dirname, '../posts.json');
 
 app.set('port', (process.env.PORT || 9000));
 
-app.use('/', express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use('/', express.static(path.join(__dirname, '../public')));
+app.use(express.json());
 
 // Additional middleware which will set headers that we need on each request.
-app.use(function(req, res, next) {
-    // Set permissive CORS header - this allows this server to be used only as
-    // an API server in conjunction with something like webpack-dev-server.
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-    res.setHeader(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`);
-    res.setHeader('Access-Control-Max-Age', 3600 ); // 1 hour
-    // Disable caching so we'll always get the latest posts.
-    res.setHeader('Cache-Control', 'no-cache');
-    next();
+app.use(function (req, res, next) {
+  // Set permissive CORS header - this allows this server to be used only as
+  // an API server in conjunction with something like webpack-dev-server.
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`);
+  res.setHeader('Access-Control-Max-Age', 3600); // 1 hour
+  // Disable caching so we'll always get the latest posts.
+  res.setHeader('Cache-Control', 'no-cache');
+  next();
 });
 
-app.get('/api/posts', function(req, res) {
-  fs.readFile(POSTS_FILE, function(err, data) {
+async function readPostsFromFile(req, res) {
+  try {
+    const data = await fsPromise.readFile(POSTS_FILE);
+    return JSON.parse(data.toString());
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+app.get('/api/posts', (req, res) => 
+  readPostsFromFile(req,res).then(posts => res.json(posts)));
+
+app.get('/api/posts/:id', function (req, res) {
+  fs.readFile(POSTS_FILE, function (err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
-    res.json(JSON.parse(data));
-  });
-});
-
-app.get('/api/posts/:id', function(req, res) {
-  fs.readFile(POSTS_FILE, function(err, data) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    let posts = JSON.parse(data);
+    let posts = JSON.parse(data.toString());
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
     const postId = req.params.id;
     const index = posts.findIndex(c => c.id === postId);
-    if(index < 0) {
-      res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
+    if (index < 0) {
+      res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
       return;
     }
     const found = posts[index];
@@ -71,20 +70,20 @@ app.get('/api/posts/:id', function(req, res) {
 });
 
 
-app.post('/api/posts', function(req, res) {
-  fs.readFile(POSTS_FILE, function(err, data) {
+app.post('/api/posts', function (req, res) {
+  fs.readFile(POSTS_FILE, function (err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
-    const posts = JSON.parse(data);
+    const posts = JSON.parse(data.toString());
     const newPost = req.body;
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
     newPost.id = Date.now() + '';
     posts.push(newPost);
-    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
+    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function (err) {
       if (err) {
         console.error(err);
         process.exit(1);
@@ -94,29 +93,29 @@ app.post('/api/posts', function(req, res) {
   });
 });
 
-app.put('/api/posts/:id', function(req, res) {
-  fs.readFile(POSTS_FILE, function(err, data) {
+app.put('/api/posts/:id', function (req, res) {
+  fs.readFile(POSTS_FILE, function (err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
-    var posts = JSON.parse(data);
+    var posts = JSON.parse(data.toString());
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
     const postId = req.params.id;
     const post = req.body;
-    if(postId !== post.id) {
-      res.status(400).json({code: 400, message: `IDs in the URL and message body are different.`});
+    if (postId !== post.id) {
+      res.status(400).json({ code: 400, message: `IDs in the URL and message body are different.` });
       return;
     }
     const index = posts.findIndex(c => c.id === postId);
-    if(index < 0) {
-      res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
+    if (index < 0) {
+      res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
       return;
     }
     posts[index] = post;
-    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
+    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function (err) {
       if (err) {
         console.error(err);
         process.exit(1);
@@ -126,25 +125,25 @@ app.put('/api/posts/:id', function(req, res) {
   });
 });
 
-app.delete('/api/posts/:id', function(req, res) {
-  fs.readFile(POSTS_FILE, function(err, data) {
+app.delete('/api/posts/:id', function (req, res) {
+  fs.readFile(POSTS_FILE, function (err, data) {
     if (err) {
       console.error(err);
       process.exit(1);
     }
-    let posts = JSON.parse(data);
+    let posts = JSON.parse(data.toString());
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
     const postId = req.params.id;
     const index = posts.findIndex(c => c.id === postId);
-    if(index < 0) {
-      res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
+    if (index < 0) {
+      res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
       return;
     }
     const deleted = posts[index]
     posts.splice(index, 1);
-    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
+    fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function (err) {
       if (err) {
         console.error(err);
         process.exit(1);
@@ -155,6 +154,6 @@ app.delete('/api/posts/:id', function(req, res) {
 });
 
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });
