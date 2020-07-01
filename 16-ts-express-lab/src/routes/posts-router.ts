@@ -1,19 +1,8 @@
 import { Router } from 'express';
 import { readPostsFromFile, writePostsToFile } from '../utils/file-utils';
 import { AppError } from '../model/errors';
-import { sendError } from '../utils/http-utils';
 
 const router = Router();
-
-// router.use(function (err, req, res, next) {
-//     console.error(err);
-//     res.status = err.status || 500;
-//     res.json({
-//         status: err.status,
-//         message: err.message,
-//         error: process.env.NODE_ENV === 'production' ? '' : err
-//     });
-// });
 
 router.get('/', (req, res, next) =>
     readPostsFromFile(req.app.locals.postDbFile)
@@ -29,7 +18,7 @@ router.get('/:id', async (req, res, next) => {
         const postId = req.params.id;
         const index = posts.findIndex(post => post.id === postId);
         if (index < 0) {
-            sendError(new AppError(404, `Post with ID=${postId} not found.`), res);
+            next(new AppError(404, `Post with ID=${postId} not found.`));
             return;
         }
         const found = posts[index];
@@ -64,12 +53,12 @@ router.put('/:id', async function (req, res, next) {
         const postId = req.params.id;
         const post = req.body;
         if (postId !== post.id) {
-            sendError(new AppError(400, `IDs in the URL and message body are different.`), res);
+            next(new AppError(400, `IDs in the URL and message body are different.`));
             return;
         }
         const index = posts.findIndex(c => c.id === postId);
         if (index < 0) {
-            sendError(new AppError(404, `Post with ID=${postId} not found.`), res);
+            next(new AppError(404, `Post with ID=${postId} not found.`));
             return;
         }
         posts[index] = post;
@@ -89,7 +78,7 @@ router.delete('/:id', async function (req, res, next) {
         const postId = req.params.id;
         const index = posts.findIndex(c => c.id === postId);
         if (index < 0) {
-            sendError(new AppError(404, `Post with ID=${postId} not found.`), res);
+            next(new AppError(404, `Post with ID=${postId} not found.`));
             return;
         }
         const deleted = posts[index]

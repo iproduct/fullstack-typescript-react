@@ -10,6 +10,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 import * as express from 'express';
+import { Request, Response, NextFunction } from 'express';
 import * as path from 'path';
 import postsRouter from './routes/posts-router';
 
@@ -37,14 +38,18 @@ app.use(function (req, res, next) {
 
 app.use('/api/posts', postsRouter);
 
-app.use(function (err, req, res, next) {
-    console.error(err);
-    res.status = err.status || 500;
-    res.json({
-        status: err.status,
-        message: err.message,
-        error: process.env.NODE_ENV === 'production' ? '' : err
-    });
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
+  console.error(err);
+  res.status = err['status'] || 500;
+  res.json({
+    status: res.status,
+    message: err.message,
+    error: process.env.NODE_ENV === 'production' ? '' : err
+  });
 });
 
 app.locals.postDbFile = POSTS_FILE;
