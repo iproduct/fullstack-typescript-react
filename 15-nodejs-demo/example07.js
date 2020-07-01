@@ -8,7 +8,8 @@ var server = http.createServer(function (req, res) {
         process.nextTick(() => console.log("First job done!"))
         console.log("Immediate");
         res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end(data);
+        res.write(data)
+        res.end();
     });
 });
 server.listen(PORT);

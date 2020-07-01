@@ -7,6 +7,7 @@ const PORT = 9000;
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
+    res.
     res.end(`<h2>Hello World from TypeScript:</h2> ${req.rawHeaders.join('<br>')}`);
 })
 

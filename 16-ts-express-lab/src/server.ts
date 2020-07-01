@@ -13,6 +13,7 @@ import * as express from 'express';
 import * as fsPromise from 'fs/promises';
 import * as path from 'path';
 import { Post } from './model/post.model';
+import { nextTick } from 'process';
 
 var app = express();
 
@@ -36,93 +37,96 @@ app.use(function (req, res, next) {
   next();
 });
 
-async function readPostsFromFile() {
+const readPostsFromFile = async () =>
+  JSON.parse((await fsPromise.readFile(POSTS_FILE)).toString()) as Post[];
+
+const writePostsToFile = async (posts: Post[]) =>
+  fsPromise.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4));
+
+app.get('/api/posts', (req, res, next) =>
+  readPostsFromFile()
+    .then(posts => res.json(posts))
+    .catch(next));
+
+app.get('/api/posts/:id', async (req, res, next) => {
   try {
-    const data = await fsPromise.readFile(POSTS_FILE);
-    return JSON.parse(data.toString()) as Post[];
+    const posts = await readPostsFromFile();
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    const postId = req.params.id;
+    const index = posts.findIndex(post => post.id === postId);
+    if (index < 0) {
+      res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
+      return;
+    }
+    const found = posts[index];
+    res.json(found); //200 OK with deleted post in the body
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    next(err);
   }
-}
+});
 
-async function writePostsToFile(posts: Post[]) {
+app.post('/api/posts', async (req, res, next) => {
   try {
-    await fsPromise.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4))
+    const posts = await readPostsFromFile();
+    const newPost = req.body;
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    newPost.id = Date.now() + '';
+    posts.push(newPost);
+    await writePostsToFile(posts);
+    res.status(201).location(`/api/posts/${newPost.id}`).json(newPost);
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    next(err);
   }
-}
-
-app.get('/api/posts', (req, res) =>
-  readPostsFromFile().then(posts => res.json(posts)));
-
-app.get('/api/posts/:id', async (req, res) => {
-  const posts = await readPostsFromFile();
-  // NOTE: In a real implementation, we would likely rely on a database or
-  // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-  // treat Date.now() as unique-enough for our purposes.
-  const postId = req.params.id;
-  const index = posts.findIndex(c => c.id === postId);
-  if (index < 0) {
-    res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
-    return;
-  }
-  const found = posts[index];
-  res.json(found); //200 OK with deleted post in the body
 });
 
-
-
-app.post('/api/posts', async (req, res) => {
-  const posts = await readPostsFromFile();
-  const newPost = req.body;
-  // NOTE: In a real implementation, we would likely rely on a database or
-  // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-  // treat Date.now() as unique-enough for our purposes.
-  newPost.id = Date.now() + '';
-  posts.push(newPost);
-  await writePostsToFile(posts);
-  res.status(201).location(`/api/posts/${newPost.id}`).json(newPost);
+app.put('/api/posts/:id', async function (req, res, next) {
+  try {
+    const posts = await readPostsFromFile();
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    const postId = req.params.id;
+    const post = req.body;
+    if (postId !== post.id) {
+      res.status(400).json({ code: 400, message: `IDs in the URL and message body are different.` });
+      return;
+    }
+    const index = posts.findIndex(c => c.id === postId);
+    if (index < 0) {
+      res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
+      return;
+    }
+    posts[index] = post;
+    await writePostsToFile(posts);
+    res.json(post); //200 OK with post in the body
+  } catch (err) {
+    next(err);
+  }
 });
 
-app.put('/api/posts/:id', async function (req, res) {
-  const posts = await readPostsFromFile();
-  // NOTE: In a real implementation, we would likely rely on a database or
-  // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-  // treat Date.now() as unique-enough for our purposes.
-  const postId = req.params.id;
-  const post = req.body;
-  if (postId !== post.id) {
-    res.status(400).json({ code: 400, message: `IDs in the URL and message body are different.` });
-    return;
+app.delete('/api/posts/:id', async function (req, res, next) {
+  try {
+    const posts = await readPostsFromFile();
+    // NOTE: In a real implementation, we would likely rely on a database or
+    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
+    // treat Date.now() as unique-enough for our purposes.
+    const postId = req.params.id;
+    const index = posts.findIndex(c => c.id === postId);
+    if (index < 0) {
+      res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
+      return;
+    }
+    const deleted = posts[index]
+    posts.splice(index, 1);
+    await writePostsToFile(posts);
+    res.json(deleted); //200 OK with deleted post in the body
+  } catch (err) {
+    next(err);
   }
-  const index = posts.findIndex(c => c.id === postId);
-  if (index < 0) {
-    res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
-    return;
-  }
-  posts[index] = post;
-  await writePostsToFile(posts);
-  res.json(post); //200 OK with post in the body
-});
-
-app.delete('/api/posts/:id', async function (req, res) {
-  const posts = await readPostsFromFile();
-  // NOTE: In a real implementation, we would likely rely on a database or
-  // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-  // treat Date.now() as unique-enough for our purposes.
-  const postId = req.params.id;
-  const index = posts.findIndex(c => c.id === postId);
-  if (index < 0) {
-    res.status(404).json({ code: 404, message: `Post with ID=${postId} not found.` });
-    return;
-  }
-  const deleted = posts[index]
-  posts.splice(index, 1);
-  await writePostsToFile(posts);
-  res.json(deleted); //200 OK with deleted post in the body
 });
 
 
