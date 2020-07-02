@@ -18,7 +18,7 @@ interface Props {
 }
 
 export interface MyFormValues {
-    id: string;
+    _id: string;
     title: string;
     text: string;
     imageUrl?: string;
@@ -34,7 +34,7 @@ export const PostForm: FC<Props> = () => {
     const params = useParams<PostFormParams>();
     const post = useSelector((state: RootState) => {
         if (params.postId) {
-            const index = state.posts.posts.findIndex(p => p.id === params.postId);
+            const index = state.posts.posts.findIndex(p => p._id === params.postId);
             if (index >= 0) {
                 return state.posts.posts[index];
             }
@@ -42,7 +42,7 @@ export const PostForm: FC<Props> = () => {
         return undefined;
     });
     const initialValues: MyFormValues = {
-        id: post?.id || '',
+        _id: post?._id || '',
         title: post?.title || '',
         text: post?.text || '',
         imageUrl: post?.imageUrl || '',
@@ -66,15 +66,15 @@ export const PostForm: FC<Props> = () => {
         <Formik initialValues={initialValues}
             onSubmit={values => {
                 const result = {
-                    id: values.id,
+                    _id: values._id,
                     title: values.title,
                     text: values.text,
                     imageUrl: values.imageUrl,
-                    authorId: '1',
+                    authorId: '',
                     keywords: values.keywords?.trim().split(/[\s,;]+/).filter(kword => kword.length > 0),
                     categories: values.categories?.trim().split(/[\s,;]+/).filter(kword => kword.length > 0)
                 } as Post;
-                if (result.id) { //Edit
+                if (result._id) { //Edit
                     dispatch(updatePost(result));
                 } else { //Create
                     dispatch(createPost(result));

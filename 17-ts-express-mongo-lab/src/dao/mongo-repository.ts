@@ -7,18 +7,7 @@ import { User } from '../model/user.model';
 
 
 export class MongoRepository<T extends Indentifiable> implements Repository<T> {
-    con: MongoClient;
-    db: Db;
-    constructor(public entytyType: ResourceType<T>, public dbName: string, public collection: string, public mongoUrl: string) { }
-
-    async init() {
-        // connect to mongodb
-        this.con = await MongoClient.connect(this.mongoUrl, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        this.db = this.con.db(this.dbName);
-    }
+    constructor(public entytyType: ResourceType<T>, public db: Db, public collection: string) { }
 
     async add(entity: T) {
         entity._id = undefined;
@@ -36,7 +25,7 @@ export class MongoRepository<T extends Indentifiable> implements Repository<T> {
         }
         const found =  await this.findById(entity._id);
         if (!found) {
-            throw new AppError(404, `${this.entytyType.typeId} ID="${entity.id} does not exist and can not be modified.`);
+            throw new AppError(404, `${this.entytyType.typeId} ID="${entity._id} does not exist and can not be modified.`);
         }
         // update by _id
         var myquery = { _id: new ObjectID(entity._id) };

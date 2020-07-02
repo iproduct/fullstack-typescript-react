@@ -2,59 +2,51 @@ import { PostRepository } from '../dao/repository';
 import MOCK_POSTS from '../model/mock-posts';
 import { Post } from '../model/post.model';
 import { IdType } from '../shared/shared-types';
+import { AppError } from '../model/errors';
 
-export const GOOGLE_BOOKS_API = 'https://www.googleapis.com/posts/v1/volumes?q=';
+export const API_BASE = 'http://localhost:9000/api';
 
 class PostService {
-    private repo = new PostRepository();
-    constructor(private apiUrl: string) {
-        MOCK_POSTS.forEach(post => this.repo.add(post as Post)); 
-    }
+    constructor(private apiUrl: string) {}
 
     async getAllPosts() {
-        const resp = await fetch('http://localhost:9000/api/posts');
-        const posts = await resp.json();
-        return posts as Post[];
+        const resp = await fetch(`${this.apiUrl}/posts`);
+        return handleErrorStausCodes<Post[]>(resp);
     }
 
     async getPostById(postId: IdType) {
-        const resp = await fetch(`http://localhost:9000/api/posts/${postId}`);
-        const post = await resp.json() as Post;
-        return post as Post;
+        const resp = await fetch(`${this.apiUrl}/posts/${postId}`);
+        return handleErrorStausCodes<Post>(resp);
     }
 
     async createNewPost(post: Post) {
-        const resp = await fetch('http://localhost:9000/api/posts', {
+        const resp = await fetch(`${this.apiUrl}/posts`, {
             method: 'POST',
             mode: 'cors',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(post),
         });
-        const created = await resp.json() as Post;
-        return created as Post;
+        return handleErrorStausCodes<Post>(resp);
     }
 
     async updatePost(post: Post) {
-        const resp = await fetch(`http://localhost:9000/api/posts/${post.id}`, {
+        const resp = await fetch(`${this.apiUrl}/posts/${post._id}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(post),
         });
-        const updated = await resp.json() as Post;
-        return updated as Post;
+        return handleErrorStausCodes<Post>(resp);
     }
 
     async deletePost(postId: IdType) {
-        const resp = await fetch(`http://localhost:9000/api/posts/${postId}`, {
+        const resp = await fetch(`${this.apiUrl}/posts/${postId}`, {
             method: 'DELETE',
             mode: 'cors'
         });
-        const deleted = await resp.json() as Post;
-        return deleted;
+        return handleErrorStausCodes<Post>(resp);
     }
 
- 
     // async loadPosts(searchTerms: string[]): Promise<Post[]> {
     //     console.log(searchTerms);
     //     const searchText = searchTerms.join(' ');
@@ -74,5 +66,14 @@ class PostService {
     // }
 }
 
-export default new PostService(GOOGLE_BOOKS_API);
+async function  handleErrorStausCodes<T>(resp: Response): Promise<T> {
+    if(resp.status < 400) {
+        const entity = await resp.json();
+        return entity as T;
+    } else {
+        const err = await resp.json() as AppError;
+        throw err;
+    }
+}
 
+export default new PostService(API_BASE);

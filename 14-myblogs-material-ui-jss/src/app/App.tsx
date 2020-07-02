@@ -171,11 +171,11 @@ export default function Dashboard() {
 
   const handleEditPost: PostCallback = (post) => {
     // dispatch(fetchPostById(post.id));
-    history.push(`/edit-post/${post.id}`);
+    history.push(`/edit-post/${post._id}`);
   };
 
   const handleDeletePost: PostCallback = (post) => {
-    dispatch(deletePost(post.id));
+    dispatch(deletePost(post._id));
     // PostService.deletePost(post.id).then(
     //   deleted => {
     //     dispatch(posts.filter(p => p.id !== deleted.id));

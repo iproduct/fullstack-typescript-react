@@ -13,47 +13,83 @@ import * as express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import * as path from 'path';
 import postsRouter from './routes/posts-router';
+import { MongoClient } from 'mongodb';
+import { PostRepository, UserRepository } from './dao/mongo-repository';
+import { Post } from './model/post.model';
+import { User } from './model/user.model';
 
-var app = express();
+const POSTS_FILE = path.join(__dirname, '../posts.json');
+const DB_URL = 'mongodb://localhost: 27017/';
+const DB_NAME = 'myblog10';
+const PORT = process.env.PORT || 9000;
 
-var POSTS_FILE = path.join(__dirname, '../posts.json');
+let connection: MongoClient;
 
-app.set('port', (process.env.PORT || 9000));
+async function start() {
+  const app = express();
 
-app.use('/', express.static(path.join(__dirname, '../public')));
-app.use(express.json());
+  const db = await initDb(DB_URL, DB_NAME);
+  const postRepo = new PostRepository(Post, db, 'posts');
+  const userRepo = new UserRepository(User, db, 'users');
 
-// Additional middleware which will set headers that we need on each request.
-app.use(function (req, res, next) {
-  // Set permissive CORS header - this allows this server to be used only as
-  // an API server in conjunction with something like webpack-dev-server.
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  res.setHeader(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`);
-  res.setHeader('Access-Control-Max-Age', 3600); // 1 hour
-  // Disable caching so we'll always get the latest posts.
-  res.setHeader('Cache-Control', 'no-cache');
-  next();
-});
+  app.locals.postRepo = postRepo;
+  app.locals.userRepo = userRepo;
 
-app.use('/api/posts', postsRouter);
+  app.set('port', PORT);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  if (res.headersSent) {
-    next(err);
-    return;
-  }
-  console.error(err);
-  res.status = err['status'] || 500;
-  res.json({
-    status: res.status,
-    message: err.message,
-    error: req.app.get('env') === 'production' ? '' : err
+  app.use('/', express.static(path.join(__dirname, '../public')));
+  app.use(express.json());
+
+  // Additional middleware which will set headers that we need on each request.
+  app.use(function (req, res, next) {
+    // Set permissive CORS header - this allows this server to be used only as
+    // an API server in conjunction with something like webpack-dev-server.
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader(`Access-Control-Allow-Methods`, `GET, POST, PUT, DELETE, OPTIONS`);
+    res.setHeader('Access-Control-Max-Age', 3600); // 1 hour
+    // Disable caching so we'll always get the latest posts.
+    res.setHeader('Cache-Control', 'no-cache');
+    next();
   });
-});
 
-app.locals.postDbFile = POSTS_FILE;
+  app.use('/api/posts', postsRouter);
 
-app.listen(app.get('port'), function () {
-  console.log('Server started: http://localhost:' + app.get('port') + '/');
-});
+  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    if (res.headersSent) {
+      next(err);
+      return;
+    }
+    console.error(err);
+    res.status = err['status'] || 500;
+    res.json({
+      status: res.status,
+      message: err.message,
+      error: req.app.get('env') === 'production' ? '' : err
+    });
+  });
+
+  app.locals.postDbFile = POSTS_FILE;
+
+  app.listen(app.get('port'), function () {
+    console.log('Server started: http://localhost:' + app.get('port') + '/');
+  });
+  app.on('close', cleanup);
+}
+
+start();
+
+async function initDb(mongoUrl: string, dbName: string) {
+  // connect to mongodb
+  connection = await MongoClient.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+  return connection.db(dbName);
+}
+
+async function cleanup() {
+  if (connection && connection.isConnected()) {
+    return connection.close();
+  }
+}

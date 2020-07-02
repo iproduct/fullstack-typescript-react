@@ -1,6 +1,6 @@
 const MOCK_POSTS = [
     {
-        id: '1',
+        _id: '1',
         title: 'React.js Book',
         text: 'Learning React JavaScript Library From Scratch',
         authorId: '1',
@@ -8,7 +8,7 @@ const MOCK_POSTS = [
         keywords: ['react', 'javascript']
     },
     {
-        id: '2',
+        _id: '2',
         title: 'Learning React',
         text: 'A Hands-On Guide to Building Web Applications Using React and Redux, 2nd Edition',
         authorId: '1',
@@ -16,7 +16,7 @@ const MOCK_POSTS = [
         keywords: ['react', 'javascript', 'redux', 'hands-on']
     },
     {
-        id: '3',
+        _id: '3',
         title: 'Learning React',
         text: 'Functional Web Development with React and Redux, 1st Edition',
         authorId: '1',
@@ -24,7 +24,7 @@ const MOCK_POSTS = [
         keywords: ['functional', 'react', 'redux', 'javascript']
     },
     {
-        id: '4',
+        _id: '4',
         title: 'Pro React 16',
         text: `Best-selling author Adam Freeman explains how to get the most from React. 
         He begins by describing the React architecture and the benefits it offers and then 

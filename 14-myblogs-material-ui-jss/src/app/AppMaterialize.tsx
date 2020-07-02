@@ -54,23 +54,23 @@ function App() {
 
   const handleEditPost: PostCallback = (post) => {
     setEditedPost(post);
-    history.push(`/edit-post/${post.id}`);
+    history.push(`/edit-post/${post._id}`);
   };
 
   const handleDeletePost: PostCallback = (post) => {
-    PostService.deletePost(post.id).then(
+    PostService.deletePost(post._id).then(
       deleted => {
-        setPosts(posts.filter(p => p.id !== deleted.id));
+        setPosts(posts.filter(p => p._id !== deleted._id));
         history.push('/posts');
       }
     );
   };
 
   const handleSubmitPost: PostCallback = (post) => {
-    if (post.id) { //Edit
+    if (post._id) { //Edit
       PostService.updatePost(post).then(
         edited => {
-          setPosts(posts.map(p => p.id === edited.id ? post : p));
+          setPosts(posts.map(p => p._id === edited._id ? post : p));
         }
       );
     } else { //Create
