@@ -1,19 +1,21 @@
 import { Post } from '../model/post.model';
 import { Indentifiable, IdType } from '../model/shared-types';
 import { MongoClient } from 'mongodb';
+import { Repository } from './repository';
 
-export interface Repository<T extends Indentifiable> {
-    add(user: T): T;
-    edit(user: T): T;
-    deleteById(id: IdType): T | undefined;
-    findAll(): T[];
-    findById(id: IdType): T | undefined;
-    getCount(): number;
-}
 
-export class MockRepository<T extends Indentifiable> implements Repository<T> {
-    static nextId: number;
-    private entities = new Map<IdType, T>();
+export class MongoRepository<T extends Indentifiable> implements Repository<T> {
+    constructor(public dbName: string, public collection: string, public mongoUrl: string) {}
+
+    async init() {
+         // connect to mongodb
+         const con = await MongoClient.connect(this.mongoUrl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        const db = con.db(this.dbName);
+    }
+
     add(entity: T): T {
         entity.id = this.getNextId();
         this.entities.set(entity.id, entity);
