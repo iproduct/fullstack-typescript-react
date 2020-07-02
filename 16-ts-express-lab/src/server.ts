@@ -48,7 +48,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.json({
     status: res.status,
     message: err.message,
-    error: process.env.NODE_ENV === 'production' ? '' : err
+    error: req.app.get('env') === 'production' ? '' : err
   });
 });
 
