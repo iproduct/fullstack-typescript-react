@@ -1,4 +1,4 @@
-import { Indentifiable, IdType } from './shared-types';
+import { Indentifiable, IdType, ResourceType } from './shared-types';
 export interface IPost extends Indentifiable {
     title: string;
     text: string;
@@ -9,8 +9,9 @@ export interface IPost extends Indentifiable {
 }
 
 export class Post implements IPost {
+    static typeId = 'Post';
     constructor(
-        public id: IdType,
+        public _id: IdType,
         public title: string,
         public text: string,
         public authorId: IdType,

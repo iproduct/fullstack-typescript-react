@@ -16,7 +16,7 @@ export enum Role{
 
 export class User implements IUser{
     constructor(
-        public id: IdType,
+        public _id: IdType,
         public firstName: string,
         public lastName: string,
         public username: string,

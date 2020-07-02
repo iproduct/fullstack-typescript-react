@@ -19,7 +19,7 @@ async function main() {
         var myquery = { _id: new ObjectID(postId) };
         var newvalues = { $set: {title: "Learning React - Third Edition", categories: ['frontend']} };
         const updateRes = await db.collection(collection)
-            .updateMany({}, { $set: {authorId: new ObjectID('5efdb7ed5fc198269c0cd4f6')} })
+            .updateOne(myquery, newvalues)
         // console.log(updateRes);
         if (updateRes.result.ok && updateRes.modifiedCount === 1) {
             console.log(`Document successfully updated document with ID: ${postId}.`);
