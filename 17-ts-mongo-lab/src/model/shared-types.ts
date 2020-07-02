@@ -1,9 +1,10 @@
 import { Post } from "../model/post.model";
+import { ObjectID } from 'mongodb';
 
-export type IdType = string;
+export type IdType = ObjectID;
 
 export interface Indentifiable {
-    id: IdType
+    _id?: IdType
 }
 
 

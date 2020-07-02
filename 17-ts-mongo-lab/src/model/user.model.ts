@@ -1,4 +1,5 @@
 import { Indentifiable, IdType } from './shared-types';
+import { OptionalId } from 'mongodb';
 export interface IUser extends Indentifiable {
     firstName: string;
     lastName: string;
@@ -13,9 +14,9 @@ export enum Role{
     READER, AUTHOR, ADMIN
 }
 
-export class User implements IUser {
+export class User implements IUser , OptionalId<User>{
+    public _id?: IdType;
     constructor(
-        public id: IdType,
         public firstName: string,
         public lastName: string,
         public username: string,

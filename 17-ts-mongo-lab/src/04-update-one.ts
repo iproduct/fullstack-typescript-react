@@ -1,6 +1,6 @@
 import { MongoClient, ObjectID } from 'mongodb';
-import { Post } from './model/post.model';
-import MOCK_POSTS from './model/posts';
+import { Post, IPost } from './model/post.model';
+import MOCK_POSTS from './model/mock-posts';
 
 const dbUrl = 'mongodb://localhost: 27017/';
 const dbName = 'myblog10';
@@ -19,7 +19,7 @@ async function main() {
         var myquery = { _id: new ObjectID(postId) };
         var newvalues = { $set: {title: "Learning React - Third Edition", categories: ['frontend']} };
         const updateRes = await db.collection(collection)
-            .updateOne(myquery, newvalues)
+            .updateMany({}, { $set: {authorId: new ObjectID('5efdb7ed5fc198269c0cd4f6')} })
         // console.log(updateRes);
         if (updateRes.result.ok && updateRes.modifiedCount === 1) {
             console.log(`Document successfully updated document with ID: ${postId}.`);
@@ -27,7 +27,7 @@ async function main() {
 
         // get all posts
         const posts = await db.collection(collection)
-            .find<Post>({title:/react/i})
+            .find<IPost>({title:/react/i})
             .sort({title: 1})
             .toArray();
        

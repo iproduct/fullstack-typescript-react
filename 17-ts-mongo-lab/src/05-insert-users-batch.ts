@@ -1,12 +1,12 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, OptionalId, WithId } from 'mongodb';
 import { Post } from './model/post.model';
 import MOCK_USERS from './model/mock-users';
 import { Indentifiable } from './model/shared-types';
+import { User, IUser } from './model/user.model';
 
 const dbUrl = 'mongodb://localhost: 27017/'
-const collection = 'posts';
 
-async function insertBatch<T extends Indentifiable>(entities: T[]) {
+async function insertBatch<T>(collection: string, entities: OptionalId<T>[]) {
     // connect to mongodb
     const con = await MongoClient.connect(dbUrl, {
         useNewUrlParser: true,
@@ -16,11 +16,15 @@ async function insertBatch<T extends Indentifiable>(entities: T[]) {
     
     try {
         // clean db
+        try {
         const dropRes = await db.collection(collection).drop();
         console.log(`Dropped collection "${collection}": ${dropRes}`);
+        }catch(err){
+            console.error(err);
+        }
 
         // insert new post     
-        const insRes = await db.collection<T>(collection).insertMany(MOCK_USERS);
+        const insRes = await db.collection<T>(collection).insertMany(entities);
             
         if (insRes.result.ok && insRes.insertedCount === MOCK_USERS.length) {
             console.log(`Inserted new document with ID: ${JSON.stringify(insRes.insertedIds)}.`);
@@ -39,4 +43,4 @@ async function insertBatch<T extends Indentifiable>(entities: T[]) {
 }
 
 // run the demo
-insertBatch(MOCK_USERS).then(result => console.log(result));
+insertBatch<User>('users', MOCK_USERS).then(result => console.log(result));

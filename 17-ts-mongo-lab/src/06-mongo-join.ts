@@ -1,32 +1,41 @@
 import { MongoClient, ObjectID } from 'mongodb';
 import { Post } from './model/post.model';
-import MOCK_POSTS from './model/posts';
 
 const dbUrl = 'mongodb://localhost: 27017/';
 const dbName = 'myblog10';
 const collection = 'posts';
 
 async function main() {
+
     // connect to mongodb
     const con = await MongoClient.connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
     const db = con.db(dbName);
-
-    // join posts with authors
-    const postsWithAuthor = await db.collection<Post>(collection).aggregate([
-        {
-            $lookup:
+    try {
+        // join posts with authors
+        const postsWithAuthor = await db.collection<Post>(collection).aggregate([
             {
-                from: collection,
-                localField: 'authorId',
-                foreignField: '_id',
-                as: 'users'
+                $lookup:
+                {
+                    from: 'users',
+                    localField: 'authorId',
+                    foreignField: '_id',
+                    as: 'users'
+                }
             }
-        }
-    ]).toArray();
+        ]).toArray();
 
-    // print results
-    postsWithAuthor.forEach(post => console.log(post));
-});
+        // print results
+        postsWithAuthor.forEach(post => console.log(post));
+    } catch (err) {
+        console.error(err);
+    } finally {
+        con.close();
+        return 'Finishing demo...';
+    }
+}
+
+// run the demo
+main().then(result => console.log(result));

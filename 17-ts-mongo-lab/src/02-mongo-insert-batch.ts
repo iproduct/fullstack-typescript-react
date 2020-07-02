@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
-import { Post } from './model/post.model';
-import MOCK_POSTS from './model/posts';
+import { Post, IPost } from './model/post.model';
+import MOCK_POSTS from './model/mock-posts';
 
 const dbUrl = 'mongodb://localhost: 27017/'
 const collection = 'posts';
@@ -19,7 +19,7 @@ async function main() {
         console.log(`Dropped collection "${collection}": ${dropRes}`);
 
         // insert new post     
-        const insRes = await db.collection<Post>(collection).insertMany(MOCK_POSTS);
+        const insRes = await db.collection<IPost>(collection).insertMany(MOCK_POSTS);
             
         if (insRes.result.ok && insRes.insertedCount === MOCK_POSTS.length) {
             console.log(`Inserted new document with ID: ${JSON.stringify(insRes.insertedIds)}.`);

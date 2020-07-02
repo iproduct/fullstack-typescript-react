@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
-import { Post } from './model/post.model';
-import MOCK_POSTS from './model/posts';
+import { Post, IPost } from './model/post.model';
+import MOCK_POSTS from './model/mock-posts';
 
 const dbUrl = 'mongodb://localhost: 27017/';
 const dbName = 'myblog10';
@@ -25,7 +25,7 @@ async function main() {
         //     .toArray();
 
         const posts = await db.collection(collection)
-            .aggregate<Post>(
+            .aggregate<IPost>(
                 [{ "$match": { "title": { $regex: /react/i } } },
                 {
                     $group: {

@@ -1,4 +1,4 @@
-import { Role, User } from "./user.model"
+import { Role, User, IUser } from "./user.model"
 const MOCK_USERS = [
 {
     "firstName": "Trayan",
@@ -19,6 +19,6 @@ const MOCK_USERS = [
     "roles": [Role.READER, Role.AUTHOR]
 },
 
-] as User[];
+] as IUser[];
 
 export default MOCK_USERS;
