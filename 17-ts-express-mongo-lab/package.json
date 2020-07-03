@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "indicative": "^7.4.4",
     "mongodb": "^3.5.9",
     "rxjs": "^6.5.5"
   },

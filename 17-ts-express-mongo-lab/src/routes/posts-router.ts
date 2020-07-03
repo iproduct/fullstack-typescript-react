@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { readPostsFromFile, writePostsToFile } from '../utils/file-utils';
 import { AppError } from '../model/errors';
 import { PostRepository, UserRepository } from '../dao/mongo-repository';
+import * as indicative from 'indicative';
 
 const router = Router();
 
@@ -11,17 +11,48 @@ router.get('/', (req, res, next) =>
         .catch(next));
 
 router.get('/:id', async (req, res, next) => {
+    // validate id
+    try {
+        const id = req.params.id;
+        await indicative.validator.validate({ id }, {
+            id: 'required|regex:^[0-9a-fA-F]{24}$'
+        });
+    } catch (err) {
+        next(new AppError(400, err.message, err));
+        return;
+    }
+    // find post
     try {
         const found = await (<PostRepository>req.app.locals.postRepo).findById(req.params.id)
         res.json(found); //200 OK with deleted post in the body
     } catch (err) {
         next(err);
     }
+
 });
 
 router.post('/', async (req, res, next) => {
+     // validate new post
+    const newPost = req.body;
     try {
-        const newPost = req.body;
+        await indicative.validator.validate(newPost, {
+            _id: 'regex:^[0-9a-fA-F]{24}$',
+            title: 'required|string|min:3|max:30',
+            text: 'required|string|min:3|max:1024',
+            // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
+            imageUrl: 'url',
+            categories: 'array',
+            'categories.*': 'string',
+            keywords: 'array',
+            'keywords.*': 'string',
+        });
+    } catch (err) {
+        next(new AppError(400, err.message, err));
+        return;
+    }
+    // create post in db
+    try {
+
         //TODO set correct author
         const defaultUser = await (<UserRepository>req.app.locals.userRepo).findByUsername("trayan");
         newPost.authorId = defaultUser._id;
@@ -44,12 +75,12 @@ router.put('/:id', async function (req, res, next) {
             return;
         }
         const found = await (<PostRepository>req.app.locals.postRepo).findById(req.params.id);
-        if(post.authorId && post.authorId.length > 0 && found.authorId !== post.authorId) {
+        if (post.authorId && post.authorId.length > 0 && found.authorId !== post.authorId) {
             throw new AppError(400, `Can not change Post's author.`);
         }
         // _id and authorId are unmodifiable
         post._id = found._id;
-        post.authorId =  found.authorId;
+        post.authorId = found.authorId;
         const updated = await (<PostRepository>req.app.locals.postRepo).edit(post);
         res.json(updated); //200 OK with post in the body
     } catch (err) {

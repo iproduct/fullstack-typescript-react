@@ -61,11 +61,11 @@ async function start() {
       return;
     }
     console.error(err);
-    res.status = err['status'] || 500;
-    res.json({
+    const status = err['status'] || 500;
+    res.status(status).json({
       status: res.status,
       message: err.message,
-      error: req.app.get('env') === 'production' ? '' : err
+      error: req.app.get('env') === 'production' ? '' : err['error'] || err
     });
   });
 
