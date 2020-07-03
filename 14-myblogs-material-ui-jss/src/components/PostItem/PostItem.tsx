@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Post } from '../../model/post.model';
 import './PostItem.css';
 import { PostCallback } from '../../shared/shared-types';
-import { Marked } from '@ts-stack/markdown';
+import { Marked, Renderer } from '@ts-stack/markdown';
 import { Grid, Card, makeStyles, CardMedia, ButtonBase, CardContent, Typography, Chip, CardActions, IconButton, Collapse } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CreateIcon from '@material-ui/icons/Create';
@@ -14,6 +14,18 @@ interface Props {
   onEditPost: PostCallback;
   onDeletePost: PostCallback;
 }
+
+Marked.setOptions
+({
+  renderer: new Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: true,
+  pedantic: true,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
 
 const rawMarkup = (markdownText: string) => (
   { __html: Marked.parse(markdownText) }

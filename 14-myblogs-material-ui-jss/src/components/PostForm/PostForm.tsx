@@ -11,11 +11,11 @@ import { createPost, fetchPostById, submissionComplete, updatePost } from '../..
 import { Post } from '../../model/post.model';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
 import MaterialFiled from '../MaterialField/MaterialField';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 
 
 interface Props {
-    // post: Post | undefined;
-    // onSubmitPost: PostCallback;
 }
 
 export interface MyFormValues {
@@ -73,19 +73,14 @@ export const PostForm: FC<Props> = () => {
         return state.posts.error;
     });
     useEffect(() => {
-        if(completed && !errors) {
+        if (completed && !errors) {
             history.push('/posts');
         }
-        if(!loading) {
+        if (!loading) {
             dispatch(submissionComplete());
         }
     }, [completed, loading, errors, dispatch, history]);
 
-
-
-    useEffect(() => {
-        Array.from(document.getElementsByTagName('textarea')).map(txtarea => window.M.textareaAutoResize(txtarea));
-    });
     return (
         <Formik initialValues={initialValues}
             onSubmit={values => {
@@ -115,37 +110,39 @@ export const PostForm: FC<Props> = () => {
                 })
             }
         >
-        {(props) => <PostFormInternal {...props} />}
+            {(props) => <PostFormInternal {...props} />}
         </Formik >
     );
 };
 
-const PostFormInternal:(props: FormikProps<MyFormValues>) => ReactElement = 
+const PostFormInternal: (props: FormikProps<MyFormValues>) => ReactElement =
     ({ values, handleChange, dirty, touched, errors, isSubmitting, setSubmitting, handleReset }) => {
-    const pendingSubmisssion = useSelector((state: RootState) => {
-        return state.posts.pendingSubmission;
-    });
-    useEffect(()=> {
-        setSubmitting(pendingSubmisssion)
-    }, [pendingSubmisssion, setSubmitting]);
-    return (
-        <Form className="col s6">
-            <div className="row">
-                <MaterialFiled name='title' label='Title' />
-                <MaterialFiled name='text' displayAs='textarea' label='Blog Text' />
-                <MaterialFiled name='imageUrl' label='Blog Image URL' />
-                <MaterialFiled name='keywords' label='Keywords' />
-                <MaterialFiled name='categories' label='Categories' />
-            </div>
-            <div className="PostForm-butons row">
-                <button className="btn waves-effect waves-light" type="submit" name="action" disabled={isSubmitting ||
-                    !dirty || Object.values(errors).some(err => !!err === true)}>Submit<i className="material-icons right">send</i>
-                </button>
-                <button type="button" className="btn red waves-effect waves-light" onClick={handleReset}
-                    disabled={!dirty || isSubmitting}> Reset <i className="material-icons right">settings_backup_restore</i>
-                </button>
-            </div>
-            <DisplayFormikState />
-        </Form>
-    )
-}
+        const pendingSubmisssion = useSelector((state: RootState) => {
+            return state.posts.pendingSubmission;
+        });
+        useEffect(() => {
+            setSubmitting(pendingSubmisssion)
+        }, [pendingSubmisssion, setSubmitting]);
+        return (
+            <Form className="col s6">
+                <div className="row">
+                    <MaterialFiled name='title' label='Title' />
+                    <MaterialFiled name='text' rowsMax={20} label='Blog Text' />
+                    <MaterialFiled name='imageUrl' label='Blog Image URL' />
+                    <MaterialFiled name='keywords' label='Keywords' />
+                    <MaterialFiled name='categories' label='Categories' />
+                </div>
+                <div className="PostForm-butons row">
+                    <Button variant="contained" color="primary" type="submit" name="action" disabled={isSubmitting ||
+                        !dirty || Object.values(errors).some(err => !!err === true)} endIcon={<Icon>send</Icon>}>
+                        Submit
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={handleReset} disabled={!dirty || isSubmitting} 
+                        endIcon={<Icon>settings_backup_restore</Icon>}>
+                        Reset
+                    </Button>
+                </div>
+                <DisplayFormikState />
+            </Form>
+        )
+    }

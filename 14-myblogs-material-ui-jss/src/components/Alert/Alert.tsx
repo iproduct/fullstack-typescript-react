@@ -5,19 +5,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        width: '100%',
-        '& > * + *': {
-            marginTop: theme.spacing(2),
-        },
-    },
-}));
-
-
 export default function Alert(props: AlertProps) {
-
-    useStyles();
     const [open, setOpen] = React.useState(true);
 
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {

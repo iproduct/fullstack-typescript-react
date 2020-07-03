@@ -19,7 +19,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import clsx from 'clsx';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory, NavLink } from 'react-router-dom';
 
 import Alert from '../components/Alert/Alert';
 import { PostForm } from '../components/PostForm/PostForm';
@@ -28,6 +28,7 @@ import { deletePost, fetchPosts } from '../features/posts/postsSlice';
 import { mainListItems, secondaryListItems } from '../listitems';
 import { PostCallback } from '../shared/shared-types';
 import { RootState } from './rootReducer';
+import Login from '../components/Login/Login';
 
 // import Chart from './Chart';
 // import Deposits from './Deposits';
@@ -36,8 +37,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://github.com/iproduct">
+        Trayan Iliev, IPT - Intellectual Products &amp; Technologies
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -151,10 +152,10 @@ export default function Dashboard() {
 
   const errors = useSelector((state: RootState) => {
     return state.posts.error;
-});
-const messages = useSelector((state: RootState) => {
-  return state.posts.message;
-});
+  });
+  const messages = useSelector((state: RootState) => {
+    return state.posts.message;
+  });
 
 
 
@@ -216,6 +217,7 @@ const messages = useSelector((state: RootState) => {
         <Divider />
         <List className={classes.menuItems}>{secondaryListItems}</List>
       </Drawer>
+
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
@@ -231,6 +233,9 @@ const messages = useSelector((state: RootState) => {
             </Route>
             <Route exact path="/edit-post/:postId">
               <PostForm />
+            </Route>
+            <Route exact path="/login">
+              <Login />
             </Route>
           </Switch>
           <Grid container spacing={3}>

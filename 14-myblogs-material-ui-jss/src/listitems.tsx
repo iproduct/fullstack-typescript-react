@@ -10,9 +10,19 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { NavLink } from 'react-router-dom';
+import { Divider, Icon } from '@material-ui/core';
 
 export const mainListItems = (
   <div>
+    <NavLink to="/login" activeClassName="active">
+      <ListItem button>
+        <ListItemIcon>
+          <Icon>login</Icon>
+        </ListItemIcon>
+        <ListItemText primary="Login" />
+      </ListItem>
+    </NavLink>
+    <Divider />
     <NavLink to="/posts" activeClassName="active">
       <ListItem button>
         <ListItemIcon>

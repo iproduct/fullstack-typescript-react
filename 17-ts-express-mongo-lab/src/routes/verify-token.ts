@@ -15,6 +15,10 @@ import { secret } from '../config/secret';
 export function verifyToken(req: Request, res: Response, next: NextFunction)  {
   console.log(req.headers);
   const tokenHeader = req.headers['authorization'];
+  if (!tokenHeader) {
+    next({ status: 401, message: `Missing authorization token.` });
+    return;
+  }
   const segments = tokenHeader.split(' ');
   if (segments.length !== 2 || segments[0].trim() !== 'Bearer' || segments[1].trim().length < 80) {
     next({ status: 403, message: `No access token provided.` });
