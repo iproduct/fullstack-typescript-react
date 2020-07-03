@@ -1,14 +1,15 @@
-import { Post } from '../../model/post.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { History } from 'history';
+
 import { AppThunk } from '../../app/store';
+import { Post } from '../../model/post.model';
 import PostService from '../../service/post-service';
-import { IdType } from '../../shared/shared-types';
 import { getErrorMessage } from '../../service/service-utils';
+import { IdType } from '../../shared/shared-types';
 
 interface PostsState {
   currentPostId: IdType | null;
   posts: Post[];
-  pendingSubmission: boolean;
   loading: boolean;
   error: string | null;
   message: string | null;
@@ -21,7 +22,6 @@ interface PostsLoaded {
 const initialState: PostsState = {
   currentPostId: null,
   posts: [],
-  pendingSubmission: false,
   loading: false,
   error: null,
   message:null
@@ -66,7 +66,6 @@ const posts = createSlice({
       state.error = null;
     },
     createPostStart(state, action: PayloadAction<Post>) {
-      state.pendingSubmission = true;
       state.currentPostId = action.payload._id;
       state.loading = true;
       state.error = null;
@@ -79,7 +78,6 @@ const posts = createSlice({
       state.message = `Post "${action.payload.title}" created successfully.`;
     },
     updatePostStart(state, action: PayloadAction<Post>) {
-      state.pendingSubmission = true;
       state.currentPostId = action.payload._id;
       state.loading = true;
       state.error = null;
@@ -111,9 +109,6 @@ const posts = createSlice({
       state.error = null;
       state.message = `Post "${action.payload.title}" deleted successfully.`;
     },
-    submissionComplete(state) {
-      state.pendingSubmission = false
-    },
   }
 })
 
@@ -130,7 +125,6 @@ export const {
   updatePostSuccess,
   deletePostByIdStart,
   deletePostByIdSuccess,
-  submissionComplete,
 } = posts.actions
 export default posts.reducer
 
@@ -160,24 +154,41 @@ export const fetchPostById = (postId: IdType): AppThunk => async (dispatch) => {
   }
 }
 
-export const createPost = (post: Post): AppThunk => async (dispatch) => {
+export const createPost = (
+  post: Post, 
+  history: History<History.PoorMansUnknown>, 
+  // setSubmitting: (isSubmitting: boolean) => void
+  ): AppThunk => async (dispatch, getState) => {
   try {
     dispatch(createPostStart(post));
-    const created = await PostService.createNewPost(post);
+    const authToken = getState().auth.token;
+    const created = await PostService.createNewPost(post, authToken);
     dispatch(createPostSuccess(created));
+    history.push('/posts');
   } catch (err) {
     dispatch(postsFailure(getErrorMessage(err)))
-  }
+  } 
+  // finally {
+  //   setSubmitting(false);
+  // }
 }
 
-export const updatePost = (post: Post): AppThunk => async (dispatch) => {
+export const updatePost = (
+  post: Post, 
+  history: History<History.PoorMansUnknown>, 
+  // setSubmitting: (isSubmitting: boolean) => void
+  ): AppThunk => async (dispatch) => {
   try {
     dispatch(updatePostStart(post));
     const created = await PostService.updatePost(post);
     dispatch(updatePostSuccess(created));
+    history.push('/posts');
   } catch (err) {
     dispatch(postsFailure(getErrorMessage(err)))
-  }
+  } 
+  // finally {
+  //   setSubmitting(false);
+  // }
 }
 
 export const deletePost = (postId: IdType): AppThunk => async (dispatch) => {

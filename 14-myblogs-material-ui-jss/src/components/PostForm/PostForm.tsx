@@ -1,5 +1,7 @@
 import './PostForm.css';
 
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 import { Form, Formik, FormikProps } from 'formik';
 import React, { FC, ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,12 +9,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { RootState } from '../../app/rootReducer';
-import { createPost, fetchPostById, submissionComplete, updatePost } from '../../features/posts/postsSlice';
+import { createPost, fetchPostById, updatePost } from '../../features/posts/postsSlice';
 import { Post } from '../../model/post.model';
 import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
 import MaterialFiled from '../MaterialField/MaterialField';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 
 
 interface Props {
@@ -63,27 +63,27 @@ export const PostForm: FC<Props> = () => {
 
 
 
-    const loading = useSelector((state: RootState) => {
-        return state.posts.loading;
-    });
-    const completed = useSelector((state: RootState) => {
-        return state.posts.pendingSubmission && !state.posts.loading;
-    });
-    const errors = useSelector((state: RootState) => {
-        return state.posts.error;
-    });
-    useEffect(() => {
-        if (completed && !errors) {
-            history.push('/posts');
-        }
-        if (!loading) {
-            dispatch(submissionComplete());
-        }
-    }, [completed, loading, errors, dispatch, history]);
+    // const loading = useSelector((state: RootState) => {
+    //     return state.posts.loading;
+    // });
+    // const completed = useSelector((state: RootState) => {
+    //     return state.posts.pendingSubmission && !state.posts.loading;
+    // });
+    // const errors = useSelector((state: RootState) => {
+    //     return state.posts.error;
+    // });
+    // useEffect(() => {
+    //     if (completed && !errors) {
+    //         history.push('/posts');
+    //     }
+    //     if (!loading) {
+    //         dispatch(submissionComplete());
+    //     }
+    // }, [completed, loading, errors, dispatch, history]);
 
     return (
         <Formik initialValues={initialValues}
-            onSubmit={values => {
+            onSubmit={(values, {setSubmitting}) => {
                 const result = {
                     _id: values._id,
                     title: values.title,
@@ -94,9 +94,9 @@ export const PostForm: FC<Props> = () => {
                     categories: values.categories?.trim().split(/[\s,;]+/).filter(kword => kword.length > 0)
                 } as Post;
                 if (result._id) { //Edit
-                    dispatch(updatePost(result));
+                    dispatch(updatePost(result, history));
                 } else { //Create
-                    dispatch(createPost(result));
+                    dispatch(createPost(result, history));
                 }
             }}
             validateOnChange
@@ -117,12 +117,12 @@ export const PostForm: FC<Props> = () => {
 
 const PostFormInternal: (props: FormikProps<MyFormValues>) => ReactElement =
     ({ values, handleChange, dirty, touched, errors, isSubmitting, setSubmitting, handleReset }) => {
-        const pendingSubmisssion = useSelector((state: RootState) => {
-            return state.posts.pendingSubmission;
+        const loading = useSelector((state: RootState) => {
+            return state.posts.loading;
         });
         useEffect(() => {
-            setSubmitting(pendingSubmisssion)
-        }, [pendingSubmisssion, setSubmitting]);
+            setSubmitting(loading)
+        }, [loading, setSubmitting]);
         return (
             <Form className="col s6">
                 <div className="row">

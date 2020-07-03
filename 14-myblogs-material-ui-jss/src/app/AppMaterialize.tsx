@@ -29,7 +29,6 @@ export interface PostAction {
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [editedPost, setEditedPost] = useState<Post | undefined>(undefined);
 
   const history = useHistory();
 
@@ -53,7 +52,6 @@ function App() {
 
 
   const handleEditPost: PostCallback = (post) => {
-    setEditedPost(post);
     history.push(`/edit-post/${post._id}`);
   };
 
@@ -65,24 +63,6 @@ function App() {
       }
     );
   };
-
-  const handleSubmitPost: PostCallback = (post) => {
-    if (post._id) { //Edit
-      PostService.updatePost(post).then(
-        edited => {
-          setPosts(posts.map(p => p._id === edited._id ? post : p));
-        }
-      );
-    } else { //Create
-      PostService.createNewPost(post).then(
-        created => {
-          setPosts(posts.concat(created));
-        }
-      );
-    }
-    history.push('/posts');
-  };
-
 
 
   return (

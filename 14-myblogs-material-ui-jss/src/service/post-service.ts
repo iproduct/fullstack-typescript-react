@@ -17,11 +17,14 @@ class PostService {
         return handleErrorStausCodes<Post>(resp);
     }
 
-    async createNewPost(post: Post) {
+    async createNewPost(post: Post, authToken: string | undefined) {
         const resp = await fetch(`${this.apiUrl}/posts`, {
             method: 'POST',
             mode: 'cors',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken || ''}`
+        },
             body: JSON.stringify(post),
         });
         return handleErrorStausCodes<Post>(resp);
