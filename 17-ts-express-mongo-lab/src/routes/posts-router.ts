@@ -54,8 +54,8 @@ router.post('/', async (req, res, next) => {
     try {
 
         //TODO set correct author
-        const defaultUser = await (<UserRepository>req.app.locals.userRepo).findByUsername("trayan");
-        newPost.authorId = defaultUser._id;
+        // const defaultUser = await (<UserRepository>req.app.locals.userRepo).findByUsername("trayan");
+        // newPost.authorId = defaultUser._id;
 
         // Create new User
         const created = await (<PostRepository>req.app.locals.postRepo).add(newPost);

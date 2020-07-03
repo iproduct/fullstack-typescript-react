@@ -14,7 +14,7 @@ export class Post implements IPost {
         public _id: IdType,
         public title: string,
         public text: string,
-        public authorId: IdType,
+        public authorId: IdType | null,
         public imageUrl?: string,
         public categories?: string[],
         public keywords: string[] = [],
