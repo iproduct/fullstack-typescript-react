@@ -9,7 +9,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+import { submitLogin } from '../../features/auth/authSlice';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,6 +37,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(): ReactElement {
   const classes = useStyles();
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  function login(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    dispatch(submitLogin({
+      username: usernameRef.current?.value || '',
+      password: passwordRef.current?.value || ''
+    }, history));
+  }
+
   return (
     <Container component="div" maxWidth="xs">
       <div className={classes.paper}>
@@ -42,8 +59,9 @@ export default function Login(): ReactElement {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={login}>
           <TextField
+            inputRef={usernameRef}
             variant="outlined"
             margin="normal"
             required
@@ -55,6 +73,7 @@ export default function Login(): ReactElement {
             autoFocus
           />
           <TextField
+            inputRef={passwordRef}
             variant="outlined"
             margin="normal"
             required

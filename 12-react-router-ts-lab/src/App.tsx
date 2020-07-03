@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState, ReactElement, useRef } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from "react-router-dom";
 
@@ -133,6 +133,7 @@ function ProtectedPage() {
 const LoginPage: React.FC<AuthCompProps> = ({authService}) => {
     let history = useHistory();
     let location = useLocation();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     let { from }  = (location.state || { from: { pathname: "/" } }) as LocationState;
     let login = () => {
@@ -144,6 +145,7 @@ const LoginPage: React.FC<AuthCompProps> = ({authService}) => {
     return (
         <div>
             <p>You must log in to view the page at {from.pathname}</p>
+            <input ref={inputRef} />
             <button onClick={login}>Log in</button>
         </div>
     );

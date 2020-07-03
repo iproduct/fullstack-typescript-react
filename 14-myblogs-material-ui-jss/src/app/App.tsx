@@ -19,7 +19,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import clsx from 'clsx';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useHistory, NavLink } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 
 import Alert from '../components/Alert/Alert';
 import { PostForm } from '../components/PostForm/PostForm';
@@ -33,6 +33,7 @@ import Login from '../components/Login/Login';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -228,9 +229,9 @@ export default function Dashboard() {
             <Route exact path="/posts">
               <PostList posts={posts} onEditPost={handleEditPost} onDeletePost={handleDeletePost} />
             </Route>
-            <Route exact path="/add-post">
+            <ProtectedRoute exact path="/add-post">
               <PostForm />
-            </Route>
+            </ProtectedRoute>
             <Route exact path="/edit-post/:postId">
               <PostForm />
             </Route>

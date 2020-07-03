@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '../../app/store';
 import PostService from '../../service/post-service';
 import { IdType } from '../../shared/shared-types';
+import { getErrorMessage } from '../../service/service-utils';
 
 interface PostsState {
   currentPostId: IdType | null;
@@ -186,30 +187,5 @@ export const deletePost = (postId: IdType): AppThunk => async (dispatch) => {
     dispatch(deletePostByIdSuccess(deleted));
   } catch (err) {
     dispatch(postsFailure(getErrorMessage(err)))
-  }
-}
-
-interface ValidationError {
-  message: string;
-  validation: string,
-  field: string;
-}
-
-
-interface ValidationErrors {
-  message: string;
-  error: ValidationError[];
-  status?: number;
-}
-
-// utils
-function getErrorMessage(err: any) {
-  if(err.message) {
-    return err.message as string;
-  } else if(err.error) {
-    const error = err as ValidationErrors;
-    return error.error.map(e => e.message).join('. ');
-  }else {
-    return JSON.stringify(err);
   }
 }
