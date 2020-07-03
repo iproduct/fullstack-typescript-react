@@ -62,6 +62,10 @@ export const PostForm: FC<Props> = () => {
 
 
 
+
+    const loading = useSelector((state: RootState) => {
+        return state.posts.loading;
+    });
     const completed = useSelector((state: RootState) => {
         return state.posts.pendingSubmission && !state.posts.loading;
     });
@@ -72,11 +76,13 @@ export const PostForm: FC<Props> = () => {
         if(completed && !errors) {
             history.push('/posts');
         }
-        dispatch(submissionComplete());
-    }, [completed, errors, dispatch, history]);
+        if(!loading) {
+            dispatch(submissionComplete());
+        }
+    }, [completed, loading, errors, dispatch, history]);
 
 
-    
+
     useEffect(() => {
         Array.from(document.getElementsByTagName('textarea')).map(txtarea => window.M.textareaAutoResize(txtarea));
     });

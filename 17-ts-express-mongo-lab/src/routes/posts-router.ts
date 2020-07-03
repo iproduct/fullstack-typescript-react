@@ -37,8 +37,8 @@ router.post('/', async (req, res, next) => {
     try {
         await indicative.validator.validate(newPost, {
             _id: 'regex:^[0-9a-fA-F]{24}$',
-            title: 'required|string|min:3|max:30',
-            text: 'required|string|min:3|max:1024',
+            title: 'required|string|min:2|max:30',
+            text: 'required|string|min:2|max:1024',
             // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
             imageUrl: 'url',
             categories: 'array',
