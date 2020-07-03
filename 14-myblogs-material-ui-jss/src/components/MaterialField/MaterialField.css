@@ -1,9 +1,0 @@
-.field-error,
-.input-field input.invalid,
-.input-field > label.field-error {
-  color: red;
-}
-
-.input-field div.field-error{
-  font-size: 0.8rem;
-}
