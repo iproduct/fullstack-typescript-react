@@ -32,6 +32,7 @@ import { fetchPosts, selectPostById, fetchPostById, deletePost, updatePost, crea
 // import Deposits from './Deposits';
 // import Orders from './Orders';
 import { RootState } from './rootReducer';
+import Alert from '../components/Alert/Alert';
 
 function Copyright() {
   return (
@@ -156,17 +157,9 @@ export default function Dashboard() {
 
   const posts = useSelector((state: RootState) => state.posts.posts);
 
-  const completed = useSelector((state: RootState) => {
-    return state.posts.pendingSubmission && !state.posts.loading;
-  });
   const errors = useSelector((state: RootState) => {
       return state.posts.error;
   });
-  useEffect(() => {
-      if(completed && !errors) {
-        
-      }
-  }, [completed, errors]);
 
   // const [posts, dispatch] = useReducer(postsReducer, []);
   // useEffect(() => MOCK_BOOKS.forEach(
@@ -299,6 +292,7 @@ export default function Dashboard() {
           </Box>
         </Container>
       </main>
+      {errors && (<Alert severity="error">{errors}</Alert>)}
     </div>
   );
 }

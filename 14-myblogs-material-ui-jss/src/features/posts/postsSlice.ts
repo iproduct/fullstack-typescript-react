@@ -138,7 +138,7 @@ export const fetchPosts = (): AppThunk => async (dispatch) => {
     dispatch(getPostsSuccess({ posts }))
     localStorage.setItem('posts', JSON.stringify(posts));
   } catch (err) {
-    dispatch(postsFailure(err.message || err))
+    dispatch(postsFailure(getErrorMessage(err)))
   }
 }
 
@@ -148,7 +148,7 @@ export const fetchPostById = (postId: IdType): AppThunk => async (dispatch) => {
     const post = await PostService.getPostById(postId);
     dispatch(getPostByIdSuccess(post));
   } catch (err) {
-    dispatch(postsFailure(err.message || err))
+    dispatch(postsFailure(getErrorMessage(err)))
   }
 }
 
@@ -158,7 +158,7 @@ export const createPost = (post: Post): AppThunk => async (dispatch) => {
     const created = await PostService.createNewPost(post);
     dispatch(createPostSuccess(created));
   } catch (err) {
-    dispatch(postsFailure(err.message || err))
+    dispatch(postsFailure(getErrorMessage(err)))
   }
 }
 
@@ -168,7 +168,7 @@ export const updatePost = (post: Post): AppThunk => async (dispatch) => {
     const created = await PostService.updatePost(post);
     dispatch(updatePostSuccess(created));
   } catch (err) {
-    dispatch(postsFailure(err.message || err))
+    dispatch(postsFailure(getErrorMessage(err)))
   }
 }
 
@@ -178,6 +178,31 @@ export const deletePost = (postId: IdType): AppThunk => async (dispatch) => {
     const deleted = await PostService.deletePost(postId);
     dispatch(deletePostByIdSuccess(deleted));
   } catch (err) {
-    dispatch(postsFailure(err.message || err))
+    dispatch(postsFailure(getErrorMessage(err)))
+  }
+}
+
+interface ValidationError {
+  message: string;
+  validation: string,
+  field: string;
+}
+
+
+interface ValidationErrors {
+  message: string;
+  error: ValidationError[];
+  status?: number;
+}
+
+// utils
+function getErrorMessage(err: any) {
+  if(err.message) {
+    return err.message as string;
+  } else if(err.error) {
+    const error = err as ValidationErrors;
+    return error.error.map(e => e.message).join('. ');
+  }else {
+    return JSON.stringify(err);
   }
 }
