@@ -158,6 +158,11 @@ export default function Dashboard() {
     return state.posts.message;
   });
 
+  const loggedUser = useSelector((state: RootState) => {
+    return state.auth.loggedUser;
+  });
+
+
 
 
   const handleEditPost: PostCallback = (post) => {
@@ -194,6 +199,9 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
+          {loggedUser && <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+            Welcome, {loggedUser.firstName}
+          </Typography>}
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
