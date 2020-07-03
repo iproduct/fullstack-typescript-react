@@ -74,6 +74,7 @@ const posts = createSlice({
       state.error = null;
     },
     updatePostStart(state, action: PayloadAction<Post>) {
+      state.pendingSubmission = true;
       state.currentPostId = action.payload._id;
       state.loading = true;
       state.error = null;
