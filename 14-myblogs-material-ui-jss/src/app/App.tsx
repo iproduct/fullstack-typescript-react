@@ -142,16 +142,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  // const [posts, setPosts] = useState<Post[]>([]);
-  // const [editedPost, setEditedPost] = useState<Post | undefined>(undefined);
-
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // PostService.getAllPosts().then(
-    //   posts => setPosts(posts)
-    // );
     dispatch(fetchPosts());
   }, [dispatch]);
 
@@ -161,43 +155,15 @@ export default function Dashboard() {
       return state.posts.error;
   });
 
-  // const [posts, dispatch] = useReducer(postsReducer, []);
-  // useEffect(() => MOCK_BOOKS.forEach(
-  //   (post, index) => setTimeout(dispatch, index*2000, {type: 'add', post: post as Post})),
-  //   []); //on mount only
-
-
-  // const handleSearch: StringCallback = async (searchText) => {
-  // const foundPosts = await PostService.loadPosts(searchText.split(/[\s,;]+/));
-  // console.log(foundPosts);
-  // setPosts(foundPosts);
-  // };
 
 
   const handleEditPost: PostCallback = (post) => {
-    // dispatch(fetchPostById(post.id));
     history.push(`/edit-post/${post._id}`);
   };
 
   const handleDeletePost: PostCallback = (post) => {
     dispatch(deletePost(post._id));
-    // PostService.deletePost(post.id).then(
-    //   deleted => {
-    //     dispatch(posts.filter(p => p.id !== deleted.id));
-    //     history.push('/posts');
-    //   }
-    // );
   };
-
-  // const handleSubmitPost: PostCallback = (post) => {
-  //   if (post.id) { //Edit
-  //     dispatch(updatePost(post));
-  //   } else { //Create
-  //     dispatch(createPost(post));
-  //   }
-  //   history.push('/posts');
-  // };
-
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -206,7 +172,6 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
 
 
   return (
