@@ -7,6 +7,7 @@ import { IdType } from '../../shared/shared-types';
 interface PostsState {
   currentPostId: IdType | null;
   posts: Post[];
+  pendingSubmission: boolean;
   loading: boolean;
   error: string | null;
 }
@@ -18,6 +19,7 @@ interface PostsLoaded {
 const initialState: PostsState = {
   currentPostId: null,
   posts: [],
+  pendingSubmission: false,
   loading: false,
   error: null
 }
@@ -60,6 +62,7 @@ const posts = createSlice({
       state.error = null;
     },
     createPostStart(state, action: PayloadAction<Post>) {
+      state.pendingSubmission = true;
       state.currentPostId = action.payload._id;
       state.loading = true;
       state.error = null;
@@ -100,6 +103,9 @@ const posts = createSlice({
       state.loading = false;
       state.error = null;
     },
+    submissionComplete(state) {
+      state.pendingSubmission = false
+    },
   }
 })
 
@@ -115,7 +121,8 @@ export const {
   updatePostStart,
   updatePostSuccess,
   deletePostByIdStart,
-  deletePostByIdSuccess
+  deletePostByIdSuccess,
+  submissionComplete,
 } = posts.actions
 export default posts.reducer
 
