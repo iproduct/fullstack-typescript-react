@@ -156,6 +156,18 @@ export default function Dashboard() {
 
   const posts = useSelector((state: RootState) => state.posts.posts);
 
+  const completed = useSelector((state: RootState) => {
+    return state.posts.pendingSubmission && !state.posts.loading;
+  });
+  const errors = useSelector((state: RootState) => {
+      return state.posts.error;
+  });
+  useEffect(() => {
+      if(completed && !errors) {
+        
+      }
+  }, [completed, errors]);
+
   // const [posts, dispatch] = useReducer(postsReducer, []);
   // useEffect(() => MOCK_BOOKS.forEach(
   //   (post, index) => setTimeout(dispatch, index*2000, {type: 'add', post: post as Post})),

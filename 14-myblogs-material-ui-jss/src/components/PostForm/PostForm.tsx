@@ -62,7 +62,6 @@ export const PostForm: FC<Props> = () => {
 
 
 
-
     const loading = useSelector((state: RootState) => {
         return state.posts.loading;
     });
