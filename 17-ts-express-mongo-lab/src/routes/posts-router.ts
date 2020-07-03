@@ -32,7 +32,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-     // validate new post
+    // validate new post
     const newPost = req.body;
     try {
         await indicative.validator.validate(newPost, {
@@ -67,9 +67,28 @@ router.post('/', async (req, res, next) => {
 });
 
 router.put('/:id', async function (req, res, next) {
+    // validate edited post
+    const post = req.body;
+    try {
+        await indicative.validator.validate(post, {
+            _id: 'required|regex:^[0-9a-fA-F]{24}$',
+            title: 'required|string|min:3|max:30',
+            text: 'required|string|min:3|max:1024',
+            // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
+            imageUrl: 'url',
+            categories: 'array',
+            'categories.*': 'string',
+            keywords: 'array',
+            'keywords.*': 'string',
+        });
+    } catch (err) {
+        next(new AppError(400, err.message, err));
+        return;
+    }
+
     try {
         const postId = req.params.id;
-        const post = req.body;
+
         if (postId !== post._id) {
             next(new AppError(400, `IDs in the URL and message body are different.`));
             return;
@@ -89,6 +108,16 @@ router.put('/:id', async function (req, res, next) {
 });
 
 router.delete('/:id', async function (req, res, next) {
+     // validate id
+     try {
+        const id = req.params.id;
+        await indicative.validator.validate({ id }, {
+            id: 'required|regex:^[0-9a-fA-F]{24}$'
+        });
+    } catch (err) {
+        next(new AppError(400, err.message, err));
+        return;
+    }
     try {
         const postId = req.params.id;
         const deleted = await (<PostRepository>req.app.locals.postRepo).deleteById(postId);

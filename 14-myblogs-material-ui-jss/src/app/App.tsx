@@ -152,8 +152,11 @@ export default function Dashboard() {
   const posts = useSelector((state: RootState) => state.posts.posts);
 
   const errors = useSelector((state: RootState) => {
-      return state.posts.error;
-  });
+    return state.posts.error;
+});
+const messages = useSelector((state: RootState) => {
+  return state.posts.message;
+});
 
 
 
@@ -257,7 +260,8 @@ export default function Dashboard() {
           </Box>
         </Container>
       </main>
-      {errors && (<Alert severity="error">{errors}</Alert>)}
+      {errors && (<Alert key={errors} severity="error">{errors}</Alert>)}
+      {messages && (<Alert key={messages} severity="success">{messages}</Alert>)}
     </div>
   );
 }

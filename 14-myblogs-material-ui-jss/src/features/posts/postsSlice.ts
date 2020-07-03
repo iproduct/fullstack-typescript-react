@@ -10,6 +10,7 @@ interface PostsState {
   pendingSubmission: boolean;
   loading: boolean;
   error: string | null;
+  message: string | null;
 }
 
 interface PostsLoaded {
@@ -21,7 +22,8 @@ const initialState: PostsState = {
   posts: [],
   pendingSubmission: false,
   loading: false,
-  error: null
+  error: null,
+  message:null
 }
 
 const posts = createSlice({
@@ -41,6 +43,7 @@ const posts = createSlice({
     postsFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.error = action.payload;
+      state.message = null;
     },
     selectPostById(state, action: PayloadAction<IdType>) {
       state.currentPostId = action.payload;
@@ -72,6 +75,7 @@ const posts = createSlice({
       state.posts.push(post)
       state.loading = false;
       state.error = null;
+      state.message = `Post "${action.payload.title}" created successfully.`;
     },
     updatePostStart(state, action: PayloadAction<Post>) {
       state.pendingSubmission = true;
@@ -89,6 +93,7 @@ const posts = createSlice({
       }
       state.loading = false;
       state.error = null;
+      state.message = `Post "${action.payload.title}" updated successfully.`;
     },
     deletePostByIdStart(state, action: PayloadAction<IdType>) {
       state.currentPostId = action.payload;
@@ -103,6 +108,7 @@ const posts = createSlice({
       }
       state.loading = false;
       state.error = null;
+      state.message = `Post "${action.payload.title}" deleted successfully.`;
     },
     submissionComplete(state) {
       state.pendingSubmission = false
