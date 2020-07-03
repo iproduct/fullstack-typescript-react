@@ -1,16 +1,17 @@
-
-import { PostCallback } from '../../shared/shared-types';
-import { Post } from '../../model/post.model';
-import * as Yup from 'yup';
-import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
-import React, { FC, useEffect, useState, ReactNode, ReactElement } from 'react';
-import { Formik, Form, FormikProps } from 'formik';
-import MaterialFiled from '../MaterialField/MaterialField';
 import './PostForm.css';
-import { useParams, useHistory } from 'react-router-dom';
+
+import { Form, Formik, FormikProps } from 'formik';
+import React, { FC, ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import * as Yup from 'yup';
+
 import { RootState } from '../../app/rootReducer';
-import { fetchPostById, updatePost, createPost, submissionComplete } from '../../features/posts/postsSlice';
+import { createPost, fetchPostById, submissionComplete, updatePost } from '../../features/posts/postsSlice';
+import { Post } from '../../model/post.model';
+import { DisplayFormikState } from '../DisplayFormikState/DispalyFormikState';
+import MaterialFiled from '../MaterialField/MaterialField';
+
 
 interface Props {
     // post: Post | undefined;

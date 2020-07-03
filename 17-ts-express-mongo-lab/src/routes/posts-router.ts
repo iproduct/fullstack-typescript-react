@@ -34,39 +34,35 @@ router.get('/:id', async (req, res, next) => {
 
 });
 
-router.post('/', verifyToken, verifyRole(Role.AUTHOR), async (req, res, next) => {
+router.post('/', verifyToken, verifyRole([Role.AUTHOR, Role.ADMIN]), function (req, res, next) {
     // validate new post
     const newPost = req.body;
-    try {
-        await indicative.validator.validate(newPost, {
-            _id: 'regex:^[0-9a-fA-F]{24}$',
-            title: 'required|string|min:3|max:30',
-            text: 'required|string|min:3|max:1024',
-            // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
-            imageUrl: 'url',
-            categories: 'array',
-            'categories.*': 'string',
-            keywords: 'array',
-            'keywords.*': 'string',
-        });
-    } catch (err) {
-        next(new AppError(400, err.message, err));
-        return;
-    }
-    // create post in db
-    try {
+    indicative.validator.validate(newPost, {
+        _id: 'regex:^[0-9a-fA-F]{24}$',
+        title: 'required|string|min:3|max:30',
+        text: 'required|string|min:3|max:1024',
+        // authorId: 'required|regex:^[0-9a-fA-F]{24}$',s
+        imageUrl: 'url',
+        categories: 'array',
+        'categories.*': 'string',
+        keywords: 'array',
+        'keywords.*': 'string',
+    }).then(async () => {
+        // create post in db
+        try {
 
-        //TODO set correct author
-        // const defaultUser = await (<UserRepository>req.app.locals.userRepo).findByUsername("trayan");
-        // newPost.authorId = defaultUser._id;
+            //TODO set correct author
+            // const defaultUser = await (<UserRepository>req.app.locals.userRepo).findByUsername("trayan");
+            // newPost.authorId = defaultUser._id;
 
-        // Create new User
-        const created = await (<PostRepository>req.app.locals.postRepo).add(newPost);
+            // Create new User
+            const created = await(<PostRepository>req.app.locals.postRepo).add(newPost);
 
-        res.status(201).location(`/api/posts/${newPost.id}`).json(newPost);
-    } catch (err) {
-        next(err);
-    }
+            res.status(201).location(`/api/posts/${newPost.id}`).json(newPost);
+        } catch (err) {
+            next(err);
+        }
+    }).catch(err => next(new AppError(400, err.message, err)));
 });
 
 router.put('/:id', async function (req, res, next) {
@@ -111,8 +107,8 @@ router.put('/:id', async function (req, res, next) {
 });
 
 router.delete('/:id', async function (req, res, next) {
-     // validate id
-     try {
+    // validate id
+    try {
         const id = req.params.id;
         await indicative.validator.validate({ id }, {
             id: 'required|regex:^[0-9a-fA-F]{24}$'

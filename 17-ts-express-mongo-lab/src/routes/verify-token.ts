@@ -8,10 +8,11 @@
  *
  */
 
-const jwt = require('jsonwebtoken');
-const config = require('../config/secret');
+import { Request, Response, NextFunction } from 'express';
+import * as jwt from 'jsonwebtoken';
+import { secret } from '../config/secret';
 
-export function verifyToken(req, res, next) {
+export function verifyToken(req: Request, res: Response, next: NextFunction)  {
   console.log(req.headers);
   const tokenHeader = req.headers['authorization'];
   const segments = tokenHeader.split(' ');
@@ -22,14 +23,13 @@ export function verifyToken(req, res, next) {
   const token = segments[1].trim();
   console.log(`Token: ${token}`); // demo only
 
-  jwt.verify(token, config.secret, function (error, decoded) {
+  jwt.verify(token, secret, function (error, decoded) {
     if (error) next({ status: 403, message: `Failed to authenticate token.`, error });
     else {
       // if everything good, save to request for use in other routes
-      req.userId = decoded.id;
+      req['userId'] = decoded['id'];
       next();
     }
   });
 }
 
-module.exports = verifyToken;
