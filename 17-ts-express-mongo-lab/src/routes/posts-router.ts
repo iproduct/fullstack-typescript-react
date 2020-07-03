@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { AppError } from '../model/errors';
 import { PostRepository, UserRepository } from '../dao/mongo-repository';
 import * as indicative from 'indicative';
+import { verifyToken } from './verify-token';
+import { verifyRole } from './verify-role';
+import { Role } from '../model/user.model';
 
 const router = Router();
 
@@ -31,7 +34,7 @@ router.get('/:id', async (req, res, next) => {
 
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', verifyToken, verifyRole(Role.AUTHOR), async (req, res, next) => {
     // validate new post
     const newPost = req.body;
     try {

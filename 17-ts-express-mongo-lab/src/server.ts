@@ -12,11 +12,12 @@
 import * as express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import * as path from 'path';
-import postsRouter from './routes/posts-router';
 import { MongoClient } from 'mongodb';
 import { PostRepository, UserRepository } from './dao/mongo-repository';
 import { Post } from './model/post.model';
 import { User } from './model/user.model';
+import postsRouter from './routes/posts-router';
+import usersRouter from './routes/users-router';
 
 const POSTS_FILE = path.join(__dirname, '../posts.json');
 const DB_URL = 'mongodb://localhost: 27017/';
@@ -53,7 +54,9 @@ async function start() {
     next();
   });
 
+  // attach feature routers
   app.use('/api/posts', postsRouter);
+  app.use('/api/users', usersRouter);
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     if (res.headersSent) {

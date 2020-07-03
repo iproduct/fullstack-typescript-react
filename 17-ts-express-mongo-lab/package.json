@@ -14,13 +14,17 @@
     "build": "tsc"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "indicative": "^7.4.4",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.9",
     "rxjs": "^6.5.5"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.6",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/mongodb": "^3.5.25",
     "@types/node": "^14.0.14",
     "concurrently": "^5.2.0",

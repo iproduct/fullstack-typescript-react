@@ -72,7 +72,7 @@ export class PostRepository extends MongoRepository<Post> {
 }
 
 export class UserRepository extends MongoRepository<User> {
-    async findByUsername(username: string) {
+    async findByUsername(username: string): Promise<User> {
         try {
             return await this.db.collection(this.collection).findOne({'username': username});
         } catch(err) {
