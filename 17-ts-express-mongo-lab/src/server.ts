@@ -18,6 +18,7 @@ import { Post } from './model/post.model';
 import { User } from './model/user.model';
 import postsRouter from './routes/posts-router';
 import usersRouter from './routes/users-router';
+import authRouter from './routes/auth-router';
 
 const POSTS_FILE = path.join(__dirname, '../posts.json');
 const DB_URL = 'mongodb://localhost: 27017/';
@@ -57,6 +58,7 @@ async function start() {
   // attach feature routers
   app.use('/api/posts', postsRouter);
   app.use('/api/users', usersRouter);
+  app.use('/api/auth', authRouter);
 
   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     if (res.headersSent) {

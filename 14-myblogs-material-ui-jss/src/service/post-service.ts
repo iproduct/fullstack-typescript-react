@@ -1,8 +1,6 @@
-import { PostRepository } from '../dao/repository';
-import MOCK_POSTS from '../model/mock-posts';
+import { AppError } from '../model/errors';
 import { Post } from '../model/post.model';
 import { IdType } from '../shared/shared-types';
-import { AppError } from '../model/errors';
 
 export const API_BASE = 'http://localhost:9000/api';
 

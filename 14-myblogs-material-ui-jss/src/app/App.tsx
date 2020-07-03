@@ -1,39 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { PostList } from '../components/PostList/PostList';
-import { Post } from '../model/post.model';
-import PostService from '../service/post-service';
-import { PostCallback } from '../shared/shared-types';
-import { PostForm } from '../components/PostForm/PostForm';
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
-
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
+import List from '@material-ui/core/List';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from '../listitems';
+import clsx from 'clsx';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, selectPostById, fetchPostById, deletePost, updatePost, createPost } from '../features/posts/postsSlice';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+
+import Alert from '../components/Alert/Alert';
+import { PostForm } from '../components/PostForm/PostForm';
+import { PostList } from '../components/PostList/PostList';
+import { deletePost, fetchPosts } from '../features/posts/postsSlice';
+import { mainListItems, secondaryListItems } from '../listitems';
+import { PostCallback } from '../shared/shared-types';
+import { RootState } from './rootReducer';
+
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
-import { RootState } from './rootReducer';
-import Alert from '../components/Alert/Alert';
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
