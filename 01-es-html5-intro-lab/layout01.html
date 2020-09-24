@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Style the header */
+        header {
+            background-color: #666;
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+            color: white;
+        }
+
+        #main {
+            background: #ccc;
+        }
+
+        #articles {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+
+        /* Create two columns/boxes that floats next to each other */
+        nav {
+            float: left;
+            width: 20%;
+            padding: 20px;
+        }
+
+        /* Style the list inside the menu */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        article {
+            float: left;
+            padding: 20px;
+            width: 50%;
+            background-color: #f1f1f1;
+            /* only for demonstration, should be removed */
+            border-top: 1px dotted grey;
+        }
+
+        .row {
+            clear: both;
+        }
+
+        /* Clear floats after the columns */
+        section:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Style the footer */
+        footer {
+            float: left;
+            width: 100%;
+            background-color: #777;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        aside {
+            float: right;
+            width: 20%;
+        }
+
+
+        aside img {
+            width: 100%;
+        }
+
+        /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+        @media (max-width: 600px) {
+            nav,
+            article,
+            aside {
+                width: 100%;
+                height: auto;
+            }
+
+            #articles {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+        @media (max-width: 960px) {
+            article {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>Cities</h2>
+    </header>
+
+    <section id="main">
+        <nav>
+            <ul>
+                <li><a href="#">London</a></li>
+                <li><a href="#">Paris</a></li>
+                <li><a href="#">Tokyo</a></li>
+            </ul>
+        </nav>
+
+        <aside>
+            <img src="lighthouse.jpg">
+        </aside>
+
+        <section id="articles">
+            <article>
+                <h1>London</h1>
+                <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
+                    metropolitan area of over 13 million inhabitants.</p>
+                <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going
+                    back to its founding by the Romans, who named it Londinium.</p>
+            </article>
+            <article>
+                <h1>Sofia</h1>
+                <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
+                    metropolitan area of over 13 million inhabitants.</p>
+                <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going
+                    back to its founding by the Romans, who named it Londinium.</p>
+            </article>
+            <article>
+                <h1>Paris</h1>
+                <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
+                    metropolitan area of over 13 million inhabitants.</p>
+                <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going
+                    back to its founding by the Romans, who named it Londinium.</p>
+            </article>
+            <article>
+                <h1>Paris</h1>
+                <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
+                    metropolitan area of over 13 million inhabitants.</p>
+                <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going
+                    back to its founding by the Romans, who named it Londinium.</p>
+            </article>
+            <article>
+                <h1>Paris</h1>
+                <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
+                    metropolitan area of over 13 million inhabitants.</p>
+                <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going
+                    back to its founding by the Romans, who named it Londinium.</p>
+            </article>
+            <article>
+                <h1>Paris</h1>
+                <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
+                    metropolitan area of over 13 million inhabitants.</p>
+                <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going
+                    back to its founding by the Romans, who named it Londinium.</p>
+            </article>
+            <article>
+                <h1>Paris</h1>
+                <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a
+                    metropolitan area of over 13 million inhabitants.</p>
+                <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going
+                    back to its founding by the Romans, who named it Londinium.</p>
+            </article>
+        </section>
+    </section>
+
+    <footer>
+        <p>Footer</p>
+    </footer>
+
+</body>
+
+</html>
