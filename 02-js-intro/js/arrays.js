@@ -7,12 +7,12 @@ var employees = [
   { name: 'Ivan', age: 27 }
 ];
 
-var person1 = {};
+var person1 = {}; // prototyple
 person1.name = 'Petar';
 person1.age = 30;
 person1.qualifications = ['javascript', 'react', 'TDD'];
 
-var person2 = new Object();
+var person2 = new Object(); // pseudo-classical
 person2.name = 'Dimitar';
 person2.age = 40;
 person2.qualifications = ['C++', '.NET'];
