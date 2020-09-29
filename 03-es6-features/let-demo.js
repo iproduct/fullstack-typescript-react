@@ -1,6 +1,15 @@
-const callbacks = []
-for (let i = 0; i <= 2; i++) {
-    callbacks[i] = function () { return i * 2 }
+
+for (let i = 0; i < 5; i++) {
+    const callback = function() { console.log(i); }
+    setTimeout(callback, i* 1000);
+}
+
+
+for (var i = 0; i < 5; i++) {
+    var callback = function (n) { //IIFE
+        return function() { console.log(n); }
+    }(i);
+    setTimeout(callback, i* 1000);
 }
 
 // var callbacks = [];
@@ -10,5 +19,5 @@ for (let i = 0; i <= 2; i++) {
 //     })(i);
 // }
 
-callbacks.forEach(c => console.log(c()));
+// callbacks.forEach(c => console.log(c()));
 

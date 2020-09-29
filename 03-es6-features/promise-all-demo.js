@@ -13,13 +13,18 @@
     setTimeout(resolve, 4000, 'four');
   });
   var p5 = new Promise((resolve, reject) => {
-    setTimeout(reject, 5000, 'reject for reason');
+    setTimeout(reject, 500, 'reject for reason');
   });
 
   Promise.all([p1, p2, p3, p4, p5]).then(values => { 
     console.log(values);
-  }, reason => {
-    console.log(`Rejected with: ${reason}`);
+  }).catch(err => {
+    console.log(`Rejected with: ${err}`);
+    throw 'Service call completed.';
+  }).then(result => {
+    console.log(`Finished normally: ${result}`);
+  }, err => {
+    console.log(`Rejected: ${err}`);
   });
 
 

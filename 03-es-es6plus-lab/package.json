@@ -1,0 +1,28 @@
+{
+  "name": "03-es-es6plus-lab",
+  "version": "1.0.0",
+  "description": "ES6+ Demos",
+  "main": "index.js",
+  "scripts": {
+    "start": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iproduct/fullstack-typescript-react.git"
+  },
+  "keywords": [
+    "es6",
+    "javascript",
+    "demo"
+  ],
+  "author": "Trayan Iliev",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/iproduct/fullstack-typescript-react/issues"
+  },
+  "homepage": "https://github.com/iproduct/fullstack-typescript-react#readme",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
