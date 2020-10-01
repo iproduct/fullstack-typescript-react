@@ -1,18 +1,24 @@
 async function f() {
   let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("Task completed."), 2000);
+    setTimeout(() => reject("Error found."), 2000);
   });
 
-  let result = await promise; // <=> promise.then(result => console.log(result); )
-  console.log(result); // "done!"
+  let result;
+  try{
+    result = await promise; // <=> promise.then(result => console.log(result); )
+    console.log(result);
+  } catch(err) {
+    result = 'Error processed successfully.';
+  }
+  return result;
 }
 
 (async () => {
   try{
-    await f();
-    console.log('Demo finished.');
-  }catch(err){
-    console.log(err);
+    const result = await f();
+    console.log(`Demo finished: ${result}`);
+  } catch(err) {
+    console.log(`Error: ${err}`);
   }
 })() //IIFE
 
