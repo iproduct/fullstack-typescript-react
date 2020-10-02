@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MOCK_TODOS from './mock-todos';
+import './TodoApp.css';
 import TodoList from './TodoList';
 
 export class TodoApp extends Component {
@@ -14,10 +15,10 @@ export class TodoApp extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className='App-header'>
                 <h2>React TODS Demo</h2>
                 <TodoList todos={this.state.todos} />
-            </React.Fragment>
+            </div>
         );
     }
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { TodoStatus } from './todo.model';
+import { TodoItem } from './TodoItem';
+import './TodoList.css';
 
 export default ({todos}) => (
-    <ul>
-        { todos.map(todo => (<li>{todo.id}: {todo.text} - {TodoStatus[todo.status]}</li>)) }
-    </ul>
+    <div className="TodoList">
+        { todos.map(todo => (<TodoItem todo={todo} key={todo.id} />)) }
+    </div>
 );
