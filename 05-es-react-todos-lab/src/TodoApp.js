@@ -20,13 +20,26 @@ export class TodoApp extends Component {
             <div className='App-header'>
                 <h2>React TODS Demo</h2>
                 <TodoInput onCreateTodo={this.handleCreateTodo} />
-                <TodoList todos={this.state.todos} />
+                <TodoList todos={this.state.todos} onDeleteTodo={this.handleDeleteTodo}
+                    onStatusChanged={this.handleChangeStatus}/>
             </div>
         );
     }
 
     handleCreateTodo(todo) {
         this.setState(state => ({todos: state.todos.concat(todo)}));
+    }
+
+    handleDeleteTodo = (todo) => {
+        this.setState(state => ({
+            todos: state.todos.filter(t => t.id !== todo.id)
+        }))
+    }
+
+    handleChangeStatus = (todo) => {
+        this.setState(state => ({
+            todos: state.todos.map(t => t.id === todo.id ? todo : t)
+        }))
     }
 
 }
