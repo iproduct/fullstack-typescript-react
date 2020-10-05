@@ -1,8 +1,9 @@
-export const ACTIVE = 0;
-export const COMPLETED = 1;
-export const CANCELED = 2;
+export const ALL_STATUSES = 0;
+export const ACTIVE = 1;
+export const COMPLETED = 2;
+export const CANCELED = 3;
 
-export const TodoStatus = ['ACTIVE', 'COMPLETED', 'CANCELED']
+export const TodoStatus = ['ALL_STATUSES', 'ACTIVE', 'COMPLETED', 'CANCELED']
 
 export class Todo {
     static nextId = 0;
