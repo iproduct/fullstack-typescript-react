@@ -10,6 +10,17 @@ class CommentsApiClient{
         const comments = await resp.json();
         return comments;
     }
+
+    async createComment(comment) {
+        const resp = await fetch(this.baseUrl,{
+            method: 'POST',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(comment)
+        });
+        const created = await resp.json();
+        return created;
+    }
 }
 
 export default new CommentsApiClient(BASE_URL);
