@@ -28,7 +28,7 @@ function App() {
     resetComment();
   }
   function resetComment(){
-    setSelected(new Comment('', ''))
+    setSelected(new Comment('', ''));
   }
   function handleEditComment(comment) {
     setSelected(comment);
