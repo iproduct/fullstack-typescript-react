@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
+import CommentsList from './components/CommentsList/CommentsList'
 import './App.css';
 
 function App() {
+  const [comments, setComments] = useState([]);
+  const [selected, setSelected] = useState();
+  function handleChangeSelected(selectedComment) {
+    setSelected(selectedComment);
+  }
+  
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <CommentsList comments={comments} selected={selected} 
+          onChangeSelected={handleChangeSelected} />
       </header>
     </div>
   );

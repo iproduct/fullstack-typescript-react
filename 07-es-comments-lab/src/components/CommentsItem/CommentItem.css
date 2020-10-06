@@ -1,0 +1,60 @@
+.CommentItem {
+    display: flex;
+    justify-content: space-between;
+    width: 960px;
+    padding: 10px;
+    margin: 5px;
+    background-image: linear-gradient(to bottom right, rgba(120, 120, 120, 0.301), rgba(60, 60, 60, 0.801));
+    text-align: left;
+    border: 1px solid  rgba(200, 200, 200, 0.301);
+    border-radius:  5px;
+}
+
+.CommentItem:hover {
+    background-image: linear-gradient(to bottom right, rgba(185, 185, 185, 0.335), rgba(112, 111, 111, 0.801));
+}
+
+.CommentItem-left {
+    align-items: center;
+    display: flex;
+}
+
+.CommentItem-text p{
+    margin: 0;
+}
+
+.CommentItem-id{ 
+    padding-right: 10px;
+}
+
+.CommentItem-right {
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.CommentItem-author {
+    width: 65%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.CommentItem-button {
+    font-size: 18pt;
+    color: rgb(101, 154, 172);
+    margin: 10px;
+    cursor: pointer;
+}
+
+.CommentItem-button:hover {
+    color: rgb(15, 107, 255);
+}
+
+.danger {
+    color: rgb(255, 80, 80);
+}
+
+.danger:hover {
+    color: rgb(224, 35, 21);
+}
+
