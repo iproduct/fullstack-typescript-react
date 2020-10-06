@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CommentType } from '../../model/comment.model';
+import { Marked } from '@ts-stack/markdown';
 import './CommentItem.css';
+
+function rawMarkup(markdownText) {
+    return {
+        __html: Marked.parse(markdownText)
+    };
+}
 
 function CommentItem({comment, isActive, onChangeSelected, onEditComment, onDeleteComment}) {
     function handleUpdate(){
@@ -14,7 +21,7 @@ function CommentItem({comment, isActive, onChangeSelected, onEditComment, onDele
         <div className={isActive? 'CommentItem active': 'CommentItem'}>
             <div className="CommentItem-left">
                 <span className="CommentItem-id">{comment.id}</span>
-                <span className="CommentItem-text">{comment.text}</span>
+                <span className="CommentItem-text" dangerouslySetInnerHTML={rawMarkup(comment.text)}></span>
             </div>
             <div className="CommentItem-right">
                 <span className="CommentItem-author">{comment.author}</span>

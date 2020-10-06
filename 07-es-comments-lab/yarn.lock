@@ -1845,6 +1845,11 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-7.2.1.tgz#2ad4e844175a3738cb9e7064be5ea070b8863a1c"
   integrity sha512-oZ0Ib5I4Z2pUEcoo95cT1cr6slco9WY7yiPpG+RGNkj8YcYgJnM7pXmYmorNOReh8MIGcKSqXyeGjxnr8YiZbA==
 
+"@ts-stack/markdown@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ts-stack/markdown/-/markdown-1.2.0.tgz#605142da9bb393057c4d973b4b91c6e015f06806"
+  integrity sha512-PHGJqP4bgS23u6wEt+kEMBziNZVcpMFFDXbvImGEmIe6eizH3mAGpAJ6LWJ84oUNDePNP7SJ8e8hwlxRBL0+FA==
+
 "@types/aria-query@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.0.tgz#14264692a9d6e2fa4db3df5e56e94b5e25647ac0"
