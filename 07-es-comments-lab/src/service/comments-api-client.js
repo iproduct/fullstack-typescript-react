@@ -28,7 +28,7 @@ class CommentsApiClient{
     }
 
     async updateComment(comment) {
-        const resp = await fetch(`${this.baseUrl}/${comment.id}`,{
+        const resp = await fetch(`${this.baseUrl}/${comment.id}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {'Content-Type': 'application/json'},

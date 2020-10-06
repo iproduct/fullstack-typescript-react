@@ -18,15 +18,35 @@ function App() {
     setSelected(selectedComment);
   }
   async function handleSubmitComment(comment) {
-    const newComment = await COMMENTS_API.createComment(comment);
-    setComments(comments.concat(newComment));
+    if(comment.id) { //Edit comment
+      const edited = await COMMENTS_API.updateComment(comment);
+      setComments(comments.map(c => c.id === edited.id ? edited: c));
+    } else {
+      const newComment = await COMMENTS_API.createComment(comment);
+      setComments(comments.concat(newComment));
+    }
+    resetComment();
   }
+  function resetComment(){
+    setSelected(new Comment('', ''))
+  }
+  function handleEditComment(comment) {
+    setSelected(comment);
+  }
+  async function handleDeleteComment(comment) {
+    const newComment = await COMMENTS_API.deleteComment(comment.id);
+    setComments(comments.filter(c => c.id !== newComment.id));
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <CommentInput  onSubmitComment={handleSubmitComment}/>
+        <CommentInput key={selected? selected.id: 0} comment={selected} onSubmitComment={handleSubmitComment}/>
         <CommentsList comments={comments} selected={selected} 
-          onChangeSelected={handleChangeSelected} />
+          onChangeSelected={handleChangeSelected} 
+          onEditComment={handleEditComment}
+          onDeleteComment={handleDeleteComment}
+          />
       </header>
     </div>
   );

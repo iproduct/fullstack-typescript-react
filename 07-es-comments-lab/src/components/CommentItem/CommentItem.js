@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { CommentType } from '../../model/comment.model';
 import './CommentItem.css';
 
-function CommentItem({comment, isActive, onChangeSelected}) {
+function CommentItem({comment, isActive, onChangeSelected, onEditComment, onDeleteComment}) {
     function handleUpdate(){
-        
+        onEditComment(comment);
     }
     function handleDelete(){
-        
+        onDeleteComment(comment);
     }
     return (
         <div className={isActive? 'CommentItem active': 'CommentItem'}>
@@ -24,7 +24,7 @@ function CommentItem({comment, isActive, onChangeSelected}) {
                 </span>
             </div>
         </div>
-    )
+    );
 }
 
 CommentItem.propTypes = {

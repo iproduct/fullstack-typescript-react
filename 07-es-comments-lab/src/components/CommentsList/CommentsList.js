@@ -9,7 +9,7 @@ function CommentsList({comments, selected, ...rest}) {
             {
                 comments.map(comm => (
                     <CommentItem key={comm.id} comment={comm} 
-                        isActive={selected && selected.id === comm.id} />
+                        isActive={selected && selected.id === comm.id} {...rest} />
                 ))
             }
         </div>
