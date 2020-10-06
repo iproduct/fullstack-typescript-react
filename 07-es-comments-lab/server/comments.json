@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1388534400000,
+        "author": "Pete Hunt",
+        "text": "Hey there!"
+    },
+    {
+        "id": 1420070400000,
+        "author": "Paul O’Shannessy",
+        "text": "React is *great*!"
+    },
+    {
+        "id": 1464988635157,
+        "author": "ben",
+        "text": "*abc*"
+    },
+    {
+        "id": 1464988636500,
+        "author": "ben",
+        "text": "*abc*"
+    },
+    {
+        "id": 1464988717637,
+        "author": "evil",
+        "text": "<a href=\"javascript:alert(1)\">alert(1)</a>"
+    },
+    {
+        "id": 1592893979949,
+        "text": "Welcome to Formik Libasffsfdsfdsfsdfsdaaa!",
+        "author": "Maria Stoyanova"
+    },
+    {
+        "id": 1601909992084,
+        "author": "Trayan Iliev",
+        "text": "REST Backend is ready."
+    },
+    {
+        "id": 1601910001335,
+        "author": "Trayan Iliev",
+        "text": "REST Backend is ready."
+    }
+]
