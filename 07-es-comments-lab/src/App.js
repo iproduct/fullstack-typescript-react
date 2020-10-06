@@ -18,17 +18,19 @@ function App() {
     setSelected(selectedComment);
   }
   async function handleSubmitComment(comment) {
+    let result;
     if(comment.id) { //Edit comment
-      const edited = await COMMENTS_API.updateComment(comment);
-      setComments(comments.map(c => c.id === edited.id ? edited: c));
+      result = await COMMENTS_API.updateComment(comment);
+      setComments(comments.map(c => c.id === result.id ? result: c));
     } else {
-      const newComment = await COMMENTS_API.createComment(comment);
-      setComments(comments.concat(newComment));
+     result = await COMMENTS_API.createComment(comment);
+      setComments(comments.concat(result));
     }
-    resetComment();
+    setSelected(result)
+    resetSelected();
   }
-  function resetComment(){
-    setSelected(new Comment('', ''));
+  function resetSelected(){
+    setSelected(undefined)
   }
   function handleEditComment(comment) {
     setSelected(comment);

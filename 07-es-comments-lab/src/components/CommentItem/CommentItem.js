@@ -4,6 +4,7 @@ import { CommentType } from '../../model/comment.model';
 import { Marked } from '@ts-stack/markdown';
 import './CommentItem.css';
 
+Marked.setOptions({isNoP: true});
 function rawMarkup(markdownText) {
     return {
         __html: Marked.parse(markdownText)
@@ -17,14 +18,26 @@ function CommentItem({comment, isActive, onChangeSelected, onEditComment, onDele
     function handleDelete(){
         onDeleteComment(comment);
     }
+
+    const date = new Date(comment.id);
+    // const dateStr = ('00' + date.getDate()).slice(-2) + '.' + ('00' + (date.getMonth() + 1)).slice(-2) + '.'
+    //     + ("" + date.getFullYear()).slice(-2) + ' ' + ('00' + date.getHours()).slice(-2) + ':'
+    //     + ('00' + date.getMinutes()).slice(-2);
+    const dateStr = Intl.DateTimeFormat('bg-BG', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+    }).format(date);
     return (
         <div className={isActive? 'CommentItem active': 'CommentItem'}>
             <div className="CommentItem-left">
-                <span className="CommentItem-id">{comment.id}</span>
+                <span className="CommentItem-id">{dateStr}</span>
                 <span className="CommentItem-text" dangerouslySetInnerHTML={rawMarkup(comment.text)}></span>
             </div>
             <div className="CommentItem-right">
-                <span className="CommentItem-author">{comment.author}</span>
+                <span className="CommentItem-author">{comment.author}</span>  
                 <span className="CommentItem-controls">
                     <span className="CommentItem-button fas fa-edit" onClick={handleUpdate}></span>
                     <span className="CommentItem-button fas fa-trash-alt" onClick={handleDelete}></span>

@@ -9,7 +9,7 @@ export class Comment {
 }
 
 export const CommentType = PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    text: PropTypes.string,
+    author: PropTypes.string
 });

@@ -12,7 +12,7 @@ interface IAppProps {
 }
 
 const rawMarkup = (markdownText: string) => (
-  {__html :Marked.parse(markdownText)}
+  {__html : Marked.parse(markdownText)}
 );
 
 

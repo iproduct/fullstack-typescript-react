@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Comment } from '../../model/comment.model';
+import './CommentInput.css';
 
 function CommentInput({comment = new Comment('',''), onSubmitComment}) {
     const [values, setValues] = useState(comment);
@@ -21,7 +22,7 @@ function CommentInput({comment = new Comment('',''), onSubmitComment}) {
     return (
         <Fragment>
         <h2>{comment.id ? 'Edit Comment': 'Add New Comment'}</h2>
-        <form className="container" onSubmit={handleSubmit} onReset={handleReset}>
+        <form className="CommentInput-form" onSubmit={handleSubmit} onReset={handleReset}>
             <input type="text" id="text" name="text" value={values.text} onChange={updateValue} 
                 placeholder="Comment text here ..." />
             <input type="text" id="author" name="author" value={values.author} onChange={updateValue} 
