@@ -17,11 +17,14 @@ function App() {
   function handleChangeSelected(selectedComment) {
     setSelected(selectedComment);
   }
-  
+  async function handleSubmitComment(comment) {
+    const newComment = await COMMENTS_API.createComment(comment);
+    setComments(comments.concat(newComment));
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <CommentInput />
+        <CommentInput  onSubmitComment={handleSubmitComment}/>
         <CommentsList comments={comments} selected={selected} 
           onChangeSelected={handleChangeSelected} />
       </header>

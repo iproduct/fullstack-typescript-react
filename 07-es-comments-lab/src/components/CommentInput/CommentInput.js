@@ -10,14 +10,28 @@ function CommentInput({comment = new Comment('',''), onSubmitComment}) {
                 event.target.type === 'checkbox' ? event.target.checked : event.target.value
         });
     }
+    function handleReset(ev) {
+        ev.preventDefault();
+        setValues(comment);
+    }    
+    function handleSubmit(ev) {
+        ev.preventDefault();
+        onSubmitComment(values);
+    }
     return (
         <Fragment>
         <h2>{comment.id ? 'Edit Comment': 'Add New Comment'}</h2>
-        <form>
+        <form className="container" onSubmit={handleSubmit} onReset={handleReset}>
             <input type="text" id="text" name="text" value={values.text} onChange={updateValue} 
                 placeholder="Comment text here ..." />
             <input type="text" id="author" name="author" value={values.author} onChange={updateValue} 
                 placeholder="Author here ..."/>
+            <button className="button button5" type="submit">
+                {comment.id ? 'Edit Comment': 'Add Comment'}
+            </button>
+            <button className="button button3" type="reset" >
+                Reset
+            </button>
         </form>
         </Fragment>
     )
