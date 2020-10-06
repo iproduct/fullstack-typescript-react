@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import CommentsList from './components/CommentsList/CommentsList'
+import React, { useState, useEffect } from 'react';
+import CommentsList from './components/CommentsList/CommentsList';
+import COMMENTS_API from './service/comments-api-client';
 import './App.css';
 
 function App() {
   const [comments, setComments] = useState([]);
   const [selected, setSelected] = useState();
+  useEffect(() => {
+    async function fetchData() {
+      setComments(await COMMENTS_API.getAllComments());
+    }
+    fetchData();
+  }, [])
   function handleChangeSelected(selectedComment) {
     setSelected(selectedComment);
   }
