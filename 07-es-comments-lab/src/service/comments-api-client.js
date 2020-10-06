@@ -11,6 +11,11 @@ class CommentsApiClient{
         return comments;
     }
 
+    async getCommentById(commentId) {
+        const resp = await fetch(`${this.baseUrl}/${commentId}`);
+        return await resp.json();
+    }
+
     async createComment(comment) {
         const resp = await fetch(this.baseUrl,{
             method: 'POST',
@@ -20,6 +25,26 @@ class CommentsApiClient{
         });
         const created = await resp.json();
         return created;
+    }
+
+    async updateComment(comment) {
+        const resp = await fetch(`${this.baseUrl}/${comment.id}`,{
+            method: 'PUT',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(comment)
+        });
+        const created = await resp.json();
+        return created;
+    }
+
+    async deleteComment(commentId) {
+        const resp = await fetch(`${this.baseUrl}/${commentId}`,
+        {
+            method: 'DELETE',
+            mode: 'cors'
+        });
+        return await resp.json();
     }
 }
 
