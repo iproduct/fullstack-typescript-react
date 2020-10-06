@@ -4,7 +4,10 @@ import { CommentType } from '../../model/comment.model';
 import { Marked } from '@ts-stack/markdown';
 import './CommentItem.css';
 
-Marked.setOptions({isNoP: true});
+Marked.setOptions({
+    isNoP: true,
+    sanitize: true
+});
 function rawMarkup(markdownText) {
     return {
         __html: Marked.parse(markdownText)
