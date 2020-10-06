@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Comment } from '../../model/comment.model';
+import { CommentType } from '../../model/comment.model';
 import CommentItem from '../CommentItem/CommentItem';
 
 function CommentsList({comments, selected, ...rest}) {
@@ -16,9 +16,10 @@ function CommentsList({comments, selected, ...rest}) {
     )
 }
 
+
 CommentsList.propTypes = {
-    comments: PropTypes.arrayOf(Comment).isRequired,
-    selected: PropTypes.instanceOf(Comment),
+    comments: PropTypes.arrayOf(CommentType).isRequired,
+    selected: CommentType,
     onChangeSelected: PropTypes.func
 }
 

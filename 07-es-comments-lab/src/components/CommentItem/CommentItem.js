@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Comment } from '../../model/comment.model';
+import { CommentType } from '../../model/comment.model';
 import './CommentItem.css';
 
 function CommentItem({comment, isActive, onChangeSelected}) {
@@ -28,7 +28,7 @@ function CommentItem({comment, isActive, onChangeSelected}) {
 }
 
 CommentItem.propTypes = {
-    comment: PropTypes.instanceOf(Comment).isRequired,
+    comment: CommentType.isRequired,
     isActive: PropTypes.bool,
     onChangeSelected: PropTypes.func
 }

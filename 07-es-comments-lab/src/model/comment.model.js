@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export class Comment {
     id = undefined;
     constructor(author, text){
@@ -5,3 +7,9 @@ export class Comment {
         this.text = text;
     }
 }
+
+export const CommentType = PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+});
