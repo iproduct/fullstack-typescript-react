@@ -12,7 +12,7 @@
     {
         "id": 1464988635157,
         "author": "ben",
-        "text": "*abc*"
+        "text": "*abc* **def**"
     },
     {
         "id": 1464988636500,
@@ -22,7 +22,7 @@
     {
         "id": 1464988717637,
         "author": "evil",
-        "text": "<a href=\"javascript:alert(1)\">alert(1)</a>"
+        "text": "<a href=\"javascript:alert(1)\">alert(42)</a>"
     },
     {
         "id": 1592893979949,

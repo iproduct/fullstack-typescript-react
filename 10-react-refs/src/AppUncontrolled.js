@@ -9,6 +9,7 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
+    console.log(this.input);
     alert('A name was submitted: ' + this.input.current.value);
     event.preventDefault();
   }

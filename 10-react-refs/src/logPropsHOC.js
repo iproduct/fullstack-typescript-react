@@ -27,6 +27,7 @@ function logPropsHOC(WrappedComponent) {
   // We can pass it along to LogProps as a regular prop, e.g. "forwardedRef"
   // And it can then be attached to the Component.
   return React.forwardRef(forwardRef);
+  // return (props) => (<LogProps {...props} />);
 }
   //   class LogProps extends React.Component {
   //     componentDidUpdate(prevProps) {

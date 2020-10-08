@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:9000/api/comments';
+export const BASE_URL = 'http://localhost:9001/api/comments';
 
 class CommentsApiClient{
     constructor(baseUrl){

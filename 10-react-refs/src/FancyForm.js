@@ -18,6 +18,7 @@ class FancyForm extends React.Component {
   render() {
     return (
       <div>
+        <h2 style={{color:this.props.color}}>Input Text (coror demo)</h2>
         <input type="text" ref={this.inputRef} />
         <FancyButton ref={this.buttonRef} onClick={this.props.onClick}>
           Click me!
