@@ -20,7 +20,7 @@ import { Post } from '../model/post.model';
 import { IdType } from '../shared/shared-types';
 import { handleErrorStausCodes } from './service-utils';
 
-export const API_BASE = 'http://localhost:9000/api';
+export const API_BASE = 'http://localhost:9001/api';
 
 class PostService {
     constructor(private apiUrl: string) {}

@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 
 class TodoForm extends React.Component {
   static propTypes = {
-    addTodo : PropTypes.func.isRequired
+    onAddTodo : PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -29,7 +29,7 @@ class TodoForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addTodo(this.state.todoText);
+    this.props.onAddTodo(this.state.todoText);
     this.setState({todoText: ''});
   }
 }

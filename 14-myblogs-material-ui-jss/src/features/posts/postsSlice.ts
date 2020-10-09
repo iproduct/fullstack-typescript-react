@@ -174,7 +174,7 @@ export const fetchPostById = (postId: IdType): AppThunk => async (dispatch) => {
 
 export const createPost = (
   post: Post, 
-  history: History<History.PoorMansUnknown>, 
+  history: History<any>, 
   // setSubmitting: (isSubmitting: boolean) => void
   ): AppThunk => async (dispatch, getState) => {
   try {
@@ -193,7 +193,7 @@ export const createPost = (
 
 export const updatePost = (
   post: Post, 
-  history: History<History.PoorMansUnknown>, 
+  history: History<any>, 
   // setSubmitting: (isSubmitting: boolean) => void
   ): AppThunk => async (dispatch) => {
   try {

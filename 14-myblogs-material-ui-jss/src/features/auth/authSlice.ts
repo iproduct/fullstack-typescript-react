@@ -82,7 +82,7 @@ export const {
 export default auth.reducer
 
 
-export const submitLogin = (credentials: Credentials, history: History<History.PoorMansUnknown>): AppThunk => async (dispatch, getState) => {
+export const submitLogin = (credentials: Credentials, history: History<any>): AppThunk => async (dispatch, getState) => {
   try {
     dispatch(loginStart())
     const loggedUser = await AuthService.login(credentials);

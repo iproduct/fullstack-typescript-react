@@ -1,0 +1,3 @@
+{
+	"payload": "[{\"type\":\"ADD_TODO\",\"id\":0,\"text\":\"Learn Redux\"},{\"type\":\"ADD_TODO\",\"id\":1,\"text\":\"Configure root reducer\"},{\"type\":\"ADD_TODO\",\"id\":2,\"text\":\"Bootstrap rudux using <Provider> with store\"},{\"type\":\"CHANGE_STATUS\",\"id\":0,\"status\":\"completed\"},{\"type\":\"CHANGE_STATUS\",\"id\":1,\"status\":\"canceled\"},{\"type\":\"SET_VISIBILITY_FILTER\",\"filter\":\"completed\"},{\"type\":\"SET_VISIBILITY_FILTER\",\"filter\":\"canceled\"},{\"type\":\"SET_VISIBILITY_FILTER\",\"filter\":\"active\"},{\"type\":\"SET_VISIBILITY_FILTER\",\"filter\":\"all\"},{\"type\":\"DELETE_TODOS\",\"status\":\"canceled\"},{\"type\":\"DELETE_TODOS\",\"status\":\"completed\"}]"
+}

@@ -24,7 +24,7 @@ var app = express();
 
 var POSTS_FILE = path.join(__dirname, 'posts.json');
 
-app.set('port', (process.env.PORT || 9000));
+app.set('port', (process.env.PORT || 9001));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -53,7 +53,7 @@ app.get('/api/posts', function(req, res) {
   });
 });
 
-app.get('/api/posts/:id', function(req, res) {
+app.get('/api/users/:userId/posts/:postId', function(req, res) {
   fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {
       console.error(err);
@@ -63,7 +63,7 @@ app.get('/api/posts/:id', function(req, res) {
     // NOTE: In a real implementation, we would likely rely on a database or
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
-    const postId = req.params.id;
+    const postId = req.params.postId;
     const index = posts.findIndex(c => c._id === postId);
     if(index < 0) {
       res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});

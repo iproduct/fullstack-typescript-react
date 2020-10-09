@@ -19,7 +19,7 @@
 import { Credentials, LoggedUser } from '../model/auth';
 import { handleErrorStausCodes } from './service-utils';
 
-export const API_BASE = 'http://localhost:9000/api';
+export const API_BASE = 'http://localhost:9001/api';
 
 class AuthService {
     constructor(private apiUrl: string) {}
