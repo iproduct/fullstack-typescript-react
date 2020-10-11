@@ -49,7 +49,7 @@ class PostService {
     }
 
     async updatePost(post: Post) {
-        const resp = await fetch(`${this.apiUrl}/posts/${post._id}`, {
+        const resp = await fetch(`${this.apiUrl}/posts/${post.id}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {'Content-Type': 'application/json'},

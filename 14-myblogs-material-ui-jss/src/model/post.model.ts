@@ -28,7 +28,7 @@ export interface IPost extends Indentifiable {
 
 export class Post implements IPost {
     constructor(
-        public _id: IdType,
+        public id: IdType,
         public title: string,
         public text: string,
         public authorId: IdType,

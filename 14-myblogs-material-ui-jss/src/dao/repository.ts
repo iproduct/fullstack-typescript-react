@@ -32,19 +32,19 @@ export class MockRepository<T extends Indentifiable> implements Repository<T> {
     static nextId : number;
     private entities = new Map<IdType, T>();
     add(entity: T): T {
-        entity._id = this.getNextId();
-        this.entities.set(entity._id, entity);
+        entity.id = this.getNextId();
+        this.entities.set(entity.id, entity);
         return entity;
     }
     edit(entity: T): T {
-        if(!entity._id) {
+        if(!entity.id) {
             throw Error(`Entity ID can not be undefined.`)
         }
-        const found = this.findById(entity._id);
+        const found = this.findById(entity.id);
         if(!found) {
-            throw Error(`Entity ID="${entity._id} does not exist and can not be modified.`)
+            throw Error(`Entity ID="${entity.id} does not exist and can not be modified.`)
         }
-        this.entities.set(entity._id, entity);
+        this.entities.set(entity.id, entity);
         return entity;
     }
     deleteById(id: IdType): T | undefined {

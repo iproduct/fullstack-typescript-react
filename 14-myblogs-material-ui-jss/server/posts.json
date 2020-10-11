@@ -84,5 +84,20 @@
         "categories": [
             "programming"
         ]
+    },
+    {
+        "id": "1602256021241",
+        "title": "Rescue Mission To Mars",
+        "text": "Mars is far away!",
+        "imageUrl": "https://www.nasa.gov/sites/default/files/styles/image_card_4x3_ratio/public/thumbnails/image/pia22486-main.jpg",
+        "authorId": "",
+        "keywords": [
+            "science",
+            "mars",
+            "discovery"
+        ],
+        "categories": [
+            "science"
+        ]
     }
 ]

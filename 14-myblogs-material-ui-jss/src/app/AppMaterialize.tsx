@@ -70,13 +70,13 @@ function App() {
 
 
   const handleEditPost: PostCallback = (post) => {
-    history.push(`/edit-post/${post._id}`);
+    history.push(`/edit-post/${post.id}`);
   };
 
   const handleDeletePost: PostCallback = (post) => {
-    PostService.deletePost(post._id).then(
+    PostService.deletePost(post.id).then(
       deleted => {
-        setPosts(posts.filter(p => p._id !== deleted._id));
+        setPosts(posts.filter(p => p.id !== deleted.id));
         history.push('/posts');
       }
     );

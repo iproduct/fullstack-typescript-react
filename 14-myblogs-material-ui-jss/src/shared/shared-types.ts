@@ -21,7 +21,7 @@ import { Post } from "../model/post.model";
 export type IdType = string;
 
 export interface Indentifiable {
-    _id?: IdType
+    id?: IdType
 }
 
 export interface StringCallback {

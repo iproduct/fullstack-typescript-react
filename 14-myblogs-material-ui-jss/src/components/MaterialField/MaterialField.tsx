@@ -41,7 +41,7 @@ function MaterialFiled({ name, label, rowsMax = 1 }: MaterialFiledProps) {
                         label={label}
                         fullWidth
                         multiline={rowsMax > 1}
-                        rowsMax={rowsMax}
+                        maxRows={rowsMax}
                         {...field}
                     />
                 )

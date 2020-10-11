@@ -35,7 +35,7 @@ export function PostList({ posts, ...rest }: Props): ReactElement<Props> {
     <React.Fragment>
       <Header />
       <Grid container spacing={2}>
-        {posts.map(post => (<PostItem post={post} key={post._id} {...rest} />))}
+        {posts.map(post => (<PostItem post={post} key={post.id} {...rest} />))}
       </Grid>
     </React.Fragment>
   );

@@ -74,7 +74,7 @@ const posts = createSlice({
     },
     getPostByIdSuccess(state, action: PayloadAction<Post>) {
       const post = action.payload;
-      const index = state.posts.findIndex(p => p._id === post._id);
+      const index = state.posts.findIndex(p => p.id === post.id);
       if (index < 0) {
         state.posts.push(post)
       } else {
@@ -84,7 +84,7 @@ const posts = createSlice({
       state.error = null;
     },
     createPostStart(state, action: PayloadAction<Post>) {
-      state.currentPostId = action.payload._id;
+      state.currentPostId = action.payload.id;
       state.loading = true;
       state.error = null;
     },
@@ -96,13 +96,13 @@ const posts = createSlice({
       state.message = `Post "${action.payload.title}" created successfully.`;
     },
     updatePostStart(state, action: PayloadAction<Post>) {
-      state.currentPostId = action.payload._id;
+      state.currentPostId = action.payload.id;
       state.loading = true;
       state.error = null;
     },
     updatePostSuccess(state, action: PayloadAction<Post>) {
       const post = action.payload;
-      const index = state.posts.findIndex(p => p._id === post._id);
+      const index = state.posts.findIndex(p => p.id === post.id);
       if (index < 0) {
         state.posts.push(post)
       } else {
@@ -119,7 +119,7 @@ const posts = createSlice({
     },
     deletePostByIdSuccess(state, action: PayloadAction<Post>) {
       const post = action.payload;
-      const index = state.posts.findIndex(p => p._id === post._id);
+      const index = state.posts.findIndex(p => p.id === post.id);
       if (index >= 0) {
         state.posts.splice(index, 1);
       }

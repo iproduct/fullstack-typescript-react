@@ -53,7 +53,7 @@ app.get('/api/posts', function(req, res) {
   });
 });
 
-app.get('/api/users/:userId/posts/:postId', function(req, res) {
+app.get('/api/posts/:postId', function(req, res) {
   fs.readFile(POSTS_FILE, function(err, data) {
     if (err) {
       console.error(err);
@@ -64,7 +64,7 @@ app.get('/api/users/:userId/posts/:postId', function(req, res) {
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
     const postId = req.params.postId;
-    const index = posts.findIndex(c => c._id === postId);
+    const index = posts.findIndex(c => c.id === postId);
     if(index < 0) {
       res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
       return;
@@ -93,7 +93,7 @@ app.post('/api/posts', function(req, res) {
         console.error(err);
         process.exit(1);
       }
-      res.status(201).location(`/api/posts/${newPost._id}`).json(newPost);
+      res.status(201).location(`/api/posts/${newPost.id}`).json(newPost);
     });
   });
 });
@@ -110,11 +110,11 @@ app.put('/api/posts/:id', function(req, res) {
     // treat Date.now() as unique-enough for our purposes.
     const postId = req.params.id;
     const post = req.body;
-    if(postId !== post._id) {
+    if(postId !== post.id) {
       res.status(400).json({code: 400, message: `IDs in the URL and message body are different.`});
       return;
     }
-    const index = posts.findIndex(c => c._id === postId);
+    const index = posts.findIndex(c => c.id === postId);
     if(index < 0) {
       res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
       return;
@@ -141,7 +141,7 @@ app.delete('/api/posts/:id', function(req, res) {
     // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
     // treat Date.now() as unique-enough for our purposes.
     const postId = req.params.id;
-    const index = posts.findIndex(c => c._id === postId);
+    const index = posts.findIndex(c => c.id === postId);
     if(index < 0) {
       res.status(404).json({code: 404, message: `Post with ID=${postId} not found.`});
       return;

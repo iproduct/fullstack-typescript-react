@@ -184,11 +184,11 @@ export default function Dashboard() {
 
 
   const handleEditPost: PostCallback = (post) => {
-    history.push(`/edit-post/${post._id}`);
+    history.push(`/edit-post/${post.id}`);
   };
 
   const handleDeletePost: PostCallback = (post) => {
-    dispatch(deletePost(post._id));
+    dispatch(deletePost(post.id));
   };
 
   const handleDrawerOpen = () => {
