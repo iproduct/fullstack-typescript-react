@@ -12,14 +12,23 @@ function PositionLogger(initilaPos) {
                 positionLog.push({ pos: newPos });
             }
         },
-        getLog: {
-            value: function () {
-                return positionLog;
-            },
-            writable: false,
-            configurable: false
+        positionLog: {
+            get: function(){
+                return positionLog
+            }
         }
+        // getLog: {
+        //     value: function () {
+        //         return positionLog;
+        //     },
+        //     writable: false,
+        //     configurable: false
+        // }
     });
+}
+
+PositionLogger.prototype.getLog = function () {
+    return this.positionLog;
 }
 
 pl = new PositionLogger(0);
@@ -32,3 +41,13 @@ pl.position -= 8;
 console.log(pl.position);
 
 console.log(pl.getLog());
+
+pl2 = new PositionLogger(100);
+pl2.position += 5;
+console.log(pl2.position);
+pl2.position += 10;
+console.log(pl2.position);
+pl2.position -= 8;
+console.log(pl2.position);
+
+console.log(pl2.getLog());
