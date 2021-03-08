@@ -16,16 +16,16 @@
     setTimeout(reject, 500, 'reject for reason');
   });
 
-  Promise.all([p1, p2, p3, p4, p5]).then(values => { 
-    console.log(values);
-  }).catch(err => {
-    console.log(`Rejected with: ${err}`);
-    throw 'Service call completed.';
-  }).then(result => {
-    console.log(`Finished normally: ${result}`);
-  }, err => {
-    console.log(`Rejected: ${err}`);
-  });
+  // Promise.all([p1, p2, p3, p4, p5]).then(values => { 
+  //   console.log(values);
+  // }).catch(err => {
+  //   console.log(`Rejected with: ${err}`);
+  //   throw 'Service call completed.';
+  // }).then(result => {
+  //   console.log(`Finished normally: ${result}`);
+  // }, err => {
+  //   console.log(`Rejected: ${err}`);
+  // });
 
 
   //You can also use .catch
@@ -38,7 +38,7 @@
   }).then(v => {
     console.log(`Resolved in second then clause: ${v}`);
   }, r => {
-    console.log(`Rejected in second then clause: ${r}`);
+    console.log(`Rejected in second catch clause: ${r}`);
   });
 
-}) ();
+}) (); //IIFE
