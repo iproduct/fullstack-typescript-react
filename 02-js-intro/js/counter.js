@@ -1,20 +1,20 @@
-var counter = function countWithClosure(increment) { //IIFE - Module pattern
+var counter = function countWithClosure() { //IIFE - Module pattern
   var count = 0; //private state
-  function privateMethod(){ // private method
-    return count += increment;
+  function _inc() {
+    return count++;
   }
   return { //public API
     increment: function () {
-      return privateMethod();
+      return _inc();
     },
     decrement: function () {
       return --count;
     }
   };
-}(5); //IIFE or Module pattern
+}();
 
 console.log(counter.increment());
-// console.log(counter.privateMethod())
+// console.log(counter.count)
 console.log(counter.increment());
 console.log(counter.increment());
 console.log(counter.increment());
