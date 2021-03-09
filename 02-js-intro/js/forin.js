@@ -10,9 +10,9 @@ function test() {
     var obj = new ColoredTriangle();
 
     for (const prop in obj) {
-        // if (obj.hasOwnProperty(prop)) {
+        if (obj.hasOwnProperty(prop)) {
             console.log(`obj.${prop} = ${obj[prop]}`);
-        // }
+        }
     }
 }
 
