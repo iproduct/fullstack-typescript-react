@@ -1,0 +1,17 @@
+{
+  "name": "04-es-es6-demos-lab1",
+  "version": "0.0.1",
+  "description": "Github fetch with promises and async/await + other demos",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server"
+  },
+  "repository": "https://github.com/iproduct/fullstack-typescript-react",
+  "author": "Trayan Iliev",
+  "license": "Apache-2.0",
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}

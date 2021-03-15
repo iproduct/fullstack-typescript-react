@@ -18,9 +18,10 @@
 
   // Promise.all([p1, p2, p3, p4, p5]).then(values => { 
   //   console.log(values);
+  //   return values;
   // }).catch(err => {
   //   console.log(`Rejected with: ${err}`);
-  //   throw 'Service call completed.';
+  //   return 'Service call completed.';
   // }).then(result => {
   //   console.log(`Finished normally: ${result}`);
   // }, err => {
