@@ -1,5 +1,6 @@
 async function f() {
   let promise = new Promise((resolve, reject) => {
+    // setTimeout(() => resolve("Sample result."), 2000);
     setTimeout(() => reject("Error found."), 2000);
   });
 
@@ -9,11 +10,12 @@ async function f() {
     console.log(result);
   } catch(err) {
     result = 'Error processed successfully.';
+    // throw result;
   }
   return result;
 }
 
-(async () => {
+( async() => {
   try{
     const result = await f();
     console.log(`Demo finished: ${result}`);
