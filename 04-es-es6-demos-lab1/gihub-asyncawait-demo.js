@@ -5,15 +5,15 @@ async function init() {
         users = await resp.json();
         gitUsers = await Promise.all(
             users.map(
-                user => fetch(`https://api.github.com/users/${user.name}`)
-                    .then(gitResp => gitResp.json())
-                    .then(gitUser => {
-                        if (gitUser.message === 'Not Found') {
-                            throw `User ${user.name} not found.`;
-                        } else {
-                            return gitUser;
-                        }
-                    })
+                async user => {
+                    gitResp = await fetch(`https://api.github.com/users/${user.name}`);
+                    gitUser = await gitResp.json();
+                    if (gitUser.message === 'Not Found') {
+                        throw `User ${user.name} not found.`;
+                    } else {
+                        return gitUser;
+                    }
+                }
             )
         );
         console.log(gitUsers);
