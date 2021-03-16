@@ -1,0 +1,16 @@
+{
+  "name": "04-es-es6-demos-lab3",
+  "version": "0.0.1",
+  "description": "ES6+ Demos",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server"
+  },
+  "repository": "https://github.com/iproduct/fullstack-typescript-react",
+  "author": "Trayan Iliev",
+  "license": "Apache-2.0",
+  "private": false,
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
+}

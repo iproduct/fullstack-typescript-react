@@ -5,8 +5,8 @@ var fibonacci = {
         var temp = pre;
         pre = cur;
         cur += temp;
-        if(cur < 1000)
-            yield cur;
+        if(cur > 10000) break;
+        yield cur;
       }
     }
   }
