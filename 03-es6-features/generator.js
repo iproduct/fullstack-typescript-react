@@ -12,6 +12,6 @@ var fibonacci = {
   }
   
   for (var n of fibonacci) {
-    // truncate the sequence at 1000
+    // truncate the sequence at 10000
     console.log(n);
   }
