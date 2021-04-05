@@ -3,6 +3,8 @@ import MOCK_TODOS from './mock-todos'
 import { ALL_STATUSES } from './todo.model'
 import './TodoApp.css'
 import TodoList from './TodoList'
+import TodoInput from './TodoInput'
+
 
 export default class TodoApp extends Component {
     state = {
@@ -21,7 +23,8 @@ export default class TodoApp extends Component {
         return (
             <div className="TodoApp-header">
                 <h2>React TODOs Demo</h2>
-                <TodoList todos = {MOCK_TODOS} filter={ALL_STATUSES} />
+                <TodoInput onCreateTodo={this.handleCreateTodo} />
+                <TodoList todos = {this.state.todos} filter={ALL_STATUSES} />
             </div>
         )
     }
