@@ -16,7 +16,7 @@ export default class TodoApp extends Component {
         this.handleCreateTodo = this.handleCreateTodo.bind(this);
     }
     handleCreateTodo(todo) {
-        this.state.todos.setState(state => 
+        this.setState(state => 
             ({todos: state.todos.concat(todo)})); // shallow merge of the state delta
     }
     render() {
