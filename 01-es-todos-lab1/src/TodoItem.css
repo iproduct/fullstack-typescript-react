@@ -18,6 +18,17 @@
     padding-right: 10px;
 }
 
+.TodoItem-text {
+    width: 640px;
+    display: block;
+}
+
+.TodoItem-right {
+    float: right;
+    width: 340px;
+    display: block;
+}
+
 .TodoItem-button {
     font-size: 18pt;
     color: green;

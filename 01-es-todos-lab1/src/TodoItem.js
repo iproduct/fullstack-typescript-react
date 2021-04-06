@@ -4,7 +4,7 @@ import './TodoItem.css';
 
 export const TodoItem = ({ todo, onDeleteTodo, onStatusChanged }) => {
     function handleChangeStatus(newStatus) {
-        const newTodo = {...todo, status: newStatus}
+        const newTodo = {...todo, status: newStatus};
         onStatusChanged(newTodo);
     }
     function handleDelete() {
@@ -20,12 +20,12 @@ export const TodoItem = ({ todo, onDeleteTodo, onStatusChanged }) => {
             </span>
             <span className="TodoItem-right">
                 <span className="TodoItem-status">{TodoStatus[todo.status]}</span>
-                <span className="TodoItem-button fas fa-check-circle" title="Complete Todo"
-                    onClick={() => handleChangeStatus(COMPLETED)}></span>
-                <span className="TodoItem-button danger fas fa-ban" title="Cancel Todo"
-                    onClick={() => handleChangeStatus(CANCELED)}></span>
-                <span className="TodoItem-button danger fas fa-times-circle" title="Delete Todo"
+                <span className="TodoItem-button pull-right danger fas fa-times-circle" title="Delete Todo"
                     onClick={handleDelete}></span>
+                <span className="TodoItem-button pull-right danger fas fa-ban" title="Cancel Todo"
+                    onClick={() => handleChangeStatus(CANCELED)}></span>
+                <span className="TodoItem-button pull-right fas fa-check-circle" title="Complete Todo"
+                    onClick={() => handleChangeStatus(COMPLETED)}></span>
             </span>
         </div>
     );
