@@ -1,6 +1,75 @@
-#logo-container i {
-    font-size: 50px;
+nav.Nav #logo-container i {
+  font-size: 50px;
+  width: min-content;
 }
-nav a.sidenav-trigger {
-    display: block;
+
+nav.Nav .nav-wrapper ul:not(:first-of-type) li {
+  margin-right: 30px;
 }
+
+nav.Nav .input-field {
+  border: 2px solid white;
+  border-radius: 8px;
+  margin: 1px;
+  line-height: 100%;
+}
+
+nav.Nav form {
+    width: 25rem;
+}
+
+.input-field input[type='text'] {
+  border-bottom: 1px solid white;
+  color: white;
+}
+nav.Nav .input-field label {
+  top: 10px;
+  color: whitesmoke;
+}
+nav.Nav input[type='text']:not(.browser-default) {
+  height: 2.5rem;
+  margin-top: 12px;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+nav.Nav .input-field > label:not(.label-icon).active {
+  top: 14px;
+}
+nav.Nav
+  .input-field
+  input[type='text']:not(.browser-default):focus:not([readonly]) {
+  line-height: 80%;
+  border-bottom: 1px solid whitesmoke;
+}
+nav.Nav
+  .input-field
+  input[type='text']:not(.browser-default):focus:not([readonly])
+  + label {
+  top: 14px;
+  color: whitesmoke;
+}
+
+nav.Nav .input-field input:active {
+  top: 10px;
+  color: white;
+}
+
+nav.Nav .Nav-button.btn {
+  height: 47px;
+  margin: 5px 0 0 5px;
+}
+
+nav.Nav i.material-icons {
+  font-size: 30px;
+  line-height: 55px;
+} 
+
+@media only screen and (min-width: 601px) {
+    nav.Nav .input-field {
+      margin: 4px;
+    }
+    nav.Nav .Nav-button.btn {
+      margin: 7px 0 0 5px;
+      height: 50px;
+    }
+  }
