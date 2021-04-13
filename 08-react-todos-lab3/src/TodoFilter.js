@@ -1,12 +1,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ACTIVE, ALL_STATUSES, CANCELED, COMPLETED } from './todo-model';
+import './TodoFilter.css';
 
-function TodoFilter(props) {
+export function TodoFilter({filter, onFilterChange}) {
+    function handleFilterChange(event) {
+        onFilterChange(+event.target.value);
+    }
     return (
-        <div>
-            
-        </div>
+        <select className="TodoFilter" value={filter} onChange={handleFilterChange}>
+            <option value={ALL_STATUSES}>All</option>
+            <option value={ACTIVE}>Active</option>
+            <option value={COMPLETED}>Completed</option>
+            <option value={CANCELED}>Canceled</option>
+        </select>
     )
 }
 

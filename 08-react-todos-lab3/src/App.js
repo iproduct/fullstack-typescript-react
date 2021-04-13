@@ -33,8 +33,8 @@ class App extends Component {
       <div className="App-header">
         <h2>React TODOs Demo</h2>
         <TodoInput  onCreateTodo={this.handleCreateTodo} />
-        <TodoFilter onFilterChange={this.handleFilterChange} />
-        <TodoList todos={this.state.todos} onChangeStatus={this.handleChangeStatus} 
+        <TodoFilter filter={this.state.filter} onFilterChange={this.handleFilterChange} />
+        <TodoList todos={this.state.todos} filter={this.state.filter} onChangeStatus={this.handleChangeStatus} 
           onDeleteTodo={this.handleDeleteTodo}/>
       </div>
     );
