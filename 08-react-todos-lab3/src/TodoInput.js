@@ -13,6 +13,7 @@ export default class TodoInput extends Component {
         super(props);
         this.handleTodoSubmit = this.handleTodoSubmit.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleReset = this.handleReset.bind(this);
     }
 
     handleTodoSubmit(event) {
@@ -27,6 +28,10 @@ export default class TodoInput extends Component {
         this.setState({text: event.target.value})
     }
 
+    handleReset(event) {
+        this.setState({ text: ''})
+    }
+
     render() {
         return (
             <form className="TodoInput-form" onSubmit={this.handleTodoSubmit}>
@@ -36,7 +41,7 @@ export default class TodoInput extends Component {
                 <input type="text" id="TodoInput-text" name="TodoInput-text" value={this.state.text}
                     onChange={this.handleTextChange} />
                 <button type="submit" className="button button1">Submit</button>
-                <button type="reset" className="button button3">Submit</button>
+                <button type="reset" className="button button3" onClick={this.handleReset}>Reset</button>
             </form>
         )
     }
