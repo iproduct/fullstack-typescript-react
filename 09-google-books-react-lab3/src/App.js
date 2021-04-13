@@ -1,22 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import bookService from './service/book.service';
+import { useState } from 'react';
 
 function App() {
+  const [serachText, setSerachText] = useState('');
+  const [books, setBooks] = useState([]);
+  function handleTextChanged(event) {
+    setSerachText(event.target.value)
+  }
+  function handleSearch(event) {
+    bookService.searchBooks(serachText)
+      .then(foundBooks => setBooks(foundBooks))
+      .catch(err => console.log(err))
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <input type="text" value={serachText} onChange={handleTextChanged} />
+        <button type="button" onClick={handleSearch}>Serach</button>
+        <ul className="App-results">
+          {books.map(bk => (<li key={bk.id}>{JSON.stringify(bk)}</li>))}
+        </ul>
       </header>
     </div>
   );

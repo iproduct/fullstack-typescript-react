@@ -20,7 +20,7 @@ class BookService {
         const foundBooksResp = await fetch(this.apiUrl + encodeURIComponent(searchTerms))
         const foundBooks = await foundBooksResp.json();
         console.log(foundBooks);
-        return foundBooks.map(item => new Book(
+        return foundBooks.items.map(item => new Book(
             item.id,
             item.volumeInfo.title,
             item.volumeInfo.authors,
