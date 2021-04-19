@@ -6,6 +6,7 @@ export default function Nav({ onSearchBooks }) {
     const [searchText, setSearchText] = useState('');
     // const labelEl = useRef(null);
     function submitSearch(event) {
+        event.preventDefault();
         const text = searchText.trim();
         if (text.length > 0) {
             setSearchText('');
@@ -26,7 +27,7 @@ export default function Nav({ onSearchBooks }) {
 
                     <ul className="right col12">
                         <li>
-                            <form className="col">
+                            <form className="col" onSubmit={submitSearch}>
                                 <div className="row">
                                     <div className="input-field col s9">
                                         <input id="book-keywords" type="text"
@@ -34,9 +35,9 @@ export default function Nav({ onSearchBooks }) {
                                         <label htmlFor="book-keywords">Search keywords</label>
                                     </div>
 
-                                    <div className="Nav-button col s2 waves-effect btn light-blue" onClick={submitSearch}>
+                                    <button type="submit" className="Nav-button col s2 waves-effect btn light-blue" >
                                         <i className="material-icons">search</i>
-                                    </div>
+                                    </button>
                                 </div>
                             </form>
                         </li>

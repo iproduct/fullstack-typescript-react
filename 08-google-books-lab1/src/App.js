@@ -2,7 +2,8 @@ import './App.css';
 import React, { useState } from 'react';
 import Nav from './components/Nav/Nav';
 import BookService from './service/book-service';
-import EmailInput from './small-demos/EmailInput'
+import BookList from './components/BookList/BookList';
+// import EmailInput from './small-demos/EmailInput'
 
 // export default class App extends Component {
 //   state = {
@@ -43,8 +44,11 @@ import EmailInput from './small-demos/EmailInput'
 // }
 
 function App() {
-  function handleSerachBooks(searchText) {
-    BookService.loadBooks(searchText);
+  const [books, setBooks] = useState([]);
+  async function handleSerachBooks(searchText) {
+    const foundBooks = await BookService.loadBooks(searchText);
+    console.log(foundBooks);
+    setBooks(foundBooks);
   }
   return (
     <React.Fragment>
@@ -52,7 +56,7 @@ function App() {
       <div className="section no-pad-bot">
         <div className="container">
           <h1 className="header orange-text">Your Favourite Books</h1>
-
+          <BookList books={books} />
 
         </div>
       </div>
