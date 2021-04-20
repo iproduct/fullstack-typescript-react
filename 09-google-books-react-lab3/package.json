@@ -21,7 +21,17 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "jsx-a11y/anchor-is-valid": [
+        "off",
+        {
+          "components": ["Link"],
+          "specialLink": ["hrefLeft", "hrefRight"],
+          "aspects": ["noHref", "invalidHref", "preferButton"]
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [
