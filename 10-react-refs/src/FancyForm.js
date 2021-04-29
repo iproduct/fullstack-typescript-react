@@ -3,6 +3,7 @@ import FancyButton from './FancyButton';
 import logPropsHOC from './logPropsHOC';
 
 class FancyForm extends React.Component {
+  static displayName = 'FancyForm';
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
@@ -21,7 +22,7 @@ class FancyForm extends React.Component {
         <h2 style={{color:this.props.color}}>Input Text (coror demo)</h2>
         <input type="text" ref={this.inputRef} />
         <FancyButton ref={this.buttonRef} onClick={this.props.onClick}>
-          Click me!
+          Click me <u>NOW</u>!
         </FancyButton>
       </div>
     );

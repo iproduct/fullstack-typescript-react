@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 
-class App extends React.Component {
+class AppClass extends React.Component {
+  textInputRef = React.createRef();
+  // state = {color: "white"};
   constructor(props) {
     super(props);
     // create a ref to store the textInput DOM element
-    // this.textInput = React.createRef();
     this.focusTextInput = this.focusTextInput.bind(this);
   }
 
@@ -13,7 +14,9 @@ class App extends React.Component {
     // Explicitly focus the text input using the raw DOM API
     // Note: we're accessing "current" to get the DOM node
     // this.textInput.current.focus();
-    this.textInput.focus();
+    this.textInputRef.current.focus();
+    this.textInputRef.current.style.background="yellow";
+    // this.setState({color: "green"})
   }
 
   render() {
@@ -21,7 +24,7 @@ class App extends React.Component {
     // with the `textInput` that we created in the constructor
     return (
       <div>
-        <input type="text" ref={elem => this.textInput = elem} />
+        <input type="text" ref={this.textInputRef} />
         <input
           type="button"
           value="Focus the text input"
@@ -32,4 +35,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default AppClass;
