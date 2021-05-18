@@ -51,11 +51,21 @@ function Topics() {
 
             <ul>
                 <li>
-                    <Link to={`${match.url}/components`}>Components</Link>
+                    <Link to={`${match.url}/admin/components`}>Components</Link>
                 </li>
                 <li>
-                    <Link to={`${match.url}/props-v-state`}>
+                    <Link to={`${match.url}/admin/props-v-state`}>
                         Props v. State
+                    </Link>
+                </li>
+                <li>
+                    <Link to={`${match.url}/trayan/react-hooks`}>
+                        React Hooks
+                    </Link>
+                </li>
+                <li>
+                    <Link to={`${match.url}/trayan/hocs`}>
+                        React HOCs
                     </Link>
                 </li>
             </ul>
@@ -65,7 +75,7 @@ function Topics() {
           2nd <Route> here as an "index" page for all topics, or
           the page that is shown when no topic is selected */}
             <Switch>
-                <Route path={`${match.path}/:topicId`}>
+                <Route path={`${match.path}/:authorId/:topicId`}>
                     <Topic />
                 </Route>
                 <Route exact path={match.path}>
@@ -77,6 +87,6 @@ function Topics() {
 }
 
 function Topic() {
-    let { topicId } = useParams();
-    return <h3>Requested topic ID: {topicId}</h3>;
+    let { authorId, topicId } = useParams();
+    return <h3>Requested topic ID: {topicId} <i>by {authorId}</i></h3>;
 }

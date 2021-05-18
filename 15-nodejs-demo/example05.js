@@ -17,4 +17,4 @@ readStream   // reads current file
     console.log('Encription and compression done.');
   });
 
-  // New comment
+  // New comment 18.05.2021

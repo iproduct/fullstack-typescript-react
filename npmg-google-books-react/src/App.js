@@ -6,12 +6,12 @@ export default class App extends React.Component {
   state = { framework: 'ReactJS' };
   constructor() {
     super();
-    this.setFramework = this.setFramework.bind(this);
+    // this.setFramework = this.setFramework.bind(this);
     setTimeout(this.setFramework, 3000, 'Angular');
     setTimeout(this.setFramework, 6000, 'Vue.js');
   }
 
-  setFramework(name) {
+  setFramework = (name) => {
     this.setState({ framework: name });
   }
 

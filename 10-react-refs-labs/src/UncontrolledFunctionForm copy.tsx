@@ -1,4 +1,4 @@
-import React, { Component, useRef } from 'react'
+import React, { useRef } from 'react'
 
 interface Props {
 }
@@ -11,6 +11,7 @@ export function UncontrolledFunctionForm() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         alert(`A name: '${nameRef.current?.value}' with experience: ${experienceRef.current?.value} was sumitted.`);
+        event.preventDefault();
     }
 
     return (

@@ -1,0 +1,16 @@
+{
+  "name": "12-nodejs-lab3",
+  "version": "1.0.0",
+  "description": "NodeJS demos",
+  "main": "index.js",
+  "repository": "https://github.com/iproduct/fullstack-typescript-react.git",
+  "author": "Trayan Iliev",
+  "license": "Apache-2.0",
+  "private": false,
+  "scripts": {
+    "start": "nodemon ./http04.js localhost 3000"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

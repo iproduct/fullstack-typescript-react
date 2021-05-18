@@ -15,14 +15,14 @@ client.on('message', function (from, to, message) {
   console.log(from + ' => ' + to + ': ' + message);
 });
 
+client.join('#node_channel');
 setTimeout(function () {
-  client.join('#node_channel');
-  client.say('#node_channel', "I'm a bot!");
+  client.say('#node_channel', "I'm Trayan's a bot!");
   setTimeout(function () {
-    client.say('#node_channel', "Am a bot really!");
+    client.say('#node_channel', "Am a happy bot!");
     setTimeout(function () {
       client.part('#node_channel');
       process.exit(0);
-    }, 3000);
+    }, 30000);
   }, 5000);
 }, 10000);
