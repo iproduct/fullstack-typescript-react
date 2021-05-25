@@ -64,7 +64,7 @@ router.post('/', function(req, res) {
                 delete post._id;
                 post.id = r.insertedId;
                 console.log(`Created post: ${post.id}: ${post.title}`);
-                res.status(201).location(`/posts/${post.id}`).json(post);
+                res.status(201).location(`/api/posts/${post.id}`).json(post);
             } else {
                 sendErrorResponse(req, res, 500, `Server error: ${err.message}`, err);
             }

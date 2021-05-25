@@ -31,7 +31,7 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3",
-    "livereload": "^0.9.1"
+    "livereload": "^0.9.1",
+    "nodemon": "^2.0.7"
   }
 }

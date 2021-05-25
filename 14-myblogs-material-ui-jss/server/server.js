@@ -16,19 +16,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var fs = require('fs');
-var path = require('path');
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+const logger = require('morgan');
+const app = express();
 
-var POSTS_FILE = path.join(__dirname, 'posts.json');
+const POSTS_FILE = path.join(__dirname, 'posts.json');
 
 app.set('port', (process.env.PORT || 9000));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(logger('dev'));
 
 // Additional middleware which will set headers that we need on each request.
 app.use(function(req, res, next) {
@@ -123,6 +124,7 @@ app.put('/api/posts/:id', function(req, res) {
     fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 4), function(err) {
       if (err) {
         console.error(err);
+        res.status(500).json({code: 500, message: `Error updating post ID=${postId} to server.`});
         process.exit(1);
       }
       res.json(post); //200 OK with post in the body

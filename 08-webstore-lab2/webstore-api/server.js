@@ -27,7 +27,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 
 const rootPath = path.normalize(path.join(__dirname, '..'));
@@ -40,7 +40,7 @@ const app = express();
 // view engine setup
 app.set('app', path.join(rootPath, 'app'));
 app.use(logger('dev'));
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(express.json({limit: '50mb'}));
 app.use(cookieParser());
 
 // Route to  REST API top-level resources

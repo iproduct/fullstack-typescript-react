@@ -291,7 +291,7 @@ export default function Dashboard() {
         </Container>
       </main>
       {errors && (<Alert key={errors} severity="error">{errors}</Alert>)}
-      {messages && (<Alert key={messages} severity="success">{messages}</Alert>)}
+      {messages && (<Alert key={messages} severity="success" >{messages}</Alert>)}
     </div>
   );
 }

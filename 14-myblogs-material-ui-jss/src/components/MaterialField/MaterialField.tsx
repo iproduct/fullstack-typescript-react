@@ -16,7 +16,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import TextField from '@material-ui/core/TextField';
+import { TextField } from '@material-ui/core';
 import { connect, Field, FieldProps } from 'formik';
 import React from 'react';
 
@@ -41,7 +41,7 @@ function MaterialFiled({ name, label, rowsMax = 1 }: MaterialFiledProps) {
                         label={label}
                         fullWidth
                         multiline={rowsMax > 1}
-                        maxRows={rowsMax}
+                        rowsMax={rowsMax}
                         {...field}
                     />
                 )

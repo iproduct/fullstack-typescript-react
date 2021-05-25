@@ -48,8 +48,9 @@ app.post('/hello/:name', function (req, res) {
 })
 
 app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    sendErrorResponse(req, res, 500, `Server error: ${err.message}`, err);
+    console.error(err.stack);
+    err.status = err.status || 500;
+    sendErrorResponse(req, res, err.status, `Error: ${err.message}`, err);
 })
 
 MongoClient.connect(url, { useUnifiedTopology: true }, function (err, con) {

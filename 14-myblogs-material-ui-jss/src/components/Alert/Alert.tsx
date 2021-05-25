@@ -1,4 +1,3 @@
-import { AlertProps } from '@material-ui/core';
 /**
  * THIS HEADER SHOULD BE KEPT INTACT IN ALL CODE DERIVATIVES AND MODIFICATIONS.
  * 
@@ -16,11 +15,10 @@ import { AlertProps } from '@material-ui/core';
  * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-import { IconButton } from '@material-ui/core';
-import Snackbar from '@material-ui/core/Snackbar';
+// import { PaperProps } from '@material-ui/core';
+import { IconButton, Snackbar } from '@material-ui/core';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import CloseIcon from '@material-ui/icons/Close';
-import MuiAlert from '@material-ui/lab/Alert';
 import React from 'react';
 
  
@@ -36,8 +34,8 @@ export default function Alert(props: AlertProps) {
 
     return (
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <MuiAlert elevation={6} {...props} color="success" >
-                <React.Fragment>
+            <MuiAlert elevation={6} variant="filled" {...props}>
+            <React.Fragment>
                     {props.children}
                     <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
                         <CloseIcon fontSize="small" />
