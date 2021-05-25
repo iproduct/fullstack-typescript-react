@@ -24,7 +24,7 @@ var app = express();
 
 var POSTS_FILE = path.join(__dirname, 'posts.json');
 
-app.set('port', (process.env.PORT || 9001));
+app.set('port', (process.env.PORT || 9000));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -158,6 +158,9 @@ app.delete('/api/posts/:id', function(req, res) {
   });
 });
 
+app.post('/api/login', function(req, res) {
+  res.json({}); //200 OK 
+});
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');

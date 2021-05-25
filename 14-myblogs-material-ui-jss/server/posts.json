@@ -99,5 +99,20 @@
         "categories": [
             "science"
         ]
+    },
+    {
+        "id": "1621957453183",
+        "title": "Rescue Mission To Mars",
+        "text": "Mars is far away ...",
+        "imageUrl": "https://i.insider.com/6064a96e6183e1001981988d?width=700",
+        "authorId": "",
+        "keywords": [
+            "mars",
+            "voyage"
+        ],
+        "categories": [
+            "mars",
+            "nasa123"
+        ]
     }
 ]
