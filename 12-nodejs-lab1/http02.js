@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
     // res.setHeader('Content-Type', 'text/plain');
     res.writeHead(200, { 'content-type': 'text/html' })
     const path = url.parse(req.url).pathname;
-    res.end(`
+    res.write(`
     <html>
         <body>
             <h1>Hello from NodeJS!</h1>
@@ -36,6 +36,7 @@ const server = http.createServer((req, res) => {
         </body>
     </html>
     `);
+    res.end();
 });
 
 server.listen(port, hostname, err => {

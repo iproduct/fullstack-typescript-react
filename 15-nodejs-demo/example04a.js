@@ -6,7 +6,6 @@ const process = require('process');
 class MyEventEmitter extends EventEmitter {
   constructor() {
     super();
-   
     setImmediate(()=>console.log("Immediate"));
     doFirstJob();
   }
@@ -19,9 +18,13 @@ function doFirstJob() {
 }
 
 mee.on('myEvent', function onMyEvent(val) {
-  console.log("MyEvent received: ", val);
+  console.log("Litener 1 - MyEvent received: ", val);
 });
 
-mee.emit('myEvent', "Message 1");
+mee.on('myEvent', function onMyEvent(val, additionalArg) {
+  console.log(`Litener 2 - MyEvent received: ${val}, ${additionalArg}`);
+});
+
+mee.emit('myEvent', "Message 1", "Additional Argument");
 
 console.log('end-of-program');
