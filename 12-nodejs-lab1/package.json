@@ -1,0 +1,10 @@
+{
+  "name": "12-nodejs-lab1",
+  "version": "1.0.0",
+  "description": "nodejs intro",
+  "main": "index.js",
+  "repository": "https://github.com/iproduct/fullstack-typescript-react.git",
+  "author": "Trayan Iliev",
+  "license": "Apachev2.0",
+  "private": false
+}
