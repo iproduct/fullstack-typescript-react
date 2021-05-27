@@ -26,7 +26,7 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 
@@ -41,7 +41,7 @@ const app = express();
 app.set('app', path.join(rootPath, 'app'));
 app.use(logger('dev'));
 app.use(express.json({limit: '50mb'}));
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // Route to  REST API top-level resources
 app.use('/api/products', productRoutes);

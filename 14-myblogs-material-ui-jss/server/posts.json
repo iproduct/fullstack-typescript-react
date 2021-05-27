@@ -3,14 +3,15 @@
         "id": "2",
         "title": "Learning React",
         "text": "A Hands-On Guide to Building Web Applications Using React and Redux, 2nd Edition",
-        "authorId": "1",
         "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/51AFwrzNmdL._SX386_BO1,204,203,200_.jpg",
+        "authorId": "",
         "keywords": [
             "react",
             "javascript",
             "redux",
             "hands-on"
-        ]
+        ],
+        "categories": []
     },
     {
         "id": "3",

@@ -26,9 +26,9 @@ const POSTS_FILE = path.join(__dirname, 'posts.json');
 
 app.set('port', (process.env.PORT || 9000));
 
-app.use('/', express.static(path.join(__dirname, 'public')));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+// app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(express.json({limit: '50mb'}));
+//app.use(express.urlencoded({extended: true}));
 app.use(logger('dev'));
 
 // Additional middleware which will set headers that we need on each request.
