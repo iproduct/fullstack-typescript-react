@@ -1,9 +1,12 @@
 const MongoClient = require('mongodb').MongoClient;
 var dbUrl = "mongodb://localhost:27017/";
 
-MongoClient.connect(dbUrl, function (err, dbs) {
+MongoClient.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, function (err, dbs) {
     if (err) throw err;
-    const db = dbs.db('webstore2');
+    const db = dbs.db('webstore3');
     const product1 = {
         "name": "Super Mouse",
         "price": 16.5,
@@ -12,7 +15,7 @@ MongoClient.connect(dbUrl, function (err, dbs) {
     }
     db.collection('products').insertOne(product1, function (err, res) {
         if (err) throw err;
-        if(res.insertedCount == 1) {
+        if (res.insertedCount == 1) {
             console.log(`New product inserted with ID: ${res.insertedId}`);
             // console.log(res);
         }

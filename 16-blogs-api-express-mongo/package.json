@@ -28,6 +28,7 @@
     "indicative": "^7.4.4",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.8",
+    "morgan": "^1.10.0",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

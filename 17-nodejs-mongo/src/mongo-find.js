@@ -1,18 +1,19 @@
 const MongoClient = require('mongodb').MongoClient;
 var dbUrl = "mongodb://localhost:27017/";
 
-MongoClient.connect(dbUrl, function (err, dbs) {
-    if (err) throw err;
-    const db = dbs.db('webstore2');
+MongoClient.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(client => {
+    const db = client.db('webstore3');
     db.collection('products')
         // .find({ name: /^Super/ })
         .find()
         .project({name: 1, price: 1})
         .sort({price: -1})
-        .toArray(function (err, res) {
-            if (err) throw err;
+        .toArray().then(res => {
             console.log(res);
-            dbs.close();
-        })
-    console.log("Database created!");
+            client.close();
+        });
+    console.log("Database connected.");
 });

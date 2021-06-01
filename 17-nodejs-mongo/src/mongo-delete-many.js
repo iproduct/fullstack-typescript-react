@@ -5,9 +5,10 @@ MongoClient.connect(dbUrl, function (err, con) {
     if (err) throw err;
     const db = con.db('webstore3');
     db.collection('products')
-        .updateOne({ name: 'Super Mouse' }, { $set: { price: 250.5 } })
+        .deleteMany({ name: 'Super Mouse' })
         .then(res => {
-            console.log(res);
+            console.log(`${res.deletedCount} records deleted`);
+            // console.log(res);
             db.collection('products')
                 .find({ name: /^Super/ })
                 .project({ name: 1, price: 1 })
@@ -17,7 +18,7 @@ MongoClient.connect(dbUrl, function (err, con) {
                     console.log(res);
                 });
         }).catch(err => {
-            console.log("Error: Update unsuccessfull.")
+            console.log("Error: Delete unsuccessfull.")
         }).finally(() => {
             con.close();
         })

@@ -11,7 +11,7 @@ MongoClient.connect(dbUrl, function (err, con) {
                 from: 'products',
                 localField: 'prod_id',
                 foreignField: '_id',
-                as: 'orderdetails'
+                as: 'productdetails'
             }
         }
     ]).toArray()
